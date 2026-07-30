@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Quatech â€” Quality Technological Products &amp; Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0b1e3d;
+  --navy-lt:#162d5a;
+  --blue:#1a56db;
+  --blue-lt:#e8f0fe;
+  --blue-mid:#93b4f5;
+  --bg:#f7f8fa;
+  --white:#ffffff;
+  --border:#e2e6ef;
+  --text:#1a202c;
+  --muted:#637085;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+
+/* â”€â”€ NAV â”€â”€ */
+nav{
+  background:rgba(11,30,61,0.96);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;position:sticky;top:0;z-index:200;
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;color:#fff;letter-spacing:-0.02em;text-decoration:none}
+.logo span{color:var(--blue-mid)}
+.nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.84rem;padding:0.4rem 0.85rem;border-radius:6px;transition:background 0.15s,color 0.15s;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,0.08);color:#fff}
+.nav-cta{background:var(--blue)!important;color:#fff!important;padding:0.42rem 1.1rem!important}
+.nav-cta:hover{opacity:0.88;background:var(--blue)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:64px 0 0;background:rgba(11,30,61,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;z-index:199}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:rgba(255,255,255,0.8);text-decoration:none;font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;transition:color 0.2s}
+.mobile-menu a:hover{color:#fff}
+.mobile-menu .m-cta{background:var(--blue);color:#fff!important;padding:0.7rem 2rem;border-radius:8px;font-size:1rem}
+
+/* â”€â”€ SHARED â”€â”€ */
+section{padding:5rem 5vw}
+.sec-label{font-size:0.68rem;font-weight:600;letter-spacing:0.14em;color:var(--blue);text-transform:uppercase;margin-bottom:0.55rem}
+.sec-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--navy);line-height:1.08;letter-spacing:-0.025em;margin-bottom:1rem}
+.sec-sub{color:var(--muted);max-width:460px;font-size:0.93rem;margin-bottom:2.5rem}
+.btn-primary{display:inline-block;background:var(--blue);color:#fff;padding:0.72rem 1.8rem;border-radius:7px;text-decoration:none;font-size:0.88rem;font-weight:500;transition:opacity 0.2s,transform 0.15s;border:none;cursor:pointer}
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px)}
+.btn-outline-dark{display:inline-block;border:1px solid var(--border);color:var(--navy);padding:0.72rem 1.8rem;border-radius:7px;text-decoration:none;font-size:0.88rem;font-weight:400;transition:border-color 0.2s,color 0.2s}
+.btn-outline-dark:hover{border-color:var(--blue);color:var(--blue)}
+
+/* â”€â”€ HERO â”€â”€ */
+.hero{background:var(--navy);color:#fff;padding:7rem 5vw 5rem;text-align:center;position:relative;overflow:hidden}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.055) 1px,transparent 1px);background-size:30px 30px}
+.hero-glow{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(26,86,219,0.18) 0%,transparent 65%);pointer-events:none}
+.hero .sec-label{color:var(--blue-mid)}
+.hero .sec-title{color:#fff;font-size:clamp(2.4rem,6vw,4.4rem);max-width:720px;margin:0 auto 1.2rem}
+.hero-sub{color:#a0b4cc;font-size:1.05rem;max-width:520px;margin:0 auto 2.5rem}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-hero-outline{display:inline-block;border:1px solid rgba(255,255,255,0.22);color:#fff;padding:0.72rem 1.8rem;border-radius:7px;text-decoration:none;font-size:0.88rem;transition:border-color 0.2s}
+.btn-hero-outline:hover{border-color:rgba(255,255,255,0.55)}
+.hero-stats{display:flex;justify-content:center;gap:0;margin-top:4.5rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.09);flex-wrap:wrap}
+.hstat{text-align:center;padding:0 2.5rem;border-right:1px solid rgba(255,255,255,0.09)}
+.hstat:last-child{border-right:none}
+.hstat-num{font-family:'Syne',sans-serif;font-size:2.1rem;font-weight:800;color:#fff;letter-spacing:-0.02em}
+.hstat-num em{color:var(--blue-mid);font-style:normal}
+.hstat-lbl{font-size:0.68rem;letter-spacing:0.12em;color:#6a85a8;margin-top:0.1rem;text-transform:uppercase}
+
+/* â”€â”€ SERVICES â”€â”€ */
+#services{background:var(--bg)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.svc-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;cursor:default;text-decoration:none;color:inherit;display:block}
+.svc-card:hover{border-color:#93b4f5;box-shadow:0 6px 28px rgba(26,86,219,0.08);transform:translateY(-2px)}
+.svc-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.3rem}
+.svc-icon svg{width:22px;height:22px;stroke-width:1.8;fill:none}
+.ic-blue{background:#e8f0fe}.ic-blue svg{stroke:#1a56db}
+.ic-teal{background:#e1f5ee}.ic-teal svg{stroke:#0f6e56}
+.ic-red{background:#feeaea}.ic-red svg{stroke:#c0392b}
+.ic-purple{background:#eeedfe}.ic-purple svg{stroke:#534ab7}
+.ic-amber{background:#fef3e2}.ic-amber svg{stroke:#c07a0a}
+.svc-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.98rem;color:var(--navy);margin-bottom:0.55rem}
+.svc-card p{font-size:0.82rem;color:var(--muted);line-height:1.75}
+.svc-link{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.8rem;color:var(--blue);font-weight:500;margin-top:1rem;text-decoration:none}
+.svc-link svg{width:13px;height:13px;stroke:var(--blue);fill:none;stroke-width:2.2;transition:transform 0.15s}
+.svc-card:hover .svc-link svg{transform:translateX(3px)}
+
+/* â”€â”€ SECURITY LAB â”€â”€ */
+#labs{background:var(--navy);padding:5rem 5vw}
+#labs .sec-label{color:var(--blue-mid)}
+#labs .sec-title{color:#fff}
+#labs .sec-sub{color:#a0b4cc}
+.labs-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem}
+.labs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+.lab-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:var(--radius);padding:1.75rem;transition:border-color 0.2s,background 0.2s}
+.lab-card:hover{border-color:rgba(147,180,245,0.4);background:rgba(255,255,255,0.065)}
+.lab-badges{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.badge{font-size:0.65rem;font-weight:600;letter-spacing:0.08em;padding:0.22rem 0.65rem;border-radius:100px;text-transform:uppercase}
+.b-cat{background:rgba(26,86,219,0.25);color:#93b4f5;border:1px solid rgba(147,180,245,0.2)}
+.b-node{background:rgba(22,163,74,0.2);color:#6ee7b7;border:1px solid rgba(22,163,74,0.2)}
+.b-python{background:rgba(59,130,246,0.2);color:#93c5fd;border:1px solid rgba(59,130,246,0.2)}
+.b-full{background:rgba(139,92,246,0.25);color:#c4b5fd;border:1px solid rgba(139,92,246,0.25)}
+.lab-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff;margin-bottom:0.55rem;line-height:1.3}
+.lab-card p{font-size:0.82rem;color:#8aa0be;line-height:1.7;margin-bottom:1.2rem}
+.lab-footer{display:flex;align-items:center;justify-content:space-between}
+.lab-tests{font-size:0.75rem;color:#6a85a8}
+.lab-tests em{color:#93b4f5;font-style:normal;font-weight:500}
+.lab-gh{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:#93b4f5;font-weight:500;text-decoration:none;transition:color 0.2s}
+.lab-gh:hover{color:#fff}
+.lab-gh svg{width:14px;height:14px;fill:#93b4f5;transition:fill 0.2s}
+.lab-gh:hover svg{fill:#fff}
+.lab-view-all{display:inline-flex;align-items:center;gap:0.5rem;color:var(--blue-mid);text-decoration:none;font-size:0.88rem;font-weight:500;border:1px solid rgba(147,180,245,0.25);padding:0.6rem 1.3rem;border-radius:7px;transition:border-color 0.2s,color 0.2s;white-space:nowrap}
+.lab-view-all:hover{border-color:var(--blue-mid);color:#fff}
+.lab-view-all svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* â”€â”€ ABOUT â”€â”€ */
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-feats{display:flex;flex-direction:column;gap:1.2rem;margin-top:1.5rem}
+.af{display:flex;gap:1rem;align-items:flex-start}
+.af-icon{width:34px;height:34px;background:var(--blue-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.af-icon svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2}
+.af h4{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:0.15rem}
+.af p{font-size:0.81rem;color:var(--muted);line-height:1.7}
+.about-panel{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:2.25rem;display:flex;flex-direction:column;gap:0}
+.ap-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border)}
+.ap-row:first-child{padding-top:0}
+.ap-row:last-child{border-bottom:none;padding-bottom:0}
+.ap-label{font-size:0.78rem;color:var(--muted)}
+.ap-val{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--navy)}
+.ap-val span{color:var(--blue)}
+
+/* â”€â”€ TEAM â”€â”€ */
+#team{background:var(--bg)}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem}
+.team-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.5rem;text-align:center;transition:box-shadow 0.2s,transform 0.2s}
+.team-card:hover{box-shadow:0 6px 24px rgba(11,30,61,0.07);transform:translateY(-2px)}
+.avatar{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin:0 auto 1rem}
+.av-1{background:#e8f0fe;color:#1a56db}
+.av-2{background:#e1f5ee;color:#0f6e56}
+.av-3{background:#feeaea;color:#993c1d}
+.av-4{background:#eeedfe;color:#534ab7}
+.av-5{background:#fef3e2;color:#b45309}
+.av-6{background:#f0fdf4;color:#166534}
+.team-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;color:var(--navy);margin-bottom:0.2rem}
+.team-card .role{font-size:0.74rem;color:var(--blue);font-weight:500;letter-spacing:0.04em;margin-bottom:0.55rem}
+.team-card p{font-size:0.77rem;color:var(--muted);line-height:1.65}
+
+/* â”€â”€ CONTACT â”€â”€ */
+#contact{background:var(--navy);color:#fff}
+#contact .sec-label{color:var(--blue-mid)}
+#contact .sec-title{color:#fff}
+#contact .sec-sub{color:#a0b4cc}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.45fr;gap:4rem;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:1.4rem;margin-top:0.5rem}
+.ci-item{display:flex;gap:1rem;align-items:flex-start}
+.ci-icon{width:36px;height:36px;background:rgba(255,255,255,0.07);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-icon svg{width:15px;height:15px;stroke:var(--blue-mid);fill:none;stroke-width:2}
+.ci-label{font-size:0.68rem;color:#6a85a8;letter-spacing:0.09em;margin-bottom:0.05rem;text-transform:uppercase}
+.ci-val{font-size:0.87rem;color:#fff}
+.cf-form{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2.25rem;display:flex;flex-direction:column;gap:1.1rem}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cf-field{display:flex;flex-direction:column;gap:0.35rem}
+.cf-field label{font-size:0.7rem;color:var(--blue-mid);letter-spacing:0.08em;text-transform:uppercase}
+.cf-field input,.cf-field select,.cf-field textarea{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.11);border-radius:8px;padding:0.62rem 0.88rem;font-size:0.86rem;color:#fff;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;width:100%}
+.cf-field input::placeholder,.cf-field textarea::placeholder{color:#445570}
+.cf-field input:focus,.cf-field textarea:focus,.cf-field select:focus{border-color:var(--blue-mid)}
+.cf-field select option{background:#0b1e3d}
+.cf-field textarea{resize:vertical;min-height:96px}
+.cf-btn{background:var(--blue);color:#fff;border:none;padding:0.8rem;border-radius:8px;font-size:0.9rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:opacity 0.2s}
+.cf-btn:hover{opacity:0.88}
+.cf-success{display:none;text-align:center;padding:2rem;color:#5dcaa5;font-size:0.9rem}
+
+/* â”€â”€ FOOTER â”€â”€ */
+footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#fff;text-decoration:none;letter-spacing:-0.02em}
+.footer-logo span{color:var(--blue-mid)}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:0.78rem;color:#4a6080;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:0.75rem;color:#3a4f68}
+.footer-gh{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:#4a6080;text-decoration:none;transition:color 0.2s}
+.footer-gh:hover{color:#fff}
+.footer-gh svg{width:15px;height:15px;fill:#4a6080;transition:fill 0.2s}
+.footer-gh:hover svg{fill:#fff}
+
+/* â”€â”€ ANIMATIONS â”€â”€ */
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity 0.55s ease,transform 0.55s ease}
+.fade-up.in{opacity:1;transform:none}
+
+/* â”€â”€ RESPONSIVE â”€â”€ */
+@media(max-width:900px){
+  .about-wrap{grid-template-columns:1fr;gap:2.5rem}
+  .contact-wrap{grid-template-columns:1fr;gap:2.5rem}
+}
+@media(max-width:720px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero .sec-title{font-size:clamp(2rem,8vw,3rem)}
+  .hero-stats{gap:0}
+  .hstat{padding:0 1.4rem}
+  .labs-header{flex-direction:column;align-items:flex-start}
+  .cf-row{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  section{padding:4rem 5vw}
+  .hstat{padding:0 1rem}
+  .hstat-num{font-size:1.6rem}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="quatech.html" class="logo">Qua<span>tech</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#labs">Security Lab</a></li>
+    <li><a href="#about-section">About</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" aria-label="Open menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#labs" onclick="closeMenu()">Security Lab</a>
+  <a href="#about-section" onclick="closeMenu()">About</a>
+  <a href="#team" onclick="closeMenu()">Team</a>
+  <a href="projects.html">All Projects</a>
+  <a href="#contact" onclick="closeMenu()" class="m-cta">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:1">
+    <div class="sec-label">Welcome to Quatech</div>
+    <div class="sec-title">Delivering Quality<br>Technological Products<br>&amp; Services</div>
+    <p class="hero-sub">Five specialist service divisions. One unwavering standard of quality. Engineered for businesses that demand the best.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Our Services</a>
+      <a href="projects.html" class="btn-hero-outline">Security Lab â†’</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">5<em>+</em></div><div class="hstat-lbl">Service Divisions</div></div>
+      <div class="hstat"><div class="hstat-num">23<em>+</em></div><div class="hstat-lbl">Lab Projects</div></div>
+      <div class="hstat"><div class="hstat-num">570<em>+</em></div><div class="hstat-lbl">Tests Passed</div></div>
+      <div class="hstat"><div class="hstat-num">24<em>/7</em></div><div class="hstat-lbl">Support Available</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="fade-up" style="margin-bottom:2.5rem">
+    <div class="sec-label">What We Do</div>
+    <div class="sec-title">Five Pillars of Excellence</div>
+    <p class="sec-sub">Integrated technology services designed to move your business forward â€” from infrastructure to innovation.</p>
+  </div>
+  <div class="svc-grid">
+    <a href="engineering-services.html" class="svc-card fade-up">
+      <div class="svc-icon ic-blue">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Engineering Services</h3>
+      <p>End-to-end engineering solutions: systems design, hardware integration, project lifecycle management, CAD/CAM, NDT, and technical consulting.</p>
+      <span class="svc-link">Explore service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <div class="svc-card fade-up">
+      <div class="svc-icon ic-teal">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      </div>
+      <h3>Network Services</h3>
+      <p>Robust network architecture, LAN/WAN design, structured cabling, wireless deployment, and round-the-clock monitoring and optimisation.</p>
+    </div>
+    <div class="svc-card fade-up">
+      <div class="svc-icon ic-red">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Cybersecurity Services</h3>
+      <p>Threat protection, vulnerability assessments, penetration testing, SOC operations, compliance management, and incident response.</p>
+    </div>
+    <div class="svc-card fade-up">
+      <div class="svc-icon ic-purple">
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h3>Software Services</h3>
+      <p>Bespoke software development, API integration, mobile and web application engineering, DevSecOps pipelines, and legacy modernisation.</p>
+    </div>
+    <div class="svc-card fade-up">
+      <div class="svc-icon ic-amber">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v4M10 14h4"/></svg>
+      </div>
+      <h3>Financial Services</h3>
+      <p>Fintech consulting, payment system integration, financial data analytics, regulatory technology, and digital banking infrastructure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY LAB -->
+<section id="labs">
+  <div class="labs-header fade-up">
+    <div>
+      <div class="sec-label">Security Lab</div>
+      <div class="sec-title">Hands-On Cybersecurity &amp; DevSecOps</div>
+      <p class="sec-sub" style="margin-bottom:0">Active research and engineering across web security, cryptography, network analysis, malware forensics, and full-stack secure development.</p>
+    </div>
+    <a href="projects.html" class="lab-view-all">
+      View all 23 projects <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="labs-grid">
+
+    <div class="lab-card fade-up">
+      <div class="lab-badges">
+        <span class="badge b-cat">Malware &amp; Forensics</span>
+        <span class="badge b-python">Python</span>
+        <span class="badge b-full">Full-Stack</span>
+      </div>
+      <h3>SOC Tier 1 Alert Triage Simulator</h3>
+      <p>Full-stack training simulator with ECS-formatted alerts, SSE live streaming, a Canvas dashboard, and a CLI pre-triage tool for deduplication and false positive scoring.</p>
+      <div class="lab-footer">
+        <span class="lab-tests"><em>33</em> tests passed</span>
+        <a href="https://github.com/Quatech01/cyberlab-soc-tier1-alert-triage-simulator" target="_blank" class="lab-gh">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub â†’
+        </a>
+      </div>
+    </div>
+
+    <div class="lab-card fade-up">
+      <div class="lab-badges">
+        <span class="badge b-cat">Education Platforms</span>
+        <span class="badge b-node">Node.js</span>
+        <span class="badge b-full">Full-Stack</span>
+      </div>
+      <h3>Student Information Management System</h3>
+      <p>Secure full-stack SPA for UK schools with JWT auth, four-role RBAC (admin/teacher/student/parent), UPN validation, bcrypt, CSRF protection, Helmet headers, and audit logging.</p>
+      <div class="lab-footer">
+        <span class="lab-tests"><em>36</em> tests passed</span>
+        <a href="https://github.com/Quatech01/cyberlab-student-information-management-system" target="_blank" class="lab-gh">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub â†’
+        </a>
+      </div>
+    </div>
+
+    <div class="lab-card fade-up">
+      <div class="lab-badges">
+        <span class="badge b-cat">Malware &amp; Forensics</span>
+        <span class="badge b-python">Python</span>
+      </div>
+      <h3>Keylogger Detection and Flagging</h3>
+      <p>Detects behavioural and artefact-based keylogger indicators across process names, registry autorun keys, temp-directory patterns, and C2 network connections with multi-surface triage.</p>
+      <div class="lab-footer">
+        <span class="lab-tests"><em>39</em> tests passed</span>
+        <a href="https://github.com/Quatech01/cyberlab-keylogger-detection-and-flagging" target="_blank" class="lab-gh">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub â†’
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about-section">
+  <div class="about-wrap">
+    <div class="fade-up">
+      <div class="sec-label">About Quatech</div>
+      <div class="sec-title">Built on Quality,<br>Driven by Purpose</div>
+      <p class="sec-sub">We combine deep technical expertise with a relentless focus on quality to deliver technology that genuinely works for your business.</p>
+      <div class="about-feats">
+        <div class="af">
+          <div class="af-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><h4>Quality-first approach</h4><p>Every deliverable undergoes rigorous quality assurance. We don't ship until it meets our standard â€” and yours.</p></div>
+        </div>
+        <div class="af">
+          <div class="af-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+          <div><h4>End-to-end delivery</h4><p>From discovery to deployment and ongoing support â€” we own the full technology lifecycle with you.</p></div>
+        </div>
+        <div class="af">
+          <div class="af-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div><h4>Expert-led teams</h4><p>Certified professionals across engineering, networks, security, software, and financial technology domains.</p></div>
+        </div>
+        <div class="af">
+          <div class="af-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div><h4>Scalable solutions</h4><p>Whether you're a startup or an enterprise, our services scale seamlessly alongside your growth.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-panel fade-up">
+      <div class="ap-row"><span class="ap-label">Service divisions</span><span class="ap-val">5 <span>specialisms</span></span></div>
+      <div class="ap-row"><span class="ap-label">Quality standard</span><span class="ap-val"><span>ISO-aligned</span> processes</span></div>
+      <div class="ap-row"><span class="ap-label">Support coverage</span><span class="ap-val">24<span>/7</span> monitoring</span></div>
+      <div class="ap-row"><span class="ap-label">Security lab projects</span><span class="ap-val">23<span>+</span> built</span></div>
+      <div class="ap-row"><span class="ap-label">Automated tests</span><span class="ap-val">570<span>+</span> passed</span></div>
+      <div class="ap-row"><span class="ap-label">Client satisfaction goal</span><span class="ap-val">100<span>%</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="fade-up" style="margin-bottom:2.5rem">
+    <div class="sec-label">Our Team</div>
+    <div class="sec-title">Meet the Experts</div>
+    <p class="sec-sub">Our people are our greatest asset â€” certified, experienced, and genuinely passionate about technology.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card fade-up">
+      <div class="avatar av-1">AO</div>
+      <h4>Alex Okonkwo</h4>
+      <div class="role">Chief Executive Officer</div>
+      <p>Strategic visionary with 15+ years driving technology transformation across sectors.</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="avatar av-2">SN</div>
+      <h4>Sarah Nwosu</h4>
+      <div class="role">Head of Engineering</div>
+      <p>Chartered engineer specialising in complex systems design and infrastructure delivery.</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="avatar av-3">ME</div>
+      <h4>Michael Eze</h4>
+      <div class="role">Cybersecurity Lead</div>
+      <p>CISSP-certified security expert with a background in enterprise threat management.</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="avatar av-4">FA</div>
+      <h4>Fatima Aliyu</h4>
+      <div class="role">Head of Software</div>
+      <p>Full-stack architect passionate about clean code, DevSecOps, and scalable platforms.</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="avatar av-5">CU</div>
+      <h4>Chidi Udoh</h4>
+      <div class="role">Financial Tech Director</div>
+      <p>Fintech strategist bridging regulatory compliance with cutting-edge payment systems.</p>
+    </div>
+    <div class="team-card fade-up">
+      <div class="avatar av-6">RA</div>
+      <h4>Rita Adeyemi</h4>
+      <div class="role">Network Services Manager</div>
+      <p>CCNP-certified network architect with expertise in enterprise-grade infrastructure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="fade-up">
+      <div class="sec-label">Get in Touch</div>
+      <div class="sec-title">Let's Build Something Together</div>
+      <p class="sec-sub">Tell us about your technology challenge. Our team will get back to you within one business day.</p>
+      <div class="contact-info">
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="ci-label">Email</div><div class="ci-val">odoemelam1998@gmail.com</div></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.06 2.18 2 2 0 012.04 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div><div class="ci-label">Phone</div><div class="ci-val">+44 7 350 160 017</div></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="ci-label">Location</div><div class="ci-val">Liverpool, United Kingdom</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up">
+      <form class="cf-form" id="cf" onsubmit="submitForm(event)">
+        <div class="cf-row">
+          <div class="cf-field"><label>First Name</label><input type="text" placeholder="John" required/></div>
+          <div class="cf-field"><label>Last Name</label><input type="text" placeholder="Doe" required/></div>
+        </div>
+        <div class="cf-field"><label>Email Address</label><input type="email" placeholder="john@company.com" required/></div>
+        <div class="cf-field"><label>Company</label><input type="text" placeholder="Your company name"/></div>
+        <div class="cf-field">
+          <label>Service of Interest</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Engineering Services</option>
+            <option>Network Services</option>
+            <option>Cybersecurity Services</option>
+            <option>Software Services</option>
+            <option>Financial Services</option>
+            <option>Multiple / Not sure</option>
+          </select>
+        </div>
+        <div class="cf-field"><label>Message</label><textarea placeholder="Tell us about your project or challenge..." required></textarea></div>
+        <button type="submit" class="cf-btn">Send Message</button>
+      </form>
+      <div class="cf-success" id="cf-success">
+        <svg viewBox="0 0 24 24" style="width:48px;height:48px;stroke:#5dcaa5;fill:none;stroke-width:1.5;margin:0 auto 1rem;display:block"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        <p style="font-size:1rem;font-weight:500;color:#fff;margin-bottom:0.4rem">Message received!</p>
+        <p style="color:#a0b4cc;font-size:0.84rem">We'll be in touch within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="quatech.html" class="footer-logo">Qua<span>tech</span></a>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="projects.html">Security Lab</a>
+      <a href="#about-section">About</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+      <a href="engineering-services.html">Engineering</a>
+    </div>
+    <a href="https://github.com/Quatech01" target="_blank" class="footer-gh">
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+      Quatech01
+    </a>
+    <p class="footer-copy">&copy; 2026 Quatech. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  const hbg = document.getElementById('hbg');
+  const menu = document.getElementById('mobileMenu');
+  hbg.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function submitForm(e){
+  e.preventDefault();
+  document.getElementById('cf').style.display='none';
+  document.getElementById('cf-success').style.display='block';
+}
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('in')});
+},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

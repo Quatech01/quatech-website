@@ -1,0 +1,677 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Uchechukwu Odoemelam â€” DevSecOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#ffffff;
+  --bg2:#f8fafc;
+  --bg3:#f1f5f9;
+  --text:#0f172a;
+  --text2:#334155;
+  --muted:#64748b;
+  --light:#94a3b8;
+  --border:#e2e8f0;
+  --blue:#2563eb;
+  --blue-lt:#eff6ff;
+  --blue-mid:#3b82f6;
+  --navy:#0b1e3d;
+  --green:#059669;
+  --green-lt:#ecfdf5;
+  --radius:10px;
+  --shadow:0 1px 3px rgba(15,23,42,0.06),0 4px 16px rgba(15,23,42,0.04);
+  --shadow-md:0 4px 12px rgba(15,23,42,0.08),0 8px 32px rgba(15,23,42,0.06);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:400;line-height:1.7;overflow-x:hidden}
+
+/* â”€â”€ NAV â”€â”€ */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 max(2rem, 5vw);
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{font-weight:800;font-size:1.05rem;color:var(--text);letter-spacing:-0.02em;text-decoration:none}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:0.2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.84rem;font-weight:500;padding:0.38rem 0.8rem;border-radius:6px;transition:background 0.15s,color 0.15s}
+.nav-links a:hover{background:var(--bg3);color:var(--text)}
+.nav-links a.cta{background:var(--blue);color:#fff!important;padding:0.38rem 1rem}
+.nav-links a.cta:hover{opacity:0.9;background:var(--blue)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:all 0.22s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:60px 0 0;background:rgba(255,255,255,0.98);backdrop-filter:blur(12px);flex-direction:column;align-items:center;justify-content:center;gap:1.75rem;z-index:199}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--text2);text-decoration:none;font-size:1.3rem;font-weight:700;transition:color 0.15s}
+.mobile-menu a:hover{color:var(--blue)}
+
+/* â”€â”€ SHARED â”€â”€ */
+.container{max-width:1100px;margin:0 auto;padding:0 max(1.5rem,5vw)}
+section{padding:5rem 0}
+.sec-eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.15em;color:var(--blue);text-transform:uppercase;margin-bottom:0.6rem}
+.sec-title{font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:800;color:var(--text);line-height:1.1;letter-spacing:-0.025em;margin-bottom:1rem}
+.sec-sub{color:var(--muted);font-size:0.95rem;max-width:520px;line-height:1.75}
+
+/* â”€â”€ HERO â”€â”€ */
+#hero{
+  padding:7rem 0 5rem;
+  background:linear-gradient(160deg,#f8fafc 0%,#eff6ff 50%,#f0fdf4 100%);
+  position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(37,99,235,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(37,99,235,0.04) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.hero-inner{position:relative;z-index:1}
+.hero-available{display:inline-flex;align-items:center;gap:0.5rem;background:var(--green-lt);border:1px solid rgba(5,150,105,0.2);color:var(--green);font-size:0.72rem;font-weight:600;letter-spacing:0.06em;padding:0.3rem 0.85rem;border-radius:100px;margin-bottom:1.75rem}
+.hero-available::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+.hero-name{font-size:clamp(2.4rem,6vw,4rem);font-weight:800;color:var(--text);line-height:1.06;letter-spacing:-0.03em;margin-bottom:0.5rem}
+.hero-title{font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:600;color:var(--blue);letter-spacing:-0.01em;margin-bottom:1.5rem;font-family:'JetBrains Mono',monospace}
+.hero-bio{color:var(--text2);font-size:1rem;max-width:560px;line-height:1.8;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:0.85rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.5rem;border-radius:8px;font-size:0.88rem;font-weight:600;text-decoration:none;transition:all 0.15s;border:none;cursor:pointer}
+.btn-solid{background:var(--blue);color:#fff}
+.btn-solid:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,0.3)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt)}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+.hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap}
+.hstat{display:flex;flex-direction:column}
+.hstat-num{font-size:1.75rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1}
+.hstat-num em{color:var(--blue);font-style:normal}
+.hstat-lbl{font-size:0.7rem;font-weight:500;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-top:0.2rem}
+.hero-divider{width:1px;height:40px;background:var(--border);align-self:center}
+
+/* â”€â”€ ABOUT â”€â”€ */
+#about{background:var(--bg)}
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:start}
+.about-text p{color:var(--text2);font-size:0.95rem;line-height:1.85;margin-bottom:1.1rem}
+.about-text p:last-child{margin-bottom:0}
+.about-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem}
+.about-card-title{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:1.25rem}
+.ac-row{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 0;border-bottom:1px solid var(--border)}
+.ac-row:last-child{border-bottom:none;padding-bottom:0}
+.ac-row:first-child{padding-top:0}
+.ac-label{font-size:0.8rem;color:var(--muted)}
+.ac-val{font-size:0.85rem;font-weight:600;color:var(--text);text-align:right}
+.ac-val a{color:var(--blue);text-decoration:none}
+.ac-val a:hover{text-decoration:underline}
+
+/* â”€â”€ SKILLS â”€â”€ */
+#skills{background:var(--bg2)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+.skill-group{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+.sg-title{display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;font-weight:700;color:var(--text);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:1rem}
+.sg-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sg-icon svg{width:15px;height:15px;fill:none;stroke-width:2}
+.si-blue{background:var(--blue-lt)}.si-blue svg{stroke:var(--blue)}
+.si-green{background:#ecfdf5}.si-green svg{stroke:var(--green)}
+.si-purple{background:#f5f3ff}.si-purple svg{stroke:#7c3aed}
+.si-amber{background:#fffbeb}.si-amber svg{stroke:#d97706}
+.si-red{background:#fff1f2}.si-red svg{stroke:#e11d48}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.stag{font-size:0.75rem;font-weight:500;padding:0.28rem 0.7rem;border-radius:6px;border:1px solid var(--border);color:var(--text2);background:var(--bg2);font-family:'JetBrains Mono',monospace}
+
+/* â”€â”€ PROJECTS â”€â”€ */
+#projects{background:var(--bg)}
+.proj-controls{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.search-wrap{position:relative;flex:1;min-width:180px;max-width:280px}
+.search-wrap svg{position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--light);fill:none;stroke-width:2;pointer-events:none}
+#pSearch{width:100%;border:1px solid var(--border);border-radius:7px;padding:0.5rem 0.75rem 0.5rem 2.3rem;font-size:0.84rem;font-family:'Inter',sans-serif;color:var(--text);outline:none;background:var(--bg2);transition:border-color 0.2s}
+#pSearch:focus{border-color:var(--blue);background:var(--bg)}
+#pSearch::placeholder{color:var(--light)}
+.pills{display:flex;gap:0.35rem;flex-wrap:wrap}
+.pill{font-size:0.74rem;font-weight:500;padding:0.35rem 0.8rem;border-radius:100px;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.14s;white-space:nowrap;background:transparent}
+.pill:hover{border-color:var(--blue);color:var(--blue)}
+.pill.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.proj-count{font-size:0.78rem;color:var(--muted);margin-left:auto;white-space:nowrap}
+.proj-count em{color:var(--text);font-style:normal;font-weight:600}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.1rem}
+.pcard{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:flex;flex-direction:column;transition:border-color 0.18s,box-shadow 0.18s,transform 0.18s;box-shadow:var(--shadow)}
+.pcard:hover{border-color:#93c5fd;box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.pcard-badges{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.9rem}
+.badge{font-size:0.63rem;font-weight:600;letter-spacing:0.06em;padding:0.18rem 0.55rem;border-radius:5px;text-transform:uppercase}
+.cat-web_security{background:#eff6ff;color:#1d4ed8}
+.cat-network_security{background:#f0fdf4;color:#166534}
+.cat-cryptography{background:#faf5ff;color:#6d28d9}
+.cat-authentication_and_access{background:#fff7ed;color:#c2410c}
+.cat-malware_analysis_and_forensics{background:#fff1f2;color:#be123c}
+.cat-secure_coding{background:#f0fdf4;color:#15803d}
+.cat-osint_and_recon{background:#fefce8;color:#a16207}
+.cat-education_platforms{background:#eef2ff;color:#4338ca}
+.cat-uk_applications{background:#fdf4ff;color:#7e22ce}
+.b-node{background:#f0fdf4;color:#166534}
+.b-python{background:#eff6ff;color:#1e40af}
+.b-full{background:#faf5ff;color:#7c3aed}
+.pcard-num{font-size:0.65rem;font-weight:600;letter-spacing:0.09em;color:var(--light);margin-bottom:0.35rem;font-family:'JetBrains Mono',monospace}
+.pcard h3{font-size:0.93rem;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:0.5rem}
+.pcard p{font-size:0.8rem;color:var(--muted);line-height:1.72;flex:1}
+.pcard-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.pcard-tests{display:flex;align-items:center;gap:0.3rem;font-size:0.72rem;color:var(--muted)}
+.pcard-tests svg{width:12px;height:12px;stroke:var(--green);fill:none;stroke-width:2}
+.pcard-tests em{color:var(--green);font-style:normal;font-weight:600}
+.pcard-date{font-size:0.7rem;color:var(--light)}
+.gh-link{display:inline-flex;align-items:center;gap:0.28rem;font-size:0.77rem;font-weight:600;color:var(--blue);text-decoration:none;transition:opacity 0.15s}
+.gh-link:hover{opacity:0.7}
+.gh-link svg{width:13px;height:13px;fill:var(--blue)}
+.empty{grid-column:1/-1;text-align:center;padding:4rem;color:var(--light)}
+.empty svg{width:40px;height:40px;stroke:var(--border);fill:none;stroke-width:1.3;margin:0 auto 0.75rem;display:block}
+.empty h3{color:var(--text2);margin-bottom:0.3rem;font-size:1rem}
+.empty p{font-size:0.85rem}
+
+/* â”€â”€ CONTACT â”€â”€ */
+#contact{background:var(--bg2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:1.25rem;margin-top:0.25rem}
+.ci{display:flex;gap:1rem;align-items:flex-start}
+.ci-icon{width:38px;height:38px;background:var(--blue-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-icon svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2}
+.ci-lbl{font-size:0.68rem;font-weight:600;color:var(--light);letter-spacing:0.09em;text-transform:uppercase;margin-bottom:0.1rem}
+.ci-val{font-size:0.87rem;color:var(--text);font-weight:500}
+.ci-val a{color:var(--blue);text-decoration:none}
+.ci-val a:hover{text-decoration:underline}
+.cform{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow)}
+.cform-row{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem}
+.cfield{display:flex;flex-direction:column;gap:0.3rem;margin-bottom:0.85rem}
+.cfield:last-of-type{margin-bottom:0}
+.cfield label{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase}
+.cfield input,.cfield textarea{border:1px solid var(--border);border-radius:7px;padding:0.58rem 0.85rem;font-size:0.86rem;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color 0.18s;width:100%;background:var(--bg)}
+.cfield input:focus,.cfield textarea:focus{border-color:var(--blue)}
+.cfield input::placeholder,.cfield textarea::placeholder{color:var(--light)}
+.cfield textarea{resize:vertical;min-height:90px}
+.csend{width:100%;background:var(--blue);color:#fff;border:none;padding:0.75rem;border-radius:8px;font-size:0.9rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;margin-top:0.85rem;transition:background 0.15s}
+.csend:hover{background:#1d4ed8}
+.csuccess{display:none;text-align:center;padding:2.5rem 1rem}
+.csuccess svg{width:44px;height:44px;stroke:var(--green);fill:none;stroke-width:1.5;margin:0 auto 0.75rem;display:block}
+.csuccess h4{font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.csuccess p{font-size:0.84rem;color:var(--muted)}
+
+/* â”€â”€ FOOTER â”€â”€ */
+footer{background:var(--navy);padding:2rem max(1.5rem,5vw);border-top:1px solid rgba(255,255,255,0.06)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.25rem;max-width:1100px;margin:0 auto}
+.footer-name{font-weight:700;color:#fff;font-size:0.9rem}
+.footer-links{display:flex;gap:1.25rem}
+.footer-links a{font-size:0.78rem;color:#64748b;text-decoration:none;transition:color 0.15s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:0.74rem;color:#334155}
+
+/* â”€â”€ ANIMATIONS â”€â”€ */
+.fade-up{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
+.fade-up.in{opacity:1;transform:none}
+
+/* â”€â”€ RESPONSIVE â”€â”€ */
+@media(max-width:860px){
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem}
+}
+@media(max-width:700px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-stats{gap:1.5rem}
+  .hero-divider{display:none}
+  section{padding:4rem 0}
+  .cform-row{grid-template-columns:1fr}
+}
+@media(max-width:440px){
+  .proj-controls{flex-direction:column;align-items:stretch}
+  .search-wrap{max-width:100%}
+  .proj-count{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">UO<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact" class="cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mMenu">
+  <a href="#about" onclick="closeMM()">About</a>
+  <a href="#skills" onclick="closeMM()">Skills</a>
+  <a href="#projects" onclick="closeMM()">Projects</a>
+  <a href="#contact" onclick="closeMM()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="container hero-inner">
+    <div class="hero-available">OPEN TO OPPORTUNITIES</div>
+    <div class="hero-name">Uchechukwu<br>Odoemelam</div>
+    <div class="hero-title">DevSecOps Engineer</div>
+    <p class="hero-bio">
+      I build security in from day one â€” not bolt it on at the end. Based in Liverpool, I engineer automated cybersecurity tools, full-stack secured applications, and DevSecOps pipelines that are tested, version-controlled, and production-ready.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-solid">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        View Projects
+      </a>
+      <a href="https://github.com/Quatech01" target="_blank" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="#contact" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact Me
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-num">23<em>+</em></span><span class="hstat-lbl">Lab Projects</span></div>
+      <div class="hero-divider"></div>
+      <div class="hstat"><span class="hstat-num">570<em>+</em></span><span class="hstat-lbl">Tests Passed</span></div>
+      <div class="hero-divider"></div>
+      <div class="hstat"><span class="hstat-num">100<em>%</em></span><span class="hstat-lbl">Pass Rate</span></div>
+      <div class="hero-divider"></div>
+      <div class="hstat"><span class="hstat-num">2</span><span class="hstat-lbl">Languages</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="fade-up">
+        <div class="sec-eyebrow">About Me</div>
+        <h2 class="sec-title">Security-first<br>engineering</h2>
+        <div class="about-text">
+          <p>I'm a cybersecurity and software engineer based in Liverpool, UK, studying at the University of Liverpool. My focus is DevSecOps â€” designing and building systems where security is a first-class requirement from the very first line of code, not an afterthought.</p>
+          <p>I run an automated security lab (CyberLab) that generates, tests, and publishes a new cybersecurity or full-stack project every week â€” covering everything from XSS scanners and JWT vulnerability probes to full-stack education platforms with JWT auth, RBAC, CSRF protection, and audit logging.</p>
+          <p>Every project I publish must pass its full test suite before reaching GitHub. No exceptions.</p>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="about-card">
+          <div class="about-card-title">Quick Facts</div>
+          <div class="ac-row"><span class="ac-label">Location</span><span class="ac-val">Liverpool, United Kingdom</span></div>
+          <div class="ac-row"><span class="ac-label">University</span><span class="ac-val">University of Liverpool</span></div>
+          <div class="ac-row"><span class="ac-label">Focus</span><span class="ac-val">DevSecOps &amp; Cybersecurity</span></div>
+          <div class="ac-row"><span class="ac-label">Languages</span><span class="ac-val">Node.js &amp; Python</span></div>
+          <div class="ac-row"><span class="ac-label">GitHub</span><span class="ac-val"><a href="https://github.com/Quatech01" target="_blank">Quatech01</a></span></div>
+          <div class="ac-row"><span class="ac-label">Available for</span><span class="ac-val">Roles &amp; Freelance</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="fade-up" style="margin-bottom:2.5rem">
+      <div class="sec-eyebrow">Tech Stack</div>
+      <h2 class="sec-title">Skills &amp; Tools</h2>
+      <p class="sec-sub">The languages, frameworks, and security concepts I work with daily â€” all battle-tested across real projects.</p>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-group fade-up">
+        <div class="sg-title">
+          <div class="sg-icon si-blue"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          Languages &amp; Runtime
+        </div>
+        <div class="skill-tags">
+          <span class="stag">Node.js</span>
+          <span class="stag">Python 3</span>
+          <span class="stag">JavaScript ES2024</span>
+          <span class="stag">TypeScript</span>
+          <span class="stag">HTML5</span>
+          <span class="stag">CSS3</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-up">
+        <div class="sg-title">
+          <div class="sg-icon si-green"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          Frameworks &amp; Libraries
+        </div>
+        <div class="skill-tags">
+          <span class="stag">Express.js</span>
+          <span class="stag">FastAPI</span>
+          <span class="stag">Flask</span>
+          <span class="stag">Hono</span>
+          <span class="stag">Pydantic</span>
+          <span class="stag">better-sqlite3</span>
+          <span class="stag">httpx</span>
+          <span class="stag">uvicorn</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-up">
+        <div class="sg-title">
+          <div class="sg-icon si-red"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          Security &amp; DevSecOps
+        </div>
+        <div class="skill-tags">
+          <span class="stag">JWT Auth</span>
+          <span class="stag">bcrypt</span>
+          <span class="stag">RBAC</span>
+          <span class="stag">CSRF Protection</span>
+          <span class="stag">Helmet.js</span>
+          <span class="stag">Rate Limiting</span>
+          <span class="stag">OWASP Top 10</span>
+          <span class="stag">XSS Detection</span>
+          <span class="stag">SQL Injection</span>
+          <span class="stag">OAuth 2.0 / PKCE</span>
+          <span class="stag">Session Security</span>
+          <span class="stag">ECS Alert Format</span>
+          <span class="stag">SOC Triage</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-up">
+        <div class="sg-title">
+          <div class="sg-icon si-purple"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          Databases &amp; Storage
+        </div>
+        <div class="skill-tags">
+          <span class="stag">SQLite</span>
+          <span class="stag">Parameterized Queries</span>
+          <span class="stag">Schema Design</span>
+          <span class="stag">Audit Logging</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-up">
+        <div class="sg-title">
+          <div class="sg-icon si-amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+          Testing &amp; Tooling
+        </div>
+        <div class="skill-tags">
+          <span class="stag">node:test</span>
+          <span class="stag">pytest</span>
+          <span class="stag">Git / GitHub</span>
+          <span class="stag">GitHub CLI</span>
+          <span class="stag">SSE Streaming</span>
+          <span class="stag">Canvas API</span>
+          <span class="stag">REST APIs</span>
+          <span class="stag">Windows Task Scheduler</span>
+        </div>
+      </div>
+
+      <div class="skill-group fade-up">
+        <div class="sg-title">
+          <div class="sg-icon si-blue"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.06 2.18 2 2 0 012.04 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          Concepts &amp; Methods
+        </div>
+        <div class="skill-tags">
+          <span class="stag">Cryptography (AES/SHA)</span>
+          <span class="stag">Timing Side-channels</span>
+          <span class="stag">Log Analysis</span>
+          <span class="stag">Entropy Analysis</span>
+          <span class="stag">DNS &amp; Email Security</span>
+          <span class="stag">OSINT</span>
+          <span class="stag">Malware Detection</span>
+          <span class="stag">GDPR Compliance</span>
+          <span class="stag">UK Education Standards</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="fade-up" style="margin-bottom:2rem">
+      <div class="sec-eyebrow">Security Lab</div>
+      <h2 class="sec-title">CyberLab Projects</h2>
+      <p class="sec-sub">Every project is generated, tested, and pushed to GitHub automatically â€” passing its full test suite is the only gate to publication.</p>
+    </div>
+
+    <div class="proj-controls fade-up">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="pSearch" placeholder="Search..." oninput="filter()"/>
+      </div>
+      <div class="pills" id="pills">
+        <span class="pill on" data-f="all" onclick="setF('all',this)">All</span>
+        <span class="pill" data-f="type:security_tool" onclick="setF('type:security_tool',this)">Security Tools</span>
+        <span class="pill" data-f="type:fullstack_app" onclick="setF('type:fullstack_app',this)">Full-Stack</span>
+        <span class="pill" data-f="web_security" onclick="setF('web_security',this)">Web Security</span>
+        <span class="pill" data-f="cryptography" onclick="setF('cryptography',this)">Cryptography</span>
+        <span class="pill" data-f="malware_analysis_and_forensics" onclick="setF('malware_analysis_and_forensics',this)">Malware &amp; Forensics</span>
+        <span class="pill" data-f="authentication_and_access" onclick="setF('authentication_and_access',this)">Auth &amp; Access</span>
+        <span class="pill" data-f="osint_and_recon" onclick="setF('osint_and_recon',this)">OSINT</span>
+        <span class="pill" data-f="lang:python" onclick="setF('lang:python',this)">Python</span>
+        <span class="pill" data-f="lang:node" onclick="setF('lang:node',this)">Node.js</span>
+      </div>
+      <span class="proj-count" id="pCount"><em>23</em> projects</span>
+    </div>
+
+    <div class="proj-grid" id="pGrid"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="fade-up">
+        <div class="sec-eyebrow">Get In Touch</div>
+        <h2 class="sec-title">Let's work<br>together</h2>
+        <p class="sec-sub" style="margin-bottom:2rem">Whether it's a security project, DevSecOps consultation, full-stack build, or a collaboration â€” I'd love to hear from you.</p>
+        <div class="contact-info">
+          <div class="ci">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:odoemelam1998@gmail.com">odoemelam1998@gmail.com</a></div></div>
+          </div>
+          <div class="ci">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.06 2.18 2 2 0 012.04 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.28a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div><div class="ci-lbl">Phone</div><div class="ci-val">+44 7 350 160 017</div></div>
+          </div>
+          <div class="ci">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="ci-lbl">Location</div><div class="ci-val">Liverpool, United Kingdom</div></div>
+          </div>
+          <div class="ci">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></div>
+            <div><div class="ci-lbl">GitHub</div><div class="ci-val"><a href="https://github.com/Quatech01" target="_blank">github.com/Quatech01</a></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="cform" id="cformWrap">
+          <div class="cform-row">
+            <div class="cfield"><label>First Name</label><input type="text" placeholder="John"/></div>
+            <div class="cfield"><label>Last Name</label><input type="text" placeholder="Doe"/></div>
+          </div>
+          <div class="cfield"><label>Email</label><input type="email" placeholder="john@company.com"/></div>
+          <div class="cfield"><label>Subject</label><input type="text" placeholder="What's this about?"/></div>
+          <div class="cfield"><label>Message</label><textarea placeholder="Tell me about your project or opportunity..."></textarea></div>
+          <button class="csend" onclick="sendMsg()">Send Message</button>
+        </div>
+        <div class="csuccess" id="csuccess">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          <h4>Message sent!</h4>
+          <p>Thank you â€” I'll get back to you as soon as possible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-name">Uchechukwu Odoemelam</span>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="https://github.com/Quatech01" target="_blank">GitHub</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 â€” Liverpool, UK</span>
+  </div>
+</footer>
+
+<script>
+/* â”€â”€ DATA â”€â”€ */
+const CAT = {
+  web_security:'Web Security',network_security:'Network Security',
+  cryptography:'Cryptography',authentication_and_access:'Auth & Access',
+  malware_analysis_and_forensics:'Malware & Forensics',secure_coding:'Secure Coding',
+  osint_and_recon:'OSINT & Recon',education_platforms:'Education Platforms',
+  uk_applications:'UK Applications'
+};
+const GH = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>`;
+
+const DATA=[
+  {id:1,type:'security_tool',slug:'xss-reflection-scanner',title:'XSS Reflection Scanner',category:'web_security',lang:'node',fw:'express',tests:16,date:'2026-05-26',repo:'cyberlab-xss-reflection-scanner',desc:'Crawls endpoints for input parameters, injects XSS payloads, and detects inputs reflected without sanitization â€” with true positive, false positive, and CSP-protected endpoint coverage.'},
+  {id:2,type:'security_tool',slug:'port-scanner-service-fingerprinting',title:'Port Scanner with Service Fingerprinting',category:'network_security',lang:'node',fw:'express',tests:22,date:'2026-05-26',repo:'cyberlab-port-scanner-service-fingerprinting',desc:'Parallel TCP port scanner that fingerprints services via banner analysis â€” HTTP headers, SMTP greetings, and echo patterns across a range of localhost ports.'},
+  {id:3,type:'security_tool',slug:'sql-injection-detector',title:'SQL Injection Detector',category:'web_security',lang:'node',fw:'express',tests:20,date:'2026-06-01',repo:'cyberlab-sql-injection-detector',desc:'Detects error-based, union-based, and boolean blind SQL injection. Demo server uses raw string concatenation vs parameterized queries to show the contrast clearly.'},
+  {id:4,type:'security_tool',slug:'hash-collision-demonstrator',title:'Hash Collision Demonstrator',category:'cryptography',lang:'node',fw:'express',tests:23,date:'2026-06-01',repo:'cyberlab-hash-collision-demonstrator',desc:'Compares MD5, SHA-1, and SHA-256 by measuring collision resistance. Computes a live birthday-attack prefix collision on MD5 at startup to demonstrate the weakness in practice.'},
+  {id:5,type:'security_tool',slug:'brute-force-rate-limiter-demo',title:'Brute Force Rate Limiter Demo',category:'authentication_and_access',lang:'node',fw:'express',tests:20,date:'2026-06-08',repo:'cyberlab-brute-force-rate-limiter-demo',desc:'Tests login endpoints for brute force protection â€” measures attempts before lockout, verifies IP-based lockout, Retry-After headers, and correct rate-limit reset behaviour.'},
+  {id:6,type:'security_tool',slug:'file-entropy-analyzer',title:'File Entropy Analyzer',category:'malware_analysis_and_forensics',lang:'node',fw:'express',tests:22,date:'2026-06-08',repo:'cyberlab-file-entropy-analyzer',desc:'Calculates Shannon entropy of files served over HTTP to classify them as plain text, natural language, compressed, or encrypted/packed. High entropy (>7.5 b/B) flags potential obfuscation.'},
+  {id:7,type:'security_tool',slug:'csrf-token-validator',title:'CSRF Token Validator',category:'web_security',lang:'node',fw:'express',tests:21,date:'2026-06-15',repo:'cyberlab-csrf-token-validator',desc:'Tests endpoints for CSRF protection: token presence, single-use rotation, SameSite cookie attributes, and session isolation. Includes a funds-transfer vulnerable/safe endpoint pair.'},
+  {id:8,type:'security_tool',slug:'aes-encryption-mode-comparison',title:'AES Encryption Mode Comparison',category:'cryptography',lang:'node',fw:'express',tests:22,date:'2026-06-16',repo:'cyberlab-aes-encryption-mode-comparison',desc:'Compares ECB, CBC, CTR, and GCM encryption modes â€” demonstrating ECB pattern leakage and explaining why AES-GCM is the only mode that provides authenticated encryption.'},
+  {id:9,type:'security_tool',slug:'input-sanitization-library',title:'Input Sanitization Library',category:'secure_coding',lang:'node',fw:'express',tests:20,date:'2026-06-26',repo:'cyberlab-input-sanitization-library',desc:'Comprehensive sanitization module covering HTML escaping, SQL parameterization, path normalization, and command injection prevention â€” with paired vulnerable and safe demo endpoints.'},
+  {id:10,type:'security_tool',slug:'log-file-anomaly-detector',title:'Log File Anomaly Detector',category:'malware_analysis_and_forensics',lang:'node',fw:'express',tests:23,date:'2026-06-27',repo:'cyberlab-log-file-anomaly-detector',desc:'Detects SQL injection in URLs, directory traversal sequences, scanner user agents (sqlmap, Nikto), sliding-window rate spikes, and consecutive 5xx error bursts in server access logs.'},
+  {id:11,type:'security_tool',slug:'jwt-vulnerability-scanner',title:'JWT Vulnerability Scanner',category:'cryptography',lang:'python',fw:'fastapi',tests:27,date:'2026-06-30',repo:'cyberlab-jwt-vulnerability-scanner',desc:'Tests JWT tokens for none-algorithm acceptance, weak HS256 secret cracking via dictionary attack, algorithm confusion, and missing expiry validation on a FastAPI demo server.'},
+  {id:12,type:'security_tool',slug:'http-security-header-auditor',title:'HTTP Security Header Auditor',category:'web_security',lang:'node',fw:'express',tests:27,date:'2026-07-01',repo:'cyberlab-http-security-header-auditor',desc:'Audits HTTP response headers for HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy â€” grading each endpoint Aâ€“F by weighted score.'},
+  {id:13,type:'security_tool',slug:'keylogger-detection-and-flagging',title:'Keylogger Detection and Flagging',category:'malware_analysis_and_forensics',lang:'python',fw:'fastapi',tests:39,date:'2026-07-04',repo:'cyberlab-keylogger-detection-and-flagging',desc:'Multi-surface keylogger detection: suspicious process names, HKCU registry autorun keys, keyboard-capture file patterns in %TEMP%, and C2 network connection indicators â€” 39 tests.'},
+  {id:14,type:'security_tool',slug:'dns-record-analyzer',title:'DNS Record Analyzer',category:'network_security',lang:'node',fw:'express',tests:20,date:'2026-07-06',repo:'cyberlab-dns-record-analyzer',desc:'Audits SPF and DMARC email authentication records â€” detecting missing SPF, permissive +all qualifiers, absent DMARC, and monitoring-only p=none policies across four mock domains.'},
+  {id:15,type:'security_tool',slug:'email-header-analyzer',title:'Email Header Analyzer',category:'osint_and_recon',lang:'python',fw:'fastapi',tests:21,date:'2026-07-07',repo:'cyberlab-email-header-analyzer',desc:'Parses raw email headers to trace delivery paths, check SPF/DKIM/DMARC alignment, and detect spoofing indicators including From-domain mismatches and monitoring-only DMARC policies.'},
+  {id:16,type:'security_tool',slug:'oauth-pkce-flow-analyzer',title:'OAuth 2.0 PKCE Flow Analyzer',category:'authentication_and_access',lang:'node',fw:'express',tests:24,date:'2026-07-07',repo:'cyberlab-oauth-pkce-flow-analyzer',desc:'Demonstrates OAuth 2.0 PKCE misconfigurations: missing code_verifier enforcement and unvalidated redirect_uri, enabling authorization code interception by attackers.'},
+  {id:17,type:'security_tool',slug:'timing-attack-demonstrator',title:'Timing Attack Demonstrator',category:'cryptography',lang:'python',fw:'fastapi',tests:24,date:'2026-07-14',repo:'cyberlab-timing-attack-demonstrator',desc:'Measures Pearson correlation between prefix-match length and response latency on naive vs constant-time (hmac.compare_digest) token comparison to demonstrate timing side-channels.'},
+  {id:18,type:'security_tool',slug:'open-redirect-checker',title:'Open Redirect Checker',category:'web_security',lang:'node',fw:'express',tests:32,date:'2026-07-15',repo:'cyberlab-open-redirect-checker',desc:'Detects unvalidated URL redirects, substring-check bypasses, and confirms strict allowlist validation â€” probing all three patterns with attacker payloads across 32 tests.'},
+  {id:19,type:'security_tool',slug:'soc-tier1-alert-triage-simulator',title:'SOC Tier 1 Alert Triage Simulator',category:'malware_analysis_and_forensics',lang:'python',fw:'fastapi',tests:33,date:'2026-07-18',repo:'cyberlab-soc-tier1-alert-triage-simulator',desc:'Full-stack SOC training simulator with ECS-formatted alerts, SSE live streaming, self-contained Canvas dashboard, and a CLI pre-triage tool for deduplication and false positive scoring.',fs:true},
+  {id:20,type:'security_tool',slug:'directory-traversal-detector',title:'Directory Traversal Detector',category:'web_security',lang:'node',fw:'express',tests:20,date:'2026-07-21',repo:'cyberlab-directory-traversal-detector',desc:'Sends ../, %2f, and double-encoded traversal payloads to file-serving endpoints â€” proving path.join without startsWith guard exposes files outside the intended directory.'},
+  {id:21,type:'security_tool',slug:'session-fixation-demonstrator',title:'Session Fixation Vulnerability Demo',category:'authentication_and_access',lang:'python',fw:'fastapi',tests:25,date:'2026-07-23',repo:'cyberlab-session-fixation-demonstrator',desc:'Demonstrates session fixation â€” an attacker plants a known session ID before login; if the server does not regenerate it, the attacker gains authenticated access post-login.'},
+  {id:22,type:'fullstack_app',slug:'student-information-management-system',title:'Student Information Management System',category:'education_platforms',lang:'node',fw:'express',tests:36,date:'2026-07-28',repo:'cyberlab-student-information-management-system',desc:'Secure full-stack SPA for UK schools: JWT with refresh tokens, four-role RBAC, UPN validation, SQLite, Helmet, CSRF, rate limiting, parameterized queries, and audit logging.',fs:true},
+  {id:23,type:'security_tool',slug:'subdomain-enumerator',title:'Subdomain Enumerator',category:'osint_and_recon',lang:'python',fw:'fastapi',tests:33,date:'2026-07-29',repo:'cyberlab-subdomain-enumerator',desc:'Wordlist-based subdomain enumeration via a mock DNS-over-HTTP resolver. Probes 60 labels, classifies discovered subdomains HIGH/MEDIUM/LOW by sensitivity, handles NXDOMAIN gracefully.'},
+];
+
+let activeF='all';
+
+function setF(f,el){
+  activeF=f;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  filter();
+}
+
+function filter(){
+  const q=document.getElementById('pSearch').value.toLowerCase();
+  const grid=document.getElementById('pGrid');
+  const cards=grid.querySelectorAll('.pcard');
+  let n=0;
+  cards.forEach(c=>{
+    let show=true;
+    if(activeF!=='all'){
+      if(activeF.startsWith('type:')) show=c.dataset.type===activeF.slice(5);
+      else if(activeF.startsWith('lang:')) show=c.dataset.lang===activeF.slice(5);
+      else show=c.dataset.cat===activeF;
+    }
+    if(show&&q) show=c.dataset.txt.includes(q);
+    c.style.display=show?'':'none';
+    if(show)n++;
+  });
+  document.getElementById('pCount').innerHTML=`<em>${n}</em> project${n!==1?'s':''}`;
+  let empty=grid.querySelector('.empty');
+  if(n===0&&!empty){
+    const d=document.createElement('div');
+    d.className='empty';
+    d.innerHTML=`<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><h3>No results</h3><p>Try a different filter or search term.</p>`;
+    grid.appendChild(d);
+  } else if(n>0&&empty) empty.remove();
+}
+
+function fmtDate(d){
+  return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+function renderProjects(){
+  const grid=document.getElementById('pGrid');
+  [...DATA].reverse().forEach((p,i)=>{
+    const catLabel=CAT[p.category]||p.category;
+    const card=document.createElement('div');
+    card.className='pcard fade-up';
+    card.dataset.cat=p.category;
+    card.dataset.type=p.type;
+    card.dataset.lang=p.lang;
+    card.dataset.txt=(p.title+' '+p.desc+' '+catLabel+' '+p.lang+' '+p.fw).toLowerCase();
+    card.style.transitionDelay=(i%3*0.05)+'s';
+    card.innerHTML=`
+      <div class="pcard-badges">
+        <span class="badge cat-${p.category}">${catLabel}</span>
+        <span class="badge b-${p.lang}">${p.lang==='node'?'Node.js':'Python'}</span>
+        ${p.fs?'<span class="badge b-full">Full-Stack</span>':''}
+      </div>
+      <div class="pcard-num">#${String(p.id).padStart(2,'0')} &middot; ${p.fw}</div>
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+      <div class="pcard-foot">
+        <div style="display:flex;align-items:center;gap:0.85rem">
+          <span class="pcard-tests">
+            <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <em>${p.tests}</em>&nbsp;tests
+          </span>
+          <span class="pcard-date">${fmtDate(p.date)}</span>
+        </div>
+        <a href="https://github.com/Quatech01/${p.repo}" target="_blank" class="gh-link">${GH} GitHub</a>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
+  },{threshold:0.05});
+  grid.querySelectorAll('.pcard').forEach(el=>obs.observe(el));
+}
+
+/* â”€â”€ CONTACT â”€â”€ */
+function sendMsg(){
+  document.getElementById('cformWrap').style.display='none';
+  document.getElementById('csuccess').style.display='block';
+}
+
+/* â”€â”€ NAV â”€â”€ */
+function toggleMenu(){
+  const h=document.getElementById('hbg'),m=document.getElementById('mMenu');
+  h.classList.toggle('open');m.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+function closeMM(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('mMenu').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* â”€â”€ SCROLL ANIMATIONS â”€â”€ */
+const obs2=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs2.observe(el));
+
+renderProjects();
+</script>
+</body>
+</html>
+

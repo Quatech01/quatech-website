@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Security Lab Projects â€” Quatech</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0b1e3d;
+  --blue:#1a56db;
+  --blue-lt:#e8f0fe;
+  --blue-mid:#93b4f5;
+  --bg:#f7f8fa;
+  --white:#ffffff;
+  --border:#e2e6ef;
+  --text:#1a202c;
+  --muted:#637085;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+
+/* â”€â”€ NAV â”€â”€ */
+nav{
+  background:rgba(11,30,61,0.96);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;position:sticky;top:0;z-index:200;
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;color:#fff;letter-spacing:-0.02em;text-decoration:none}
+.logo span{color:var(--blue-mid)}
+.nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.84rem;padding:0.4rem 0.85rem;border-radius:6px;transition:background 0.15s,color 0.15s}
+.nav-links a:hover{background:rgba(255,255,255,0.08);color:#fff}
+.nav-links a.active{color:#fff}
+.nav-cta{background:var(--blue)!important;color:#fff!important;padding:0.42rem 1.1rem!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:64px 0 0;background:rgba(11,30,61,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;z-index:199}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:rgba(255,255,255,0.8);text-decoration:none;font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;transition:color 0.2s}
+.mobile-menu a:hover{color:#fff}
+.mobile-menu .m-cta{background:var(--blue);color:#fff!important;padding:0.7rem 2rem;border-radius:8px;font-size:1rem}
+
+/* â”€â”€ HERO â”€â”€ */
+.hero{background:var(--navy);padding:4.5rem 5vw 3.5rem;position:relative;overflow:hidden}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:26px 26px}
+.hero-glow{position:absolute;top:-150px;right:-100px;width:500px;height:400px;background:radial-gradient(ellipse,rgba(26,86,219,0.15) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:680px}
+.breadcrumb{font-size:0.7rem;color:#6a85a8;letter-spacing:0.08em;margin-bottom:0.75rem;text-transform:uppercase}
+.breadcrumb a{color:#93b4f5;text-decoration:none}
+.breadcrumb a:hover{color:#fff}
+.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.08;letter-spacing:-0.025em;margin-bottom:0.9rem}
+.hero p{color:#a0b4cc;font-size:0.95rem;max-width:500px;margin-bottom:0}
+
+/* â”€â”€ STATS BAR â”€â”€ */
+.stats-bar{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 5vw;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.stat-item{display:flex;flex-direction:column;align-items:flex-start;padding:0 2rem;border-right:1px solid var(--border);white-space:nowrap;flex-shrink:0}
+.stat-item:first-child{padding-left:0}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--navy);letter-spacing:-0.02em}
+.stat-num em{color:var(--blue);font-style:normal}
+.stat-lbl{font-size:0.68rem;letter-spacing:0.09em;color:var(--muted);text-transform:uppercase}
+
+/* â”€â”€ FILTER BAR â”€â”€ */
+.filter-section{padding:1.75rem 5vw;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:64px;z-index:100}
+.filter-row{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:320px}
+.search-wrap svg{position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:2;pointer-events:none}
+#searchInput{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:0.55rem 0.85rem 0.55rem 2.5rem;font-size:0.85rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s}
+#searchInput:focus{border-color:var(--blue)}
+#searchInput::placeholder{color:var(--muted)}
+.filter-pills{display:flex;gap:0.4rem;flex-wrap:wrap}
+.pill{font-size:0.75rem;font-weight:500;padding:0.38rem 0.85rem;border-radius:100px;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.15s;white-space:nowrap;background:transparent}
+.pill:hover{border-color:var(--blue);color:var(--blue)}
+.pill.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.filter-count{font-size:0.78rem;color:var(--muted);white-space:nowrap}
+.filter-count em{color:var(--navy);font-style:normal;font-weight:500}
+
+/* â”€â”€ PROJECTS GRID â”€â”€ */
+.projects-section{padding:2rem 5vw 5rem}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.proj-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;display:flex;flex-direction:column;gap:0}
+.proj-card:hover{border-color:#93b4f5;box-shadow:0 6px 28px rgba(26,86,219,0.08);transform:translateY(-2px)}
+.proj-badges{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
+.badge{font-size:0.63rem;font-weight:600;letter-spacing:0.07em;padding:0.2rem 0.6rem;border-radius:100px;text-transform:uppercase}
+
+/* Category colours */
+.cat-web_security{background:#e8f0fe;color:#1a40a0;border:1px solid #c0d4f8}
+.cat-network_security{background:#e1f5ee;color:#0a5e4a;border:1px solid #a7dfc9}
+.cat-cryptography{background:#eeedfe;color:#4a3fb5;border:1px solid #c8c4f8}
+.cat-authentication_and_access{background:#fff3e0;color:#a04b00;border:1px solid #f8d8a0}
+.cat-malware_analysis_and_forensics{background:#fef2f2;color:#991b1b;border:1px solid #fca5a5}
+.cat-secure_coding{background:#f0fdf4;color:#14532d;border:1px solid #86efac}
+.cat-osint_and_recon{background:#fefce8;color:#854d0e;border:1px solid #fde68a}
+.cat-education_platforms{background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe}
+.cat-uk_applications{background:#fdf2f8;color:#831843;border:1px solid #f9a8d4}
+
+.lang-node{background:#dcfce7;color:#14532d;border:1px solid #86efac}
+.lang-python{background:#eff6ff;color:#1e3a8a;border:1px solid #bfdbfe}
+.type-full{background:#f5f3ff;color:#4c1d95;border:1px solid #ddd6fe}
+
+.proj-id{font-size:0.67rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.4rem;text-transform:uppercase}
+.proj-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.96rem;color:var(--navy);margin-bottom:0.55rem;line-height:1.3}
+.proj-card p{font-size:0.81rem;color:var(--muted);line-height:1.72;flex:1}
+.proj-footer{display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid var(--border)}
+.proj-meta{display:flex;align-items:center;gap:1rem}
+.proj-tests{display:flex;align-items:center;gap:0.3rem;font-size:0.73rem;color:var(--muted)}
+.proj-tests svg{width:12px;height:12px;stroke:var(--blue);fill:none;stroke-width:2}
+.proj-tests em{color:var(--navy);font-style:normal;font-weight:500}
+.proj-date{font-size:0.71rem;color:var(--muted)}
+.proj-gh{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--blue);font-weight:500;text-decoration:none;transition:opacity 0.15s}
+.proj-gh:hover{opacity:0.75}
+.proj-gh svg{width:14px;height:14px;fill:var(--blue)}
+
+/* â”€â”€ EMPTY STATE â”€â”€ */
+.empty-state{grid-column:1/-1;text-align:center;padding:5rem 2rem;color:var(--muted)}
+.empty-state svg{width:48px;height:48px;stroke:var(--border);fill:none;stroke-width:1.2;margin:0 auto 1rem;display:block}
+.empty-state h3{font-family:'Syne',sans-serif;color:var(--navy);margin-bottom:0.4rem}
+.empty-state p{font-size:0.85rem}
+
+/* â”€â”€ FOOTER â”€â”€ */
+footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#fff;text-decoration:none;letter-spacing:-0.02em}
+.footer-logo span{color:var(--blue-mid)}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:0.78rem;color:#4a6080;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:0.75rem;color:#3a4f68}
+
+/* â”€â”€ ANIMATIONS â”€â”€ */
+.fade-up{opacity:0;transform:translateY(14px);transition:opacity 0.45s ease,transform 0.45s ease}
+.fade-up.in{opacity:1;transform:none}
+
+/* â”€â”€ RESPONSIVE â”€â”€ */
+@media(max-width:720px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .filter-row{gap:0.75rem}
+  .search-wrap{max-width:100%;flex:1 1 100%}
+  .projects-grid{grid-template-columns:1fr}
+  .stat-item{padding:0 1.25rem}
+}
+@media(max-width:480px){
+  .stats-bar{gap:0}
+  .stat-item:first-child{padding-left:0}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Qua<span>tech</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#labs">Security Lab</a></li>
+    <li><a href="index.html#about-section">About</a></li>
+    <li><a href="index.html#team">Team</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" aria-label="Open menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#services" onclick="closeMenu()">Services</a>
+  <a href="index.html#labs" onclick="closeMenu()">Security Lab</a>
+  <a href="index.html#about-section" onclick="closeMenu()">About</a>
+  <a href="index.html#team" onclick="closeMenu()">Team</a>
+  <a href="projects.html">All Projects</a>
+  <a href="index.html#contact" onclick="closeMenu()" class="m-cta">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Quatech</a> &rsaquo; Security Lab</div>
+    <h1>Security Lab<br>Projects</h1>
+    <p>Every project is fully tested, pushed to GitHub, and built from scratch â€” cybersecurity tools, forensics demos, full-stack secured apps, and DevSecOps platforms.</p>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">23<em>+</em></div><div class="stat-lbl">Projects Built</div></div>
+  <div class="stat-item"><div class="stat-num">570<em>+</em></div><div class="stat-lbl">Tests Passed</div></div>
+  <div class="stat-item"><div class="stat-num">2</div><div class="stat-lbl">Languages</div></div>
+  <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">Categories</div></div>
+  <div class="stat-item"><div class="stat-num">100<em>%</em></div><div class="stat-lbl">Pass Rate</div></div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-section">
+  <div class="filter-row">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search projects..." oninput="applyFilters()"/>
+    </div>
+    <div class="filter-pills" id="filterPills">
+      <span class="pill active" data-filter="all" onclick="setFilter('all',this)">All</span>
+      <span class="pill" data-filter="type:security_tool" onclick="setFilter('type:security_tool',this)">Security Tools</span>
+      <span class="pill" data-filter="type:fullstack_app" onclick="setFilter('type:fullstack_app',this)">Full-Stack Apps</span>
+      <span class="pill" data-filter="web_security" onclick="setFilter('web_security',this)">Web Security</span>
+      <span class="pill" data-filter="cryptography" onclick="setFilter('cryptography',this)">Cryptography</span>
+      <span class="pill" data-filter="malware_analysis_and_forensics" onclick="setFilter('malware_analysis_and_forensics',this)">Malware &amp; Forensics</span>
+      <span class="pill" data-filter="authentication_and_access" onclick="setFilter('authentication_and_access',this)">Auth &amp; Access</span>
+      <span class="pill" data-filter="network_security" onclick="setFilter('network_security',this)">Network</span>
+      <span class="pill" data-filter="osint_and_recon" onclick="setFilter('osint_and_recon',this)">OSINT</span>
+      <span class="pill" data-filter="education_platforms" onclick="setFilter('education_platforms',this)">Education</span>
+      <span class="pill" data-filter="lang:node" onclick="setFilter('lang:node',this)">Node.js</span>
+      <span class="pill" data-filter="lang:python" onclick="setFilter('lang:python',this)">Python</span>
+    </div>
+    <span class="filter-count" id="filterCount"><em>23</em> projects</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="projects-section">
+  <div class="projects-grid" id="projectsGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">Qua<span>tech</span></a>
+    <div class="footer-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about-section">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/Quatech01" target="_blank">GitHub</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Quatech. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const CAT_LABELS = {
+  web_security:'Web Security',
+  network_security:'Network Security',
+  cryptography:'Cryptography',
+  authentication_and_access:'Auth & Access',
+  malware_analysis_and_forensics:'Malware & Forensics',
+  secure_coding:'Secure Coding',
+  osint_and_recon:'OSINT & Recon',
+  education_platforms:'Education Platforms',
+  uk_applications:'UK Applications',
+};
+
+const GH_SVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>`;
+
+const PROJECTS = [
+  {id:1,type:'security_tool',slug:'xss-reflection-scanner',title:'XSS Reflection Scanner',category:'web_security',lang:'node',fw:'express',tests:16,date:'2026-05-26',repo:'cyberlab-xss-reflection-scanner',desc:'Crawls endpoints for input parameters, injects XSS payloads (script tags, event handlers, SVG injections), and detects which inputs are reflected in responses without sanitization.'},
+  {id:2,type:'security_tool',slug:'port-scanner-service-fingerprinting',title:'Port Scanner with Service Fingerprinting',category:'network_security',lang:'node',fw:'express',tests:22,date:'2026-05-26',repo:'cyberlab-port-scanner-service-fingerprinting',desc:'Scans a range of localhost ports, identifies open services, and fingerprints them by analysing banner responses including HTTP headers, SMTP greetings, and TCP echo patterns.'},
+  {id:3,type:'security_tool',slug:'sql-injection-detector',title:'SQL Injection Detector',category:'web_security',lang:'node',fw:'express',tests:20,date:'2026-06-01',repo:'cyberlab-sql-injection-detector',desc:'Detects error-based, union-based, and boolean-based blind SQL injection against endpoints using raw string concatenation vs parameterized queries backed by SQLite.'},
+  {id:4,type:'security_tool',slug:'hash-collision-demonstrator',title:'Hash Collision Demonstrator',category:'cryptography',lang:'node',fw:'express',tests:23,date:'2026-06-01',repo:'cyberlab-hash-collision-demonstrator',desc:'Compares MD5, SHA-1, and SHA-256 by measuring collision resistance and computing a live birthday-attack prefix collision on MD5 to demonstrate its practical weakness.'},
+  {id:5,type:'security_tool',slug:'brute-force-rate-limiter-demo',title:'Brute Force Rate Limiter Demo',category:'authentication_and_access',lang:'node',fw:'express',tests:20,date:'2026-06-08',repo:'cyberlab-brute-force-rate-limiter-demo',desc:'Tests login endpoints for brute force protection â€” measuring attempts before lockout, IP-based vs account-based lockout, Retry-After headers, and correct rate-limit reset behaviour.'},
+  {id:6,type:'security_tool',slug:'file-entropy-analyzer',title:'File Entropy Analyzer',category:'malware_analysis_and_forensics',lang:'node',fw:'express',tests:22,date:'2026-06-08',repo:'cyberlab-file-entropy-analyzer',desc:'Calculates Shannon entropy of files to detect packed, encrypted, or compressed content. High entropy (>7.5 bits/byte) indicates potential obfuscation or malware packing.'},
+  {id:7,type:'security_tool',slug:'csrf-token-validator',title:'CSRF Token Validator',category:'web_security',lang:'node',fw:'express',tests:21,date:'2026-06-15',repo:'cyberlab-csrf-token-validator',desc:'Tests form endpoints for CSRF protection: token presence, single-use rotation, SameSite cookie attributes, and referer validation. Demo includes a funds-transfer vulnerable/safe endpoint pair.'},
+  {id:8,type:'security_tool',slug:'aes-encryption-mode-comparison',title:'AES Encryption Mode Comparison',category:'cryptography',lang:'node',fw:'express',tests:22,date:'2026-06-16',repo:'cyberlab-aes-encryption-mode-comparison',desc:'Compares ECB, CBC, CTR, and GCM encryption modes â€” demonstrating ECB pattern preservation and explaining why AES-GCM is the only mode that provides authenticated encryption.'},
+  {id:9,type:'security_tool',slug:'input-sanitization-library',title:'Input Sanitization Library',category:'secure_coding',lang:'node',fw:'express',tests:20,date:'2026-06-26',repo:'cyberlab-input-sanitization-library',desc:'Comprehensive sanitization module for HTML escaping, SQL parameterization, path normalization, and command injection prevention â€” with paired vulnerable and safe demo endpoints.'},
+  {id:10,type:'security_tool',slug:'log-file-anomaly-detector',title:'Log File Anomaly Detector',category:'malware_analysis_and_forensics',lang:'node',fw:'express',tests:23,date:'2026-06-27',repo:'cyberlab-log-file-anomaly-detector',desc:'Parses server access logs to detect SQL injection attempts, directory traversal sequences, known scanner user agents (sqlmap, Nikto), request-rate spikes, and consecutive 5xx error bursts.'},
+  {id:11,type:'security_tool',slug:'jwt-vulnerability-scanner',title:'JWT Vulnerability Scanner',category:'cryptography',lang:'python',fw:'fastapi',tests:27,date:'2026-06-30',repo:'cyberlab-jwt-vulnerability-scanner',desc:'Tests JWT tokens for none-algorithm acceptance, weak HS256 secret cracking via dictionary attack, algorithm confusion (RS256â†’HS256), and missing expiry claim validation.'},
+  {id:12,type:'security_tool',slug:'http-security-header-auditor',title:'HTTP Security Header Auditor',category:'web_security',lang:'node',fw:'express',tests:27,date:'2026-07-01',repo:'cyberlab-http-security-header-auditor',desc:'Audits HTTP response headers for HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy â€” grading each endpoint from A to F.'},
+  {id:13,type:'security_tool',slug:'keylogger-detection-and-flagging',title:'Keylogger Detection and Flagging',category:'malware_analysis_and_forensics',lang:'python',fw:'fastapi',tests:39,date:'2026-07-04',repo:'cyberlab-keylogger-detection-and-flagging',desc:'Multi-surface keylogger detection across process names, registry autorun keys (HKCU Run), temp-directory keyboard-capture file patterns, and C2 network connection indicators.'},
+  {id:14,type:'security_tool',slug:'dns-record-analyzer',title:'DNS Record Analyzer',category:'network_security',lang:'node',fw:'express',tests:20,date:'2026-07-06',repo:'cyberlab-dns-record-analyzer',desc:'Audits email authentication records â€” detecting missing SPF, permissive +all qualifiers, absent DMARC records, and monitoring-only p=none DMARC policies across four mock domains.'},
+  {id:15,type:'security_tool',slug:'email-header-analyzer',title:'Email Header Analyzer',category:'osint_and_recon',lang:'python',fw:'fastapi',tests:21,date:'2026-07-07',repo:'cyberlab-email-header-analyzer',desc:'Parses raw email headers to trace delivery paths, check SPF/DKIM/DMARC alignment, and detect spoofing indicators including From-domain mismatches and p=none DMARC policies.'},
+  {id:16,type:'security_tool',slug:'oauth-pkce-flow-analyzer',title:'OAuth 2.0 PKCE Flow Analyzer',category:'authentication_and_access',lang:'node',fw:'express',tests:24,date:'2026-07-07',repo:'cyberlab-oauth-pkce-flow-analyzer',desc:'Demonstrates OAuth 2.0 PKCE misconfigurations: missing code_verifier enforcement and unvalidated redirect_uri â€” allowing authorization code interception by attackers.'},
+  {id:17,type:'security_tool',slug:'timing-attack-demonstrator',title:'Timing Attack Demonstrator',category:'cryptography',lang:'python',fw:'fastapi',tests:24,date:'2026-07-14',repo:'cyberlab-timing-attack-demonstrator',desc:'Demonstrates timing side-channel attacks by measuring Pearson correlation between prefix-match length and response latency on naive vs hmac.compare_digest constant-time token comparison.'},
+  {id:18,type:'security_tool',slug:'open-redirect-checker',title:'Open Redirect Checker',category:'web_security',lang:'node',fw:'express',tests:32,date:'2026-07-15',repo:'cyberlab-open-redirect-checker',desc:'Tests URL redirect parameters for open redirect vulnerabilities â€” detecting unvalidated redirects, substring-check bypasses, and confirming strict allowlist validation as the only safe approach.'},
+  {id:19,type:'security_tool',slug:'soc-tier1-alert-triage-simulator',title:'SOC Tier 1 Alert Triage Simulator',category:'malware_analysis_and_forensics',lang:'python',fw:'fastapi',tests:33,date:'2026-07-18',repo:'cyberlab-soc-tier1-alert-triage-simulator',desc:'Full-stack SOC training simulator with ECS-formatted alerts, SSE live streaming, self-contained Canvas dashboard, and a CLI pre-triage tool for deduplication and false positive scoring.',fullstack:true},
+  {id:20,type:'security_tool',slug:'directory-traversal-detector',title:'Directory Traversal Detector',category:'web_security',lang:'node',fw:'express',tests:20,date:'2026-07-21',repo:'cyberlab-directory-traversal-detector',desc:'Sends path traversal payloads (../, %2f, %252f) to file-serving endpoints, checking if path.join without a startsWith guard exposes files outside the intended directory.'},
+  {id:21,type:'security_tool',slug:'session-fixation-demonstrator',title:'Session Fixation Vulnerability Demo',category:'authentication_and_access',lang:'python',fw:'fastapi',tests:25,date:'2026-07-23',repo:'cyberlab-session-fixation-demonstrator',desc:'Demonstrates session fixation by proving that un-regenerated session IDs after login allow attacker access. Contrasts a vulnerable login flow with a safe one that issues a new session on auth.'},
+  {id:22,type:'fullstack_app',slug:'student-information-management-system',title:'Student Information Management System',category:'education_platforms',lang:'node',fw:'express',tests:36,date:'2026-07-28',repo:'cyberlab-student-information-management-system',desc:'Secure full-stack SPA for UK schools: JWT auth with short-lived access tokens, four-role RBAC (admin/teacher/student/parent), UPN validation, bcrypt, CSRF, Helmet, rate limiting, and audit log.',fullstack:true},
+  {id:23,type:'security_tool',slug:'subdomain-enumerator',title:'Subdomain Enumerator',category:'osint_and_recon',lang:'python',fw:'fastapi',tests:33,date:'2026-07-29',repo:'cyberlab-subdomain-enumerator',desc:'Wordlist-based subdomain enumeration using a mock DNS-over-HTTP resolver. Probes a 60-label wordlist, discovers 10 configured subdomains, and classifies each by sensitivity (HIGH/MEDIUM/LOW).'},
+];
+
+let activeFilter = 'all';
+
+function setFilter(f, el){
+  activeFilter = f;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters(){
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const grid = document.getElementById('projectsGrid');
+  const cards = grid.querySelectorAll('.proj-card');
+  let visible = 0;
+
+  cards.forEach(card=>{
+    const cat = card.dataset.category;
+    const type = card.dataset.type;
+    const lang = card.dataset.lang;
+    const text = card.dataset.text;
+
+    let show = true;
+    if(activeFilter !== 'all'){
+      if(activeFilter.startsWith('type:')){
+        show = type === activeFilter.slice(5);
+      } else if(activeFilter.startsWith('lang:')){
+        show = lang === activeFilter.slice(5);
+      } else {
+        show = cat === activeFilter;
+      }
+    }
+    if(show && q) show = text.includes(q);
+    card.style.display = show ? '' : 'none';
+    if(show) visible++;
+  });
+
+  document.getElementById('filterCount').innerHTML = `<em>${visible}</em> project${visible!==1?'s':''}`;
+
+  // Empty state
+  let empty = grid.querySelector('.empty-state');
+  if(visible === 0 && !empty){
+    const div = document.createElement('div');
+    div.className='empty-state';
+    div.innerHTML=`<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><h3>No projects found</h3><p>Try a different search term or filter.</p>`;
+    grid.appendChild(div);
+  } else if(visible > 0 && empty){
+    empty.remove();
+  }
+}
+
+function formatDate(d){
+  return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+function renderProjects(){
+  const grid = document.getElementById('projectsGrid');
+  grid.innerHTML='';
+  PROJECTS.slice().reverse().forEach((p,i)=>{
+    const catLabel = CAT_LABELS[p.category] || p.category;
+    const isFullstack = p.fullstack || p.type==='fullstack_app';
+    const card = document.createElement('div');
+    card.className='proj-card fade-up';
+    card.dataset.category = p.category;
+    card.dataset.type = p.type;
+    card.dataset.lang = p.lang;
+    card.dataset.text = (p.title+' '+p.desc+' '+catLabel+' '+p.lang+' '+p.fw).toLowerCase();
+    card.style.transitionDelay = (i%3)*0.05+'s';
+    card.innerHTML=`
+      <div class="proj-badges">
+        <span class="badge cat-${p.category}">${catLabel}</span>
+        <span class="badge lang-${p.lang}">${p.lang==='node'?'Node.js':'Python'}</span>
+        ${isFullstack?'<span class="badge type-full">Full-Stack</span>':''}
+      </div>
+      <div class="proj-id">Project #${String(p.id).padStart(2,'0')} &middot; ${p.fw}</div>
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+      <div class="proj-footer">
+        <div class="proj-meta">
+          <span class="proj-tests">
+            <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <em>${p.tests}</em>&nbsp;tests
+          </span>
+          <span class="proj-date">${formatDate(p.date)}</span>
+        </div>
+        <a href="https://github.com/Quatech01/${p.repo}" target="_blank" class="proj-gh">${GH_SVG} GitHub</a>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
+  },{threshold:0.06});
+  grid.querySelectorAll('.proj-card').forEach(el=>obs.observe(el));
+}
+
+function toggleMenu(){
+  const hbg = document.getElementById('hbg');
+  const menu = document.getElementById('mobileMenu');
+  hbg.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+renderProjects();
+</script>
+</body>
+</html>
+
