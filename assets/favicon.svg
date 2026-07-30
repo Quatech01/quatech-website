@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" fill="none">
+  <defs>
+    <linearGradient id="fg-arc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#42a5f5"/>
+    </linearGradient>
+    <linearGradient id="fg-slash" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#555"/>
+      <stop offset="100%" stop-color="#e0e0e0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Blue "C" arc: center (26,30) radius 20, opens on right side -->
+  <path d="M 40.1 15.9 A 20 20 0 1 0 40.1 44.1"
+        stroke="url(#fg-arc)" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Circuit dot at top endpoint -->
+  <circle cx="40.1" cy="15.9" r="2.8" fill="#42a5f5"/>
+  <line x1="40.1" y1="15.9" x2="51" y2="15.9" stroke="#42a5f5" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="53" cy="15.9" r="2" fill="#42a5f5"/>
+
+  <!-- Anchor dot at bottom -->
+  <circle cx="40.1" cy="44.1" r="2.2" fill="#1565c0"/>
+
+  <!-- Silver diagonal slash -->
+  <line x1="10" y1="44" x2="40" y2="14"
+        stroke="url(#fg-slash)" stroke-width="4" stroke-linecap="round"/>
+</svg>

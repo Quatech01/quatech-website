@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 64" fill="none">
+  <defs>
+    <linearGradient id="qg-arc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#42a5f5"/>
+    </linearGradient>
+    <linearGradient id="qg-slash" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#555"/>
+      <stop offset="100%" stop-color="#e0e0e0"/>
+    </linearGradient>
+    <linearGradient id="qg-qua" gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="46">
+      <stop offset="0%" stop-color="#42a5f5"/>
+      <stop offset="100%" stop-color="#1565c0"/>
+    </linearGradient>
+    <linearGradient id="qg-tech" gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="46">
+      <stop offset="0%" stop-color="#e0e0e0"/>
+      <stop offset="100%" stop-color="#7a7a7a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Blue "C" arc: center (28,32) radius 22, opens ~90° on right side -->
+  <path d="M 43.6 16.4 A 22 22 0 1 0 43.6 47.6"
+        stroke="url(#qg-arc)" stroke-width="5.5" stroke-linecap="round"/>
+
+  <!-- Circuit trace at top endpoint -->
+  <circle cx="43.6" cy="16.4" r="3" fill="#42a5f5"/>
+  <line x1="43.6" y1="16.4" x2="58" y2="16.4" stroke="#42a5f5" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="60" cy="16.4" r="2.2" fill="#42a5f5"/>
+  <line x1="60" y1="16.4" x2="60" y2="9" stroke="#42a5f5" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- Anchor dot at bottom endpoint -->
+  <circle cx="43.6" cy="47.6" r="2.5" fill="#1565c0"/>
+
+  <!-- Silver diagonal slash through the circle -->
+  <line x1="12" y1="48" x2="44" y2="16"
+        stroke="url(#qg-slash)" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- "Quatech" wordmark -->
+  <text x="72" y="44"
+        font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="900"
+        font-size="29"
+        letter-spacing="-0.5">
+    <tspan fill="url(#qg-qua)">Qua</tspan><tspan fill="url(#qg-tech)">tech</tspan>
+  </text>
+</svg>

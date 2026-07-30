@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Admin &mdash; Quatech</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--navy:#0b1e3d;--blue:#1a56db;--blue-lt:#e8f0fe;--border:#e2e6ef;--bg:#f7f8fa;--white:#fff;--text:#1a202c;--muted:#637085;--green:#0d9e72;--green-lt:#e6f9f3;--amber:#c07a0a;--amber-lt:#fef3e0;--red:#c0392b;--red-lt:#feeaea}
@@ -218,7 +219,7 @@ function formatCountdown(secs) {
   return m + ':' + String(s).padStart(2, '0');
 }
 
-['click','keydown','mousemove','touchstart'].forEach(evt =>
+['click','keydown','touchstart'].forEach(evt =>
   document.addEventListener(evt, () => { if (adminKey) resetSessionTimer(); }, { passive: true })
 );
 
