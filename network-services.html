@@ -552,7 +552,7 @@ function showPage(id, tagEl, type, tabEl) {
 async function submitBooking(svc) {
   const container = document.getElementById('bf-' + svc + '-form');
   const fields = container.querySelectorAll('.bf-field');
-  const data = { '_subject': 'New Enquiry — Network Services — Quatech' };
+  const data = { '_subject': 'New Enquiry &mdash; Network Services &mdash; Quatech' };
   fields.forEach(field => {
     const label = field.querySelector('label');
     const input = field.querySelector('input, select, textarea');

@@ -562,7 +562,7 @@ async function submitForm(e){
   e.preventDefault();
   const form = document.getElementById('cf');
   const fields = form.querySelectorAll('.bf-field, .cf-field');
-  const data = { '_subject': 'New Enquiry — Quatech Website' };
+  const data = { '_subject': 'New Enquiry &mdash; Quatech Website' };
   form.querySelectorAll('input, select, textarea').forEach(input => {
     const label = input.closest('[class]') && input.closest('[class]').querySelector('label');
     if (label && input.value.trim()) data[label.textContent.trim()] = input.value.trim();
