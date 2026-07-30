@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Software Services - Quatech</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--white:#ffffff;--bg:#f7f8fa;--navy:#0b1e3d;--blue:#1a56db;--blue-lt:#e8f0fe;--border:#e2e6ef;--text:#1a202c;--muted:#637085;--steel:#f0f2f5}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+nav{background:var(--navy);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:200}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;text-decoration:none;letter-spacing:-0.02em}
+.logo span{color:#93b4f5}
+.back-link{font-size:0.8rem;color:#93b4f5;text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s}
+.back-link:hover{color:#fff}
+.back-link svg{width:14px;height:14px;stroke:#93b4f5;fill:none;stroke-width:2}
+.eng-hero{background:var(--navy);padding:4rem 5vw 3rem;position:relative;overflow:hidden}
+.eng-hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:24px 24px}
+.eng-hero-accent{position:absolute;right:-80px;top:-80px;width:340px;height:340px;border:1px solid rgba(147,180,245,0.12);border-radius:50%}
+.eng-hero-accent2{position:absolute;right:-40px;top:-40px;width:200px;height:200px;border:1px solid rgba(147,180,245,0.08);border-radius:50%}
+.eng-hero-inner{position:relative;z-index:1;max-width:640px}
+.breadcrumb{font-size:0.72rem;color:#6a85a8;letter-spacing:0.08em;margin-bottom:0.75rem}
+.breadcrumb span{color:#93b4f5}
+.eng-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.08;letter-spacing:-0.025em;margin-bottom:1rem}
+.eng-hero p{color:#a0b4cc;font-size:0.95rem;max-width:480px;margin-bottom:2rem}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.hero-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#c8d8f0;font-size:0.72rem;padding:0.3rem 0.8rem;border-radius:100px;letter-spacing:0.04em;cursor:pointer;transition:background 0.2s,border-color 0.2s}
+.hero-tag:hover,.hero-tag.active{background:rgba(26,86,219,0.3);border-color:#93b4f5;color:#fff}
+.svc-tabs{background:var(--white);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;overflow-x:auto;position:sticky;top:60px;z-index:100}
+.svc-tab{font-size:0.82rem;font-weight:400;color:var(--muted);padding:1rem 1.25rem;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:color 0.2s,border-color 0.2s;flex-shrink:0}
+.svc-tab:hover{color:var(--navy)}
+.svc-tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:500}
+.page{display:none}.page.active{display:block}
+.overview-intro{padding:4rem 5vw 2rem;max-width:800px}
+.overview-intro h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--navy);margin-bottom:0.75rem;line-height:1.15}
+.overview-intro p{color:var(--muted);font-size:0.95rem}
+.svc-cards-grid{padding:2rem 5vw 4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.svc-overview-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow 0.2s,border-color 0.2s;cursor:pointer}
+.svc-overview-card:hover{border-color:#93b4f5;box-shadow:0 6px 28px rgba(26,86,219,0.09)}
+.soc-img{height:180px;display:flex;align-items:center;justify-content:center}
+.soc-img-placeholder{display:flex;flex-direction:column;align-items:center;gap:0.75rem}
+.soc-img-placeholder svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:0.5}
+.soc-img-placeholder span{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;opacity:0.7}
+.soc-body{padding:1.5rem}
+.soc-tag{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;color:var(--blue);text-transform:uppercase;margin-bottom:0.4rem}
+.soc-body h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--navy);margin-bottom:0.5rem}
+.soc-body p{font-size:0.82rem;color:var(--muted);line-height:1.75;margin-bottom:1rem}
+.soc-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--blue);font-weight:500}
+.soc-btn svg{width:14px;height:14px;stroke:var(--blue);fill:none;stroke-width:2}
+.svc-hero{background:var(--navy);padding:3rem 5vw;position:relative;overflow:hidden}
+.svc-hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:20px 20px}
+.svc-hero-inner{position:relative;z-index:1}
+.svc-hero-label{font-size:0.68rem;font-weight:600;letter-spacing:0.14em;color:#93b4f5;text-transform:uppercase;margin-bottom:0.5rem}
+.svc-hero-inner h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;line-height:1.1;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.svc-hero-inner p{color:#a0b4cc;font-size:0.92rem;max-width:560px}
+.svc-detail-body{padding:3rem 5vw}
+.detail-about{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start;margin-bottom:3.5rem}
+@media(max-width:768px){.detail-about{grid-template-columns:1fr}}
+.detail-about h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;color:var(--navy);margin-bottom:0.75rem}
+.detail-about p{font-size:0.88rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.detail-about p:last-child{margin-bottom:0}
+.about-highlights{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.75rem}
+.ah-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--border)}
+.ah-item:last-child{border-bottom:none;padding-bottom:0}
+.ah-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;margin-top:8px;flex-shrink:0}
+.ah-item p{font-size:0.82rem;color:var(--text);line-height:1.6}
+.section-block{margin-bottom:3.5rem}
+.section-block h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;color:var(--navy);margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+.procedures-list{display:flex;flex-direction:column;gap:1rem}
+.proc-item{display:grid;grid-template-columns:40px 1fr;gap:1rem;align-items:start;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.25rem}
+.proc-num{width:32px;height:32px;background:var(--navy);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;flex-shrink:0}
+.proc-item h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--navy);margin-bottom:0.2rem}
+.proc-item p{font-size:0.82rem;color:var(--muted);line-height:1.7}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.media-item{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.media-thumb{height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem;position:relative}
+.media-thumb svg{width:32px;height:32px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:0.4}
+.cs-badge{font-size:0.7rem;font-weight:600;color:#534ab7;letter-spacing:0.08em;background:#eeedfe;padding:0.25rem 0.7rem;border-radius:20px}
+.play-badge{position:absolute;top:10px;left:10px;background:var(--navy);color:#fff;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.06em}
+.media-caption{padding:0.75rem 1rem;font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border);background:var(--white)}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.cert-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;display:flex;gap:1rem;align-items:flex-start}
+.cert-icon{width:40px;height:40px;background:var(--blue-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-icon svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.8}
+.cert-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;color:var(--navy);margin-bottom:0.2rem}
+.cert-card p{font-size:0.76rem;color:var(--muted);line-height:1.6}
+.cert-badge{display:inline-block;margin-top:0.5rem;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;background:#e8f0fe;color:#1a56db;padding:0.2rem 0.6rem;border-radius:4px}
+.booking-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:2.5rem;align-items:start}
+@media(max-width:768px){.booking-wrap{grid-template-columns:1fr}}
+.booking-info h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:0.5rem}
+.booking-info p{font-size:0.85rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+.booking-steps{display:flex;flex-direction:column;gap:0.75rem}
+.bstep{display:flex;gap:0.75rem;align-items:flex-start}
+.bstep-num{width:24px;height:24px;background:var(--navy);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.bstep p{font-size:0.82rem;color:var(--text);line-height:1.6}
+.quote-note{margin-top:1.25rem;background:var(--blue-lt);border:1px solid #c0d4f8;border-radius:10px;padding:1rem;font-size:0.8rem;color:#1a3a7a;line-height:1.65}
+.booking-form{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:2rem}
+.bf-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:1.5rem}
+.bf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:520px){.bf-row{grid-template-columns:1fr}}
+.bf-field{display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1rem}
+.bf-field label{font-size:0.72rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase}
+.bf-field input,.bf-field select,.bf-field textarea{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.85rem;font-size:0.86rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;width:100%}
+.bf-field input:focus,.bf-field select:focus,.bf-field textarea:focus{border-color:var(--blue)}
+.bf-field textarea{resize:vertical;min-height:90px}
+.bf-submit{width:100%;background:var(--navy);color:#fff;border:none;padding:0.85rem;border-radius:8px;font-size:0.9rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+.bf-submit:hover{background:#162d5a}
+.bf-success{display:none;text-align:center;padding:2rem 1rem}
+.bf-success svg{width:44px;height:44px;stroke:#1d9e75;fill:none;stroke-width:1.5;margin:0 auto 1rem;display:block}
+.bf-success h4{font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:0.4rem}
+.bf-success p{font-size:0.83rem;color:var(--muted)}
+footer{background:#060f1d;padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.06)}
+footer p{font-size:0.76rem;color:#4a6080}
+.fade-up{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
+.fade-up.in{opacity:1;transform:none}
+@media(max-width:600px){.svc-tab{padding:0.85rem 0.9rem;font-size:0.76rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Qua<span>tech</span></a>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <a href="projects.html" style="font-size:0.82rem;color:#93b4f5;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#93b4f5'">Security Lab</a>
+    <a href="index.html" class="back-link"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to main site</a>
+  </div>
+</nav>
+
+<div class="eng-hero">
+  <div class="eng-hero-dots"></div><div class="eng-hero-accent"></div><div class="eng-hero-accent2"></div>
+  <div class="eng-hero-inner">
+    <div class="breadcrumb">Quatech &rsaquo; <span>Software Services</span></div>
+    <h1>Software Services<br>Division</h1>
+    <p>Full-stack web development, API integration, cloud deployment, custom security tooling, and data visualisation &mdash; shipped with DevSecOps built in from day one.</p>
+    <div class="hero-tags">
+      <div class="hero-tag active" onclick="showPage('overview',this)">Overview</div>
+      <div class="hero-tag" onclick="showPage('webdev',this)">Web Development</div>
+      <div class="hero-tag" onclick="showPage('api',this)">API &amp; Cloud</div>
+      <div class="hero-tag" onclick="showPage('tools',this)">Security Tools</div>
+      <div class="hero-tag" onclick="showPage('data',this)">Data &amp; Dashboards</div>
+    </div>
+  </div>
+</div>
+
+<div class="svc-tabs">
+  <div class="svc-tab active" onclick="showPage('overview',null,'tab',this)">Overview</div>
+  <div class="svc-tab" onclick="showPage('webdev',null,'tab',this)">Web Development</div>
+  <div class="svc-tab" onclick="showPage('api',null,'tab',this)">API &amp; Cloud</div>
+  <div class="svc-tab" onclick="showPage('tools',null,'tab',this)">Security Tools</div>
+  <div class="svc-tab" onclick="showPage('data',null,'tab',this)">Data &amp; Dashboards</div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="page active" id="page-overview">
+  <div class="overview-intro fade-up">
+    <h2>Quatech Software Services</h2>
+    <p>Our Software Services division builds production-grade web applications, APIs, cloud infrastructure, and custom tooling. Every delivery is backed by our DevSecOps approach &mdash; security, testing, and CI/CD are not afterthoughts; they ship with the product.</p>
+  </div>
+  <div class="svc-cards-grid">
+    <div class="svc-overview-card fade-up" onclick="showPage('webdev')">
+      <div class="soc-img" style="background:#eeedfe"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span>Development</span></div></div>
+      <div class="soc-body"><div class="soc-tag">Development</div><h3>Web Application Development</h3><p>Full-stack builds using FastAPI, React, and Node.js &mdash; from landing pages to complex multi-user platforms.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="svc-overview-card fade-up" onclick="showPage('api')">
+      <div class="soc-img" style="background:#e8faf0"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Integration</span></div></div>
+      <div class="soc-body"><div class="soc-tag">Cloud &amp; API</div><h3>API Design &amp; Cloud Deployment</h3><p>RESTful API design, third-party integrations, and cloud deployment on AWS EC2 with infrastructure setup and management.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="svc-overview-card fade-up" onclick="showPage('tools')">
+      <div class="soc-img" style="background:#feeaea"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Security</span></div></div>
+      <div class="soc-body"><div class="soc-tag">Security Tools</div><h3>Custom Security Tool Development</h3><p>Bespoke security tooling: scanners, monitors, automation scripts, and dashboards tailored to your operational needs.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="svc-overview-card fade-up" onclick="showPage('data')">
+      <div class="soc-img" style="background:#e8f5fb"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>Analytics</span></div></div>
+      <div class="soc-body"><div class="soc-tag">Analytics</div><h3>Data Visualisation &amp; Dashboards</h3><p>Interactive dashboards, reporting systems, and data pipelines &mdash; turning raw data into decisions.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- WEB DEVELOPMENT -->
+<div class="page" id="page-webdev">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Software Services / Development</div>
+    <h2>Web Application Development</h2>
+    <p>Production-quality web applications built with modern stacks, security baked in, and tested before they ship.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Quatech builds full-stack web applications for businesses that need reliability, security, and maintainability &mdash; not just a working prototype. We use FastAPI and Node.js/Express on the backend, React for interactive frontends, and SQLite or PostgreSQL for data persistence.</p>
+        <p>Our DevSecOps approach means every application ships with JWT authentication, input validation, rate limiting, CSRF protection, parameterised queries, and security headers configured by default. This is not a checklist we run at the end &mdash; it is the way we write code.</p>
+        <p>Projects are versioned on GitHub, tested with automated test suites (pytest / Node:test), and deployed to cloud infrastructure with a CI pipeline from day one.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>FastAPI (Python) and Node.js/Express backends</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>React single-page applications and server-rendered frontends</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>JWT authentication with access and refresh token flows</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>8 DevSecOps security controls built into every application</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Automated test suites with minimum 80% coverage</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>GitHub-versioned delivery with CI/CD pipeline</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Development Process</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>Discovery &amp; Requirements</h4><p>We document user stories, functional requirements, data flows, and security requirements before writing a line of code. Scope is agreed and signed off.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>Architecture &amp; Design</h4><p>System architecture, database schema, API contracts, and UI wireframes are designed and reviewed. Technology stack is confirmed for the project context.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Secure Development</h4><p>Code is written to our internal DevSecOps standard: parameterised queries, validated inputs, encrypted secrets, security headers, and rate limiting applied throughout.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Testing</h4><p>Automated tests cover health endpoints, authentication flows, authorisation (RBAC), input validation, security headers, and business logic &mdash; minimum 20 tests per project.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>Deployment</h4><p>Applications are deployed to agreed infrastructure (Render, AWS EC2, or client environment) with environment variable management, logging, and uptime monitoring configured.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Handover &amp; Documentation</h4><p>Full codebase, README, API documentation, and deployment runbook are handed over. A 30-day post-launch support window is included.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Project Portfolio</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#eeedfe"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">CyberLab Student SIMS &mdash; full-stack app</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#eeedfe"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Application dashboard screenshot</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#eeedfe"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">App walkthrough demo</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#eeedfe"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Automated test suite results</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Credentials &amp; Standards</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>CyberLab Portfolio</h4><p>23 full-stack and security applications publicly available on GitHub &mdash; demonstrating real delivery capability.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>DevSecOps Standard</h4><p>Internal 8-control DevSecOps framework applied to every application: auth, validation, rate limiting, headers, and more.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>OWASP Secure Coding</h4><p>Development practices follow OWASP Secure Coding Guidelines and OWASP Top 10 mitigation patterns.</p><span class="cert-badge">STANDARD</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>AWS Deployment Experience</h4><p>Production deployments on AWS EC2 with environment management, reverse proxy, and uptime monitoring configured.</p><span class="cert-badge">ACTIVE</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Quote</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Tell us what you need to build and we'll respond with a scoped proposal and timeline within one business day.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit your project idea, requirements, and desired timeline</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We produce a scoped proposal with architecture outline and fixed-price quote</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>Development begins on agreed start date with weekly progress updates</p></div>
+          </div>
+          <div class="quote-note">Free discovery call included. Fixed-price projects preferred &mdash; no surprise invoices.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-webdev-form">
+            <div class="bf-title">Request a Quote &mdash; Web Development</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Project Type</label><select><option value="">Select...</option><option>New Web Application</option><option>API / Backend Service</option><option>Frontend / UI Rebuild</option><option>Legacy Modernisation</option><option>SaaS Platform</option></select></div>
+            <div class="bf-field"><label>Preferred Tech Stack</label><select><option value="">Select or no preference...</option><option>FastAPI + React</option><option>Node.js + React</option><option>Node.js + Vanilla JS</option><option>No preference &mdash; recommend me</option></select></div>
+            <div class="bf-field"><label>Project Description</label><textarea placeholder="What should the application do? Who uses it? Any existing system it replaces or integrates with?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('webdev')">Submit Enquiry</button>
+          </div>
+          <div class="bf-success" id="bf-webdev-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Enquiry Received!</h4><p>Our development team will review your project and respond within one business day.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- API & CLOUD -->
+<div class="page" id="page-api">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Software Services / Cloud &amp; API</div>
+    <h2>API Design &amp; Cloud Deployment</h2>
+    <p>Clean, documented RESTful APIs and robust cloud infrastructure &mdash; designed to scale and built to stay online.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Quatech designs and builds RESTful APIs that are clean, versioned, documented, and secure. We integrate third-party services including payment gateways, identity providers, mapping APIs, and data enrichment services &mdash; handling authentication, error handling, and rate limiting correctly from the start.</p>
+        <p>On the infrastructure side, we deploy to AWS EC2, Render, and DigitalOcean using reverse proxies (Nginx), process managers (PM2/Gunicorn), SSL termination, and environment variable management. We set up monitoring and alerting so your team knows before users do when something goes wrong.</p>
+        <p>Whether you need a single microservice or a multi-service cloud architecture, we scope it to your current needs without over-engineering for hypothetical futures.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>RESTful API design with OpenAPI / Swagger documentation</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Third-party API integration (payments, auth, data services)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>AWS EC2 and cloud deployment with Nginx reverse proxy</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>SSL/TLS certificate management and HTTPS configuration</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Environment variable and secrets management</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Uptime monitoring and deployment runbook documentation</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Service Procedures</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>API Contract Design</h4><p>We define endpoints, request/response schemas, authentication method, versioning strategy, and error response format before any code is written.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>API Development</h4><p>Endpoints are built with full input validation (Pydantic / express-validator), authentication (JWT), rate limiting, and consistent error handling throughout.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Third-Party Integration</h4><p>External APIs are integrated with appropriate retry logic, error handling, and timeout management. Webhook handlers are built and tested against live sandbox environments.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Infrastructure Provisioning</h4><p>Cloud instances are provisioned, hardened (SSH keys, firewall rules, fail2ban), and configured with the application stack, reverse proxy, and process manager.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>SSL &amp; Domain Configuration</h4><p>SSL certificates (Let's Encrypt or provided) are installed and auto-renewed. DNS records are configured and HTTPS enforced across all endpoints.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Monitoring &amp; Handover</h4><p>Uptime monitoring, log shipping, and alerting are configured. Full deployment runbook and API documentation are included in the handover package.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Project Portfolio</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">API architecture diagram</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">AWS EC2 deployment setup</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">API deployment walkthrough</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">OpenAPI / Swagger docs</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Credentials &amp; Standards</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>AWS Deployment Experience</h4><p>Live AWS EC2 deployments with Nginx, PM2/Gunicorn, SSL, and environment management on production workloads.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>AWS Solutions Architect</h4><p>AWS Solutions Architect Associate certification targeted for cloud architecture engagements.</p><span class="cert-badge">TARGETED</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>OpenAPI Specification</h4><p>All APIs documented to OpenAPI 3.0 specification with interactive Swagger UI included in every delivery.</p><span class="cert-badge">STANDARD</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>CyberLab API Portfolio</h4><p>FastAPI and Express APIs deployed and tested across the 23-project CyberLab portfolio on GitHub.</p><span class="cert-badge">ACTIVE</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Quote</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Tell us what you need built and deployed and we'll respond with a scoped proposal within one business day.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit your API or infrastructure requirements</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We produce a scoped proposal covering design, build, and deployment</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>Delivery is completed to agreed milestones with full handover documentation</p></div>
+          </div>
+          <div class="quote-note">Free discovery call included. Infrastructure costs (AWS, domain, SSL) are separate and billed at cost.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-api-form">
+            <div class="bf-title">Request a Quote &mdash; API &amp; Cloud</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Service Required</label><select><option value="">Select...</option><option>API Design &amp; Development</option><option>Third-Party API Integration</option><option>Cloud Infrastructure Setup</option><option>AWS EC2 Deployment</option><option>Full API + Cloud Package</option></select></div>
+            <div class="bf-field"><label>Description</label><textarea placeholder="What does the API need to do? What third-party services? Existing infrastructure or greenfield?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('api')">Submit Enquiry</button>
+          </div>
+          <div class="bf-success" id="bf-api-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Enquiry Received!</h4><p>Our engineering team will review your requirements and respond within one business day.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECURITY TOOLS -->
+<div class="page" id="page-tools">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Software Services / Security Tools</div>
+    <h2>Custom Security Tool Development</h2>
+    <p>Purpose-built security tooling for your specific threat environment &mdash; scanners, monitors, automation, and detection engines built to your requirements.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Off-the-shelf security tools solve general problems. Quatech builds custom tools for your specific operational context &mdash; whether that's a scanner tuned to your application stack, a monitoring script for your specific log format, or a detection engine for a threat pattern unique to your environment.</p>
+        <p>Our CyberLab portfolio of 23 published security tools demonstrates our capability: HTTP security header scanners, keylogger detection systems, subdomain enumerators, SOC alert triage simulators, network traffic analysers, and cryptographic tools &mdash; all built with Python/FastAPI or Node.js/Express, tested with automated suites, and deployed on production infrastructure.</p>
+        <p>Every tool we build is documented, versioned on GitHub, and tested before delivery.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>Web application security scanners (headers, SSL, exposure)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Network reconnaissance and enumeration tools</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Log analysis and threat detection automation</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Monitoring agents and alerting pipelines</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Custom reporting and compliance dashboards</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>CLI and web-based interfaces, as required</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Development Process</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>Operational Requirements</h4><p>We document what the tool needs to detect, scan, or automate; what inputs it takes; what outputs it produces; and what environment it runs in.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>Architecture &amp; Design</h4><p>Tool architecture is designed: CLI vs. web interface, API integrations, data storage, output formats, and scheduling or trigger mechanism.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Secure Development</h4><p>Code written in Python or Node.js following our DevSecOps standard. No hardcoded credentials, no command injection vectors, input sanitisation throughout.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Testing</h4><p>Automated tests validate core functionality, edge cases, error handling, and security controls. Tools are tested against representative environments before delivery.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>Deployment &amp; Integration</h4><p>Tools are deployed to your environment or packaged for self-hosting. Integration with existing workflows (SIEM, ticketing, alerting) is configured.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Documentation &amp; Training</h4><p>Full technical documentation, usage guide, and operator training are included. Source code is handed over on GitHub.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>CyberLab Tool Portfolio</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">HTTP Security Header Scanner</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Subdomain Enumerator in action</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">SOC Triage Simulator walkthrough</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Keylogger Detection System</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Credentials &amp; Standards</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>23 Published CyberLab Tools</h4><p>Active GitHub portfolio of 23 security tools with 570+ automated tests passing &mdash; proof of production delivery capability.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>MSc Cybersecurity &mdash; UoL</h4><p>Security tool development informed by MSc-level study in cryptography, network security, and malware analysis.</p><span class="cert-badge">IN PROGRESS</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>OWASP Secure Coding</h4><p>All tools built to OWASP Secure Coding Guidelines: no injection, no hardcoded secrets, validated inputs throughout.</p><span class="cert-badge">STANDARD</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>Python &amp; Node.js Expertise</h4><p>FastAPI, pytest, httpx, Node:test, Express, and associated security libraries used across all tool builds.</p><span class="cert-badge">ACTIVE</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Quote</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Describe the security problem you need automated or the capability gap you need filled. We'll respond with a scoped proposal within one business day.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit the problem you need a tool to solve</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We scope the tool, confirm requirements, and provide a fixed-price quote</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>Tool is built, tested, and delivered with documentation and source code</p></div>
+          </div>
+          <div class="quote-note">Source code always included. Tools are delivered with automated tests and a usage guide as standard.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-tools-form">
+            <div class="bf-title">Request a Quote &mdash; Security Tool Development</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Tool Type</label><select><option value="">Select...</option><option>Scanner / Audit Tool</option><option>Monitoring / Detection Agent</option><option>Reporting / Dashboard Tool</option><option>Automation Script / Pipeline</option><option>Custom &mdash; I'll describe below</option></select></div>
+            <div class="bf-field"><label>Description</label><textarea placeholder="What problem does the tool need to solve? What does it scan, detect, or automate? What environment does it run in?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('tools')">Submit Enquiry</button>
+          </div>
+          <div class="bf-success" id="bf-tools-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Enquiry Received!</h4><p>Our development team will review your requirements and respond within one business day.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA & DASHBOARDS -->
+<div class="page" id="page-data">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Software Services / Analytics</div>
+    <h2>Data Visualisation &amp; Dashboards</h2>
+    <p>Interactive dashboards and data pipelines that turn your operational data into clear, actionable insight.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Quatech builds data visualisation tools and reporting dashboards that give your team instant clarity on what matters: security metrics, operational KPIs, financial data, network performance, or whatever is critical to your business.</p>
+        <p>We work with React-based interactive frontends, Python data pipelines (pandas, folium, matplotlib), and RESTful data APIs to build dashboards that are fast, accurate, and easy to use. Our mapping and geolocation work includes IP visualisation and threat geography as part of our NetraIQ platform development.</p>
+        <p>Legacy reporting processes that run on spreadsheets, manual exports, or slow queries are common targets for modernisation &mdash; we've rebuilt several into real-time web dashboards with significant efficiency gains.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>Interactive web dashboards (React, Chart.js, D3)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Python data pipelines (pandas, SQLite, PostgreSQL)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Geolocation and mapping visualisation (Folium, Leaflet)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Real-time data with WebSocket or SSE streaming</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Automated report generation (PDF, CSV, email delivery)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Legacy reporting modernisation &mdash; spreadsheets to live dashboards</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Development Process</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>Data &amp; Metric Discovery</h4><p>We identify your data sources, key metrics, reporting cadence, and the decisions the dashboard needs to support. Existing reports are reviewed as a baseline.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>Dashboard Design</h4><p>Wireframes are produced for each view, agreed with stakeholders before development begins. Chart types, filters, and drill-down interactions are defined.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Data Pipeline Development</h4><p>ETL or ELT pipelines are built to extract, transform, and load data from your sources into the dashboard's data layer. Scheduling and incremental refresh are configured.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Frontend Development</h4><p>Interactive dashboard is built in React with responsive design, role-based access control, and export functionality (CSV, PDF) as required.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>Testing &amp; Validation</h4><p>Data accuracy is validated against source systems. Performance is tested under representative load. UI is reviewed for usability with end users.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Deployment &amp; Training</h4><p>Dashboard is deployed and user training delivered. Data pipeline monitoring is configured with alerting for pipeline failures or data quality issues.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Project Portfolio</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">NetraIQ threat map dashboard</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Real-time metrics dashboard</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Dashboard walkthrough demo</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">IP geolocation mapping</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Credentials &amp; Standards</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>NetraIQ Platform</h4><p>Production threat intelligence dashboard with geolocation mapping, IP reputation visualisation, and live feed integration.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>React &amp; Python Data Stack</h4><p>React frontends, pandas pipelines, SQLite/PostgreSQL backends, and Folium mapping used across active projects.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>SSE &amp; Real-Time Streaming</h4><p>Server-Sent Events (SSE) streaming implemented in CyberLab projects for live data dashboards.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>Banking Sector Background</h4><p>Financial reporting and data pipeline experience drawn from direct banking industry background informs enterprise dashboard delivery.</p><span class="cert-badge">EXPERIENCED</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Quote</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Tell us what data you have, what decisions you need to make from it, and how your team currently reports. We'll propose a dashboard solution within one business day.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit your data sources, KPIs, and reporting requirements</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We produce wireframes and a scoped development proposal</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>Dashboard is built, validated, deployed, and handed over with training</p></div>
+          </div>
+          <div class="quote-note">Free discovery call included. Ongoing data pipeline support retainers available post-delivery.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-data-form">
+            <div class="bf-title">Request a Quote &mdash; Data &amp; Dashboards</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Data Sources</label><input type="text" placeholder="e.g. SQL database, CSV exports, REST API, spreadsheets"/></div>
+            <div class="bf-field"><label>Requirement</label><select><option value="">Select...</option><option>New Dashboard</option><option>Legacy Reporting Modernisation</option><option>Data Pipeline / ETL</option><option>Real-Time Dashboard</option><option>Geolocation / Mapping Visualisation</option></select></div>
+            <div class="bf-field"><label>Description</label><textarea placeholder="What does the dashboard need to show? Who uses it? What decisions does it support?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('data')">Submit Enquiry</button>
+          </div>
+          <div class="bf-success" id="bf-data-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Enquiry Received!</h4><p>Our team will review your data requirements and respond within one business day.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="logo">Qua<span style="color:#93b4f5">tech</span></a>
+  <p>Software Services Division</p>
+  <p>&copy; 2026 Quatech. All rights reserved.</p>
+</footer>
+
+<script>
+function showPage(id, tagEl, type, tabEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.hero-tag').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.svc-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.hero-tag').forEach(t => {
+    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('active');
+  });
+  document.querySelectorAll('.svc-tab').forEach(t => {
+    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(() => {
+    document.querySelectorAll('#page-' + id + ' .fade-up').forEach((el,i) => {
+      setTimeout(() => el.classList.add('in'), i * 80);
+    });
+  }, 100);
+}
+function submitBooking(svc) {
+  document.getElementById('bf-' + svc + '-form').style.display = 'none';
+  document.getElementById('bf-' + svc + '-success').style.display = 'block';
+}
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.08});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

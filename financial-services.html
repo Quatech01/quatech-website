@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Financial Services - Quatech</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--white:#ffffff;--bg:#f7f8fa;--navy:#0b1e3d;--blue:#1a56db;--blue-lt:#e8f0fe;--border:#e2e6ef;--text:#1a202c;--muted:#637085;--steel:#f0f2f5}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+nav{background:var(--navy);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:200}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;text-decoration:none;letter-spacing:-0.02em}
+.logo span{color:#93b4f5}
+.back-link{font-size:0.8rem;color:#93b4f5;text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s}
+.back-link:hover{color:#fff}
+.back-link svg{width:14px;height:14px;stroke:#93b4f5;fill:none;stroke-width:2}
+.eng-hero{background:var(--navy);padding:4rem 5vw 3rem;position:relative;overflow:hidden}
+.eng-hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:24px 24px}
+.eng-hero-accent{position:absolute;right:-80px;top:-80px;width:340px;height:340px;border:1px solid rgba(147,180,245,0.12);border-radius:50%}
+.eng-hero-accent2{position:absolute;right:-40px;top:-40px;width:200px;height:200px;border:1px solid rgba(147,180,245,0.08);border-radius:50%}
+.eng-hero-inner{position:relative;z-index:1;max-width:640px}
+.breadcrumb{font-size:0.72rem;color:#6a85a8;letter-spacing:0.08em;margin-bottom:0.75rem}
+.breadcrumb span{color:#93b4f5}
+.eng-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.08;letter-spacing:-0.025em;margin-bottom:1rem}
+.eng-hero p{color:#a0b4cc;font-size:0.95rem;max-width:480px;margin-bottom:2rem}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.hero-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#c8d8f0;font-size:0.72rem;padding:0.3rem 0.8rem;border-radius:100px;letter-spacing:0.04em;cursor:pointer;transition:background 0.2s,border-color 0.2s}
+.hero-tag:hover,.hero-tag.active{background:rgba(26,86,219,0.3);border-color:#93b4f5;color:#fff}
+.svc-tabs{background:var(--white);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;overflow-x:auto;position:sticky;top:60px;z-index:100}
+.svc-tab{font-size:0.82rem;font-weight:400;color:var(--muted);padding:1rem 1.25rem;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:color 0.2s,border-color 0.2s;flex-shrink:0}
+.svc-tab:hover{color:var(--navy)}
+.svc-tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:500}
+.page{display:none}.page.active{display:block}
+.overview-intro{padding:4rem 5vw 2rem;max-width:800px}
+.overview-intro h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--navy);margin-bottom:0.75rem;line-height:1.15}
+.overview-intro p{color:var(--muted);font-size:0.95rem}
+.svc-cards-grid{padding:2rem 5vw 4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.svc-overview-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow 0.2s,border-color 0.2s;cursor:pointer}
+.svc-overview-card:hover{border-color:#93b4f5;box-shadow:0 6px 28px rgba(26,86,219,0.09)}
+.soc-img{height:180px;display:flex;align-items:center;justify-content:center}
+.soc-img-placeholder{display:flex;flex-direction:column;align-items:center;gap:0.75rem}
+.soc-img-placeholder svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:0.5}
+.soc-img-placeholder span{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;opacity:0.7}
+.soc-body{padding:1.5rem}
+.soc-tag{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;color:var(--blue);text-transform:uppercase;margin-bottom:0.4rem}
+.soc-body h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--navy);margin-bottom:0.5rem}
+.soc-body p{font-size:0.82rem;color:var(--muted);line-height:1.75;margin-bottom:1rem}
+.soc-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--blue);font-weight:500}
+.soc-btn svg{width:14px;height:14px;stroke:var(--blue);fill:none;stroke-width:2}
+.svc-hero{background:var(--navy);padding:3rem 5vw;position:relative;overflow:hidden}
+.svc-hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:20px 20px}
+.svc-hero-inner{position:relative;z-index:1}
+.svc-hero-label{font-size:0.68rem;font-weight:600;letter-spacing:0.14em;color:#93b4f5;text-transform:uppercase;margin-bottom:0.5rem}
+.svc-hero-inner h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;line-height:1.1;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.svc-hero-inner p{color:#a0b4cc;font-size:0.92rem;max-width:560px}
+.svc-detail-body{padding:3rem 5vw}
+.detail-about{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start;margin-bottom:3.5rem}
+@media(max-width:768px){.detail-about{grid-template-columns:1fr}}
+.detail-about h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;color:var(--navy);margin-bottom:0.75rem}
+.detail-about p{font-size:0.88rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.detail-about p:last-child{margin-bottom:0}
+.about-highlights{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.75rem}
+.ah-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--border)}
+.ah-item:last-child{border-bottom:none;padding-bottom:0}
+.ah-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;margin-top:8px;flex-shrink:0}
+.ah-item p{font-size:0.82rem;color:var(--text);line-height:1.6}
+.section-block{margin-bottom:3.5rem}
+.section-block h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;color:var(--navy);margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+.procedures-list{display:flex;flex-direction:column;gap:1rem}
+.proc-item{display:grid;grid-template-columns:40px 1fr;gap:1rem;align-items:start;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.25rem}
+.proc-num{width:32px;height:32px;background:var(--navy);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;flex-shrink:0}
+.proc-item h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--navy);margin-bottom:0.2rem}
+.proc-item p{font-size:0.82rem;color:var(--muted);line-height:1.7}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.media-item{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.media-thumb{height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem;position:relative}
+.media-thumb svg{width:32px;height:32px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:0.4}
+.cs-badge{font-size:0.7rem;font-weight:600;color:#534ab7;letter-spacing:0.08em;background:#eeedfe;padding:0.25rem 0.7rem;border-radius:20px}
+.play-badge{position:absolute;top:10px;left:10px;background:var(--navy);color:#fff;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.06em}
+.media-caption{padding:0.75rem 1rem;font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border);background:var(--white)}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.cert-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;display:flex;gap:1rem;align-items:flex-start}
+.cert-icon{width:40px;height:40px;background:var(--blue-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-icon svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.8}
+.cert-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;color:var(--navy);margin-bottom:0.2rem}
+.cert-card p{font-size:0.76rem;color:var(--muted);line-height:1.6}
+.cert-badge{display:inline-block;margin-top:0.5rem;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;background:#e8f0fe;color:#1a56db;padding:0.2rem 0.6rem;border-radius:4px}
+.booking-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:2.5rem;align-items:start}
+@media(max-width:768px){.booking-wrap{grid-template-columns:1fr}}
+.booking-info h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:0.5rem}
+.booking-info p{font-size:0.85rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+.booking-steps{display:flex;flex-direction:column;gap:0.75rem}
+.bstep{display:flex;gap:0.75rem;align-items:flex-start}
+.bstep-num{width:24px;height:24px;background:var(--navy);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.bstep p{font-size:0.82rem;color:var(--text);line-height:1.6}
+.quote-note{margin-top:1.25rem;background:var(--blue-lt);border:1px solid #c0d4f8;border-radius:10px;padding:1rem;font-size:0.8rem;color:#1a3a7a;line-height:1.65}
+.booking-form{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:2rem}
+.bf-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:1.5rem}
+.bf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:520px){.bf-row{grid-template-columns:1fr}}
+.bf-field{display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1rem}
+.bf-field label{font-size:0.72rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase}
+.bf-field input,.bf-field select,.bf-field textarea{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.85rem;font-size:0.86rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;width:100%}
+.bf-field input:focus,.bf-field select:focus,.bf-field textarea:focus{border-color:var(--blue)}
+.bf-field textarea{resize:vertical;min-height:90px}
+.bf-submit{width:100%;background:var(--navy);color:#fff;border:none;padding:0.85rem;border-radius:8px;font-size:0.9rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+.bf-submit:hover{background:#162d5a}
+.bf-success{display:none;text-align:center;padding:2rem 1rem}
+.bf-success svg{width:44px;height:44px;stroke:#1d9e75;fill:none;stroke-width:1.5;margin:0 auto 1rem;display:block}
+.bf-success h4{font-family:'Syne',sans-serif;font-weight:700;color:var(--navy);margin-bottom:0.4rem}
+.bf-success p{font-size:0.83rem;color:var(--muted)}
+footer{background:#060f1d;padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.06)}
+footer p{font-size:0.76rem;color:#4a6080}
+.fade-up{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
+.fade-up.in{opacity:1;transform:none}
+.reg-tag{display:inline-block;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;padding:0.2rem 0.6rem;border-radius:4px;margin-right:0.3rem;margin-top:0.4rem}
+.reg-uk{background:#e8f0fe;color:#1a56db}
+.reg-eu{background:#e8faf0;color:#1d7a55}
+.reg-int{background:#fef3e0;color:#b45309}
+@media(max-width:600px){.svc-tab{padding:0.85rem 0.9rem;font-size:0.76rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Qua<span>tech</span></a>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <a href="projects.html" style="font-size:0.82rem;color:#93b4f5;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#93b4f5'">Security Lab</a>
+    <a href="index.html" class="back-link"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to main site</a>
+  </div>
+</nav>
+
+<div class="eng-hero">
+  <div class="eng-hero-dots"></div><div class="eng-hero-accent"></div><div class="eng-hero-accent2"></div>
+  <div class="eng-hero-inner">
+    <div class="breadcrumb">Quatech &rsaquo; <span>Financial Services</span></div>
+    <h1>Financial Services<br>Division</h1>
+    <p>Fintech consulting, payment system integration, regulatory compliance, and cybersecurity for financial environments &mdash; grounded in direct banking sector experience.</p>
+    <div class="hero-tags">
+      <div class="hero-tag active" onclick="showPage('overview',this)">Overview</div>
+      <div class="hero-tag" onclick="showPage('fintech',this)">Fintech Consulting</div>
+      <div class="hero-tag" onclick="showPage('payments',this)">Payment Systems</div>
+      <div class="hero-tag" onclick="showPage('regtech',this)">RegTech &amp; Compliance</div>
+      <div class="hero-tag" onclick="showPage('finsec',this)">FinSec</div>
+    </div>
+  </div>
+</div>
+
+<div class="svc-tabs">
+  <div class="svc-tab active" onclick="showPage('overview',null,'tab',this)">Overview</div>
+  <div class="svc-tab" onclick="showPage('fintech',null,'tab',this)">Fintech Consulting</div>
+  <div class="svc-tab" onclick="showPage('payments',null,'tab',this)">Payment Systems</div>
+  <div class="svc-tab" onclick="showPage('regtech',null,'tab',this)">RegTech &amp; Compliance</div>
+  <div class="svc-tab" onclick="showPage('finsec',null,'tab',this)">FinSec</div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="page active" id="page-overview">
+  <div class="overview-intro fade-up">
+    <h2>Quatech Financial Services</h2>
+    <p>Our Financial Services division bridges fintech engineering, regulatory compliance, and cybersecurity for the financial sector. With direct banking industry experience and ongoing MSc Cybersecurity study, we understand the operational, technical, and regulatory pressures that financial businesses face &mdash; and we deliver practical solutions that meet them.</p>
+  </div>
+  <div class="svc-cards-grid">
+    <div class="svc-overview-card fade-up" onclick="showPage('fintech')">
+      <div class="soc-img" style="background:#fef3e0"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span>Fintech</span></div></div>
+      <div class="soc-body"><div class="soc-tag">Consulting</div><h3>Fintech Consulting</h3><p>Technology strategy, digital transformation roadmaps, and technology selection advisory for financial services businesses.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="svc-overview-card fade-up" onclick="showPage('payments')">
+      <div class="soc-img" style="background:#e8f0fe"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span>Payments</span></div></div>
+      <div class="soc-body"><div class="soc-tag">Integration</div><h3>Payment System Integration</h3><p>Stripe, Open Banking API, and payment gateway integration with PCI DSS compliance and secure transaction handling built in.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="svc-overview-card fade-up" onclick="showPage('regtech')">
+      <div class="soc-img" style="background:#e8faf0"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Compliance</span></div></div>
+      <div class="soc-body"><div class="soc-tag">RegTech</div><h3>RegTech &amp; Compliance</h3><p>AML/KYC process design, GDPR compliance advisory, FCA regulatory guidance, and compliance audit support for financial operations.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="svc-overview-card fade-up" onclick="showPage('finsec')">
+      <div class="soc-img" style="background:#feeaea"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Security</span></div></div>
+      <div class="soc-body"><div class="soc-tag">FinSec</div><h3>Cybersecurity for Financial Services</h3><p>Threat modelling, penetration testing, and security architecture review tailored to the financial sector threat landscape.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FINTECH CONSULTING -->
+<div class="page" id="page-fintech">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Financial Services / Consulting</div>
+    <h2>Fintech Consulting</h2>
+    <p>Technology strategy and digital transformation advisory grounded in direct banking sector experience and current cybersecurity specialisation.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Quatech's fintech consulting practice is built on a foundation that is rare in pure technology consultancies: direct experience working within the banking sector, combined with active MSc-level cybersecurity study and a portfolio of 23 production security and software tools.</p>
+        <p>We advise financial services businesses on technology selection, digital transformation strategy, API-first architecture for Open Banking adoption, and how to evaluate fintech vendors without being sold to. Our recommendations are implementation-grounded &mdash; we can follow an advisory engagement with the technical delivery if required.</p>
+        <p>We work with startups entering financial services, established financial businesses adopting new technology, and technology companies building products for the financial sector.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>Technology strategy and platform selection advisory</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Digital transformation roadmap development</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Open Banking API strategy and adoption planning</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Fintech vendor evaluation and due diligence support</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Banking sector direct experience informing recommendations</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Advisory-to-delivery continuity &mdash; we can build what we recommend</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Consulting Process</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>Discovery &amp; Current State Assessment</h4><p>We assess your current technology landscape, operational processes, regulatory obligations, and strategic goals through structured interviews and documentation review.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>Problem Definition &amp; Prioritisation</h4><p>Key technology and process gaps are identified, prioritised by business impact and regulatory risk, and agreed with stakeholders before any recommendations are made.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Market &amp; Technology Research</h4><p>Relevant technology options, vendor landscape, and regulatory developments are researched for the specific problem space. No vendor relationships influence our recommendations.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Recommendations &amp; Roadmap</h4><p>A clear, prioritised set of recommendations is produced with implementation phases, indicative cost ranges, and success metrics. Presented to stakeholders for review.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>Implementation Support</h4><p>We can support procurement, vendor negotiation, technical evaluation of proposals, and technical oversight during implementation &mdash; keeping the project aligned to the agreed strategy.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Review &amp; Iteration</h4><p>Strategy is reviewed at agreed intervals against outcomes. Recommendations are updated as the regulatory and technology environment evolves.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Engagement Portfolio</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#fef3e0"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Technology strategy framework</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#fef3e0"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Digital transformation roadmap example</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#fef3e0"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Consulting engagement overview</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#fef3e0"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Client case study</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Credentials &amp; Background</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>Banking Sector Experience</h4><p>Direct professional experience within the banking industry &mdash; operational context that is rare in technology consultancies.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>MSc Cybersecurity &mdash; UoL</h4><p>University of Liverpool MSc Cybersecurity program informs technology risk advisory for financial services engagements.</p><span class="cert-badge">IN PROGRESS</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>Open Banking Familiarity</h4><p>Technical and regulatory understanding of the UK Open Banking standard, PSD2, and API-first banking architecture.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>FCA Regulatory Awareness</h4><p>Working knowledge of FCA regulatory framework applicable to financial technology businesses operating in the UK.</p><span class="cert-badge">ACTIVE</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Consultation</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Tell us about your business and the technology challenge you are facing. We'll schedule a discovery call and propose a consulting engagement within two business days.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit your business context and the challenge you need help with</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We schedule a free 45-minute discovery call to understand the situation</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>A scoped consulting proposal is produced with clear deliverables and fees</p></div>
+          </div>
+          <div class="quote-note">Discovery call is free and carries no obligation. Fixed-fee engagements preferred for clarity on both sides.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-fintech-form">
+            <div class="bf-title">Book a Consultation &mdash; Fintech Consulting</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Business Type</label><select><option value="">Select...</option><option>Bank or Building Society</option><option>Fintech Startup</option><option>Payments / FX Business</option><option>Insurance / InsurTech</option><option>Technology Vendor to Finance Sector</option><option>Other Financial Services</option></select></div>
+            <div class="bf-field"><label>Consulting Area</label><select><option value="">Select...</option><option>Technology Strategy &amp; Roadmap</option><option>Digital Transformation</option><option>Open Banking / API Strategy</option><option>Vendor Evaluation</option><option>General Advisory</option></select></div>
+            <div class="bf-field"><label>Challenge Description</label><textarea placeholder="What technology or business challenge are you trying to solve? What decisions do you need help making?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('fintech')">Request Consultation</button>
+          </div>
+          <div class="bf-success" id="bf-fintech-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Request Received!</h4><p>We will review your enquiry and reach out to schedule your discovery call within two business days.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT SYSTEMS -->
+<div class="page" id="page-payments">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Financial Services / Integration</div>
+    <h2>Payment System Integration</h2>
+    <p>Secure payment gateway integration, Open Banking API connectivity, and PCI DSS-aligned transaction handling built for production from day one.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Quatech integrates payment infrastructure into web applications and platforms with security as the primary design constraint. We work with Stripe, Open Banking APIs, and other payment gateways &mdash; handling authentication, webhook verification, idempotency, error handling, and reconciliation correctly from the start rather than retrofitting security onto a working but insecure implementation.</p>
+        <p>Our DevSecOps background means payment integrations are built with end-to-end TLS, server-side validation of all payment events, no client-side trust for amounts or authorisations, and webhook signature verification throughout. Sensitive card data never touches your server &mdash; tokenisation is used wherever the payment provider supports it.</p>
+        <p>PCI DSS scope reduction is a core consideration in every payment integration design: the goal is to minimise your compliance obligations through architecture, not just pass an audit.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>Stripe payment integration (Checkout, PaymentIntents, Webhooks)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Open Banking API connectivity (account info, payment initiation)</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Webhook signature verification and idempotency handling</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>PCI DSS scope reduction through tokenisation architecture</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Transaction reconciliation and reporting pipelines</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Sandbox testing against provider test environments before go-live</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Integration Process</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>Payment Requirements &amp; Scoping</h4><p>We document payment flows, currencies, subscription vs one-off, refund handling, and compliance obligations. PCI DSS scope is assessed and a scope-reduction architecture agreed.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>Provider Selection &amp; Account Setup</h4><p>Payment provider is confirmed or recommended. Sandbox accounts are configured and webhook endpoints are set up for development testing.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Secure Integration Development</h4><p>Server-side payment handling is built: PaymentIntent creation, webhook verification, idempotency keys, and error handling. Client-side Elements or Checkout used to avoid touching raw card data.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Testing &amp; Edge Case Validation</h4><p>Full payment flow is tested: successful payments, card declines, insufficient funds, fraud blocks, webhook retries, and refund flows. All validated in sandbox before live credentials are issued.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>Reconciliation &amp; Reporting</h4><p>Transaction data is reconciled against provider records. Reporting pipeline is built for finance team access to transaction history, failed payments, and subscription status.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Go-Live &amp; Monitoring</h4><p>Live credentials are configured in environment variables, payment monitoring is set up, and a 30-day post-launch support window covers any production issues.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Implementation Portfolio</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#e8f0fe"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Payment checkout flow</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8f0fe"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Webhook verification implementation</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8f0fe"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Stripe integration walkthrough</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8f0fe"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Transaction reconciliation dashboard</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Credentials &amp; Standards</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>PCI DSS Awareness</h4><p>Architecture decisions designed to minimise PCI DSS scope through tokenisation, reducing compliance burden and audit surface.</p><span class="cert-badge">APPLIED</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>Stripe API Experience</h4><p>Production Stripe integrations with PaymentIntents, Checkout Sessions, subscriptions, webhooks, and refund handling.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>Open Banking API</h4><p>UK Open Banking API standard knowledge for account information and payment initiation service integrations.</p><span class="cert-badge">ACTIVE</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>Banking Sector Background</h4><p>Direct banking experience provides real-world operational context for payment system design and risk considerations.</p><span class="cert-badge">ACTIVE</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Quote</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Tell us what payment functionality you need to add to your product and we'll respond with a scoped proposal within one business day.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit your payment requirements and existing platform details</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We assess scope, confirm provider, and provide a fixed-price proposal</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>Integration is built, tested in sandbox, and launched with monitoring in place</p></div>
+          </div>
+          <div class="quote-note">Provider fees (Stripe transaction costs etc.) are separate and billed by the provider directly to you.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-payments-form">
+            <div class="bf-title">Request a Quote &mdash; Payment Integration</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Payment Type</label><select><option value="">Select...</option><option>One-off payments</option><option>Subscription / recurring billing</option><option>Marketplace / split payments</option><option>Open Banking payment initiation</option><option>Multiple &mdash; I'll describe below</option></select></div>
+            <div class="bf-field"><label>Preferred Provider</label><select><option value="">No preference / advise me</option><option>Stripe</option><option>GoCardless</option><option>PayPal</option><option>Open Banking</option><option>Other</option></select></div>
+            <div class="bf-field"><label>Description</label><textarea placeholder="What payment flows do you need? Existing platform tech stack? Any compliance or regulatory context?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('payments')">Submit Enquiry</button>
+          </div>
+          <div class="bf-success" id="bf-payments-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Enquiry Received!</h4><p>Our team will review your payment requirements and respond within one business day.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGTECH -->
+<div class="page" id="page-regtech">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Financial Services / Compliance</div>
+    <h2>RegTech &amp; Compliance</h2>
+    <p>AML/KYC process design, GDPR advisory, FCA regulatory guidance, and compliance automation &mdash; making regulatory obligations manageable and auditable.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Regulatory compliance in financial services is not optional &mdash; but it can be handled intelligently. Quatech helps financial businesses design and implement AML/KYC workflows that are both compliant and operationally efficient, GDPR-aligned data handling practices that are practical rather than paper-based, and FCA regulatory frameworks that are understood and embedded rather than filed and forgotten.</p>
+        <p>Where regulatory processes can be automated &mdash; identity verification workflows, transaction monitoring rules, audit log generation, compliance reporting dashboards &mdash; we build the tooling. Where human judgement is required, we design the processes and escalation paths that support it.</p>
+        <p>Our approach is to understand what a regulator is actually trying to achieve, then design systems that genuinely meet that intent rather than just ticking boxes that could be challenged on audit.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>AML customer risk scoring and transaction monitoring design</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>KYC/KYB workflow design and identity verification integration</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>GDPR data mapping, retention schedules, and privacy notices</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>FCA regulatory framework advisory for authorised/exempt businesses</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Compliance automation: audit logs, SAR workflows, regulatory reporting</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Pre-audit preparation and compliance gap analysis</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Service Process</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>Regulatory Scope Assessment</h4><p>We identify which regulations apply to your business activities, products, and customer base: FCA permissions, AML requirements under the Money Laundering Regulations, GDPR obligations, and PCI DSS scope if relevant.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>Gap Analysis</h4><p>Current practices are assessed against regulatory requirements. Gaps are documented, risk-rated, and prioritised for remediation. The output is a clear action plan, not a list of problems.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Policy &amp; Process Design</h4><p>Compliant policies and operational processes are designed for AML/KYC, data protection, complaints, and other applicable areas &mdash; practical documents that staff can actually follow.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Technology &amp; Automation</h4><p>Where automation adds value &mdash; identity verification integration, transaction monitoring rules, compliance dashboards, audit trail logging &mdash; we build the tooling to support the process.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>Testing &amp; Evidence</h4><p>Processes are tested against representative scenarios. Evidence of compliance (documented decisions, audit logs, training records) is structured to withstand regulatory scrutiny.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Ongoing Monitoring</h4><p>Regulatory change monitoring and periodic compliance reviews are available as a retained service. Alerts are issued when material regulatory changes affect your obligations.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Compliance Framework Expertise</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">AML risk scoring model</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">KYC workflow diagram</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Compliance dashboard walkthrough</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8faf0"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">GDPR data map template</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Regulatory Frameworks</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>UK AML / Money Laundering Regulations</h4><p>Customer due diligence, enhanced due diligence, PEPs/sanctions screening, and SAR filing obligations under UK MLRs.</p><span class="reg-uk">UK</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>GDPR / UK GDPR</h4><p>Data mapping, lawful basis, data subject rights, retention schedules, privacy notices, and breach notification procedures.</p><span class="reg-uk">UK</span><span class="reg-eu">EU</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>FCA Regulatory Framework</h4><p>FCA authorisation, permissions, conduct rules, SM&amp;CR, complaints handling, and prudential requirements for regulated firms.</p><span class="reg-uk">UK</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/></svg></div><div><h4>PCI DSS</h4><p>Cardholder data environment scoping, scope reduction architecture, and SAQ completion support for merchants and service providers.</p><span class="reg-int">INT</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Consultation</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Tell us about your regulatory situation and what you need help with. We'll confirm scope and propose a consulting engagement within two business days.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit your compliance challenge and regulatory context</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We schedule a discovery call to assess scope and urgency</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>A scoped compliance engagement is proposed with clear deliverables and timelines</p></div>
+          </div>
+          <div class="quote-note">We do not provide legal advice &mdash; for matters requiring legal opinion, we work alongside your legal counsel. We provide regulatory interpretation, process design, and technical implementation.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-regtech-form">
+            <div class="bf-title">Book a Consultation &mdash; RegTech &amp; Compliance</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Regulatory Area</label><select><option value="">Select...</option><option>AML / KYC</option><option>GDPR / UK GDPR</option><option>FCA Compliance</option><option>PCI DSS</option><option>Multiple / General Compliance Review</option></select></div>
+            <div class="bf-field"><label>Urgency</label><select><option value="">Select...</option><option>Urgent &mdash; regulatory deadline or audit imminent</option><option>Near-term &mdash; within 3 months</option><option>Planning ahead &mdash; 3-6 months</option></select></div>
+            <div class="bf-field"><label>Description</label><textarea placeholder="What compliance challenge are you facing? Is there a regulator, audit, or deadline driving this?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('regtech')">Request Consultation</button>
+          </div>
+          <div class="bf-success" id="bf-regtech-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Request Received!</h4><p>We will review your compliance situation and reach out within two business days.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINSEC -->
+<div class="page" id="page-finsec">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Financial Services / Security</div>
+    <h2>Cybersecurity for Financial Services</h2>
+    <p>Threat modelling, penetration testing, and security architecture tailored to the financial sector &mdash; where data is high-value and the consequences of a breach extend well beyond technical remediation.</p>
+  </div></div>
+  <div class="svc-detail-body">
+    <div class="detail-about fade-up">
+      <div>
+        <h3>About This Service</h3>
+        <p>Financial services organisations face a disproportionate share of targeted cyberattacks. Payment systems, customer PII, account credentials, and financial transaction data are among the most valuable assets an attacker can target &mdash; and regulators expect demonstrable security controls, not just good intentions.</p>
+        <p>Quatech's FinSec practice applies our core cybersecurity capability &mdash; penetration testing, vulnerability assessment, threat intelligence, and security tool development &mdash; to the specific context of financial services: PCI DSS cardholder environments, FCA-regulated systems, Open Banking APIs, and payment processing infrastructure.</p>
+        <p>We combine technical security capability with regulatory awareness so our findings are framed in terms that your compliance team, board, and regulators can act on &mdash; not just your IT team.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-dot"></div><p>Threat modelling for financial platforms and payment systems</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Penetration testing of financial web applications and APIs</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>PCI DSS security control testing and gap assessment</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Open Banking API security review</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Social engineering and phishing simulations for financial staff</p></div>
+        <div class="ah-item"><div class="ah-dot"></div><p>Board-level reporting with regulatory context included</p></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Service Process</h3>
+      <div class="procedures-list">
+        <div class="proc-item"><div class="proc-num">01</div><div><h4>Scoping &amp; Rules of Engagement</h4><p>We document what systems are in scope, what testing techniques are authorised, who is informed, and what the regulatory context is. All testing is explicitly authorised in writing before commencement.</p></div></div>
+        <div class="proc-item"><div class="proc-num">02</div><div><h4>Threat Modelling</h4><p>We model the realistic threat landscape for your organisation &mdash; which threat actors are motivated to target you, what their objectives are, and which attack paths are most likely given your profile.</p></div></div>
+        <div class="proc-item"><div class="proc-num">03</div><div><h4>Technical Testing</h4><p>Authorised penetration testing and vulnerability assessment of in-scope systems using PTES methodology and OWASP testing guides, with financial-sector-specific test cases included.</p></div></div>
+        <div class="proc-item"><div class="proc-num">04</div><div><h4>Staff Awareness Testing</h4><p>Where authorised: phishing simulation, vishing tests, and USB drop exercises targeting financial sector staff who handle payments, customer data, or system access.</p></div></div>
+        <div class="proc-item"><div class="proc-num">05</div><div><h4>Findings &amp; Reporting</h4><p>Technical findings report with CVSS v3.1 severity ratings, proof-of-concept evidence, and remediation guidance. Executive summary written for board and regulator audience, not just technical teams.</p></div></div>
+        <div class="proc-item"><div class="proc-num">06</div><div><h4>Remediation Verification</h4><p>After remediation, identified vulnerabilities are re-tested to confirm fixes are effective. Updated report issued for audit evidence and regulatory reporting.</p></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Engagement Portfolio</h3>
+      <div class="media-grid">
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Financial platform threat model</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">API penetration test findings</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Phishing simulation results</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#feeaea"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Executive security report</div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Credentials &amp; Standards</h3>
+      <div class="certs-grid">
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>CEH &mdash; Certified Ethical Hacker</h4><p>EC-Council Certified Ethical Hacker certification for authorised security testing engagements.</p><span class="cert-badge">TARGETED</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>eJPT &mdash; eLearnSecurity</h4><p>eLearnSecurity Junior Penetration Tester certification for hands-on penetration testing capability.</p><span class="cert-badge">IN PROGRESS</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>PTES Methodology</h4><p>All penetration testing follows the Penetration Testing Execution Standard with OWASP Top 10 and financial-sector-specific test cases.</p><span class="cert-badge">STANDARD</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>Banking Sector Experience</h4><p>Direct banking experience informs realistic threat modelling and provides credibility when presenting findings to financial sector leadership teams.</p><span class="cert-badge">ACTIVE</span></div></div>
+      </div>
+    </div>
+    <div class="section-block fade-up">
+      <h3>Book This Service / Request a Quote</h3>
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <h3>How It Works</h3>
+          <p>Describe the systems you need tested or the security concern you need assessed. We'll respond with a scoped proposal within one business day.</p>
+          <div class="booking-steps">
+            <div class="bstep"><div class="bstep-num">1</div><p>Submit your systems, scope, and security concern</p></div>
+            <div class="bstep"><div class="bstep-num">2</div><p>We produce a scoped testing proposal with methodology, timelines, and fixed price</p></div>
+            <div class="bstep"><div class="bstep-num">3</div><p>Testing is conducted, findings reported, and remediation verified</p></div>
+          </div>
+          <div class="quote-note">All testing is explicitly authorised in writing before commencement. Rules of engagement are agreed and documented for audit evidence.</div>
+        </div>
+        <div class="booking-form">
+          <div id="bf-finsec-form">
+            <div class="bf-title">Request a Quote &mdash; Financial Security</div>
+            <div class="bf-row"><div class="bf-field"><label>First Name</label><input type="text" placeholder="John"/></div><div class="bf-field"><label>Last Name</label><input type="text" placeholder="Doe"/></div></div>
+            <div class="bf-field"><label>Email Address</label><input type="email" placeholder="john@company.com"/></div>
+            <div class="bf-field"><label>Company</label><input type="text" placeholder="Your company"/></div>
+            <div class="bf-field"><label>Phone</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="bf-field"><label>Service Required</label><select><option value="">Select...</option><option>Penetration Testing &mdash; Web Application</option><option>Penetration Testing &mdash; API</option><option>Threat Modelling</option><option>PCI DSS Security Assessment</option><option>Phishing / Social Engineering Simulation</option><option>Comprehensive Security Review</option></select></div>
+            <div class="bf-field"><label>Regulatory Context</label><select><option value="">Select...</option><option>FCA Regulated</option><option>PCI DSS Merchant / Service Provider</option><option>Not directly regulated &mdash; due diligence only</option><option>Other / unsure</option></select></div>
+            <div class="bf-field"><label>Description</label><textarea placeholder="What systems are in scope? What is driving this engagement (audit, incident, new product launch, annual review)?"></textarea></div>
+            <button class="bf-submit" onclick="submitBooking('finsec')">Submit Enquiry</button>
+          </div>
+          <div class="bf-success" id="bf-finsec-success"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg><h4>Enquiry Received!</h4><p>Our FinSec team will review your requirements and respond within one business day.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="logo">Qua<span style="color:#93b4f5">tech</span></a>
+  <p>Financial Services Division</p>
+  <p>&copy; 2026 Quatech. All rights reserved.</p>
+</footer>
+
+<script>
+function showPage(id, tagEl, type, tabEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.hero-tag').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.svc-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.hero-tag').forEach(t => {
+    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('active');
+  });
+  document.querySelectorAll('.svc-tab').forEach(t => {
+    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(() => {
+    document.querySelectorAll('#page-' + id + ' .fade-up').forEach((el,i) => {
+      setTimeout(() => el.classList.add('in'), i * 80);
+    });
+  }, 100);
+}
+function submitBooking(svc) {
+  document.getElementById('bf-' + svc + '-form').style.display = 'none';
+  document.getElementById('bf-' + svc + '-success').style.display = 'block';
+}
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.08});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
