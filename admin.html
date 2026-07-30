@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin &mdash; Quatech</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0b1e3d;--blue:#1a56db;--blue-lt:#e8f0fe;--border:#e2e6ef;--bg:#f7f8fa;--white:#fff;--text:#1a202c;--muted:#637085;--green:#0d9e72;--green-lt:#e6f9f3;--amber:#c07a0a;--amber-lt:#fef3e0;--red:#c0392b;--red-lt:#feeaea}
+body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* LOGIN */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--navy)}
+.login-box{background:var(--white);border-radius:16px;padding:2.5rem;width:340px;max-width:90vw}
+.login-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--navy);margin-bottom:0.25rem}
+.login-logo span{color:#93b4f5}
+.login-sub{font-size:0.8rem;color:var(--muted);margin-bottom:2rem}
+.login-label{font-size:0.72rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:0.4rem}
+.login-input{width:100%;border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;font-size:0.88rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s}
+.login-input:focus{border-color:var(--blue)}
+.login-btn{width:100%;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:0.8rem;font-size:0.9rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;margin-top:1rem;transition:background 0.2s}
+.login-btn:hover{background:#162d5a}
+.login-error{color:var(--red);font-size:0.8rem;margin-top:0.5rem;display:none}
+
+/* DASHBOARD */
+#dashboard{display:none;min-height:100vh}
+.dash-nav{background:var(--navy);padding:0 5vw;height:60px;display:flex;align-items:center;justify-content:space-between}
+.dash-nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#fff}
+.dash-nav-logo span{color:#93b4f5}
+.dash-nav-right{display:flex;align-items:center;gap:1rem}
+.dash-nav-label{font-size:0.75rem;color:#6a85a8}
+.logout-btn{font-size:0.78rem;color:#93b4f5;background:none;border:none;cursor:pointer;transition:color 0.2s}
+.logout-btn:hover{color:#fff}
+
+.dash-body{padding:2rem 5vw;max-width:1200px;margin:0 auto}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem}
+.stat-label{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-bottom:0.4rem}
+.stat-value{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:var(--navy);line-height:1}
+.stat-card.s-new .stat-value{color:var(--blue)}
+.stat-card.s-responded .stat-value{color:var(--green)}
+
+/* FILTERS */
+.filters-bar{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.5rem;display:flex;gap:1rem;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-group{display:flex;flex-direction:column;gap:0.25rem}
+.filter-label{font-size:0.68rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase}
+.filter-select,.filter-input{border:1px solid var(--border);border-radius:6px;padding:0.4rem 0.75rem;font-size:0.82rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;background:var(--white);transition:border-color 0.2s}
+.filter-select:focus,.filter-input:focus{border-color:var(--blue)}
+.filter-input{min-width:200px}
+.refresh-btn{margin-left:auto;background:var(--blue-lt);border:1px solid #c0d4f8;color:var(--blue);border-radius:6px;padding:0.4rem 1rem;font-size:0.8rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:background 0.2s}
+.refresh-btn:hover{background:#d0e4fc}
+
+/* ENQUIRIES LIST */
+.enquiries-list{display:flex;flex-direction:column;gap:0.75rem}
+.eq-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s}
+.eq-card.is-new{border-left:3px solid var(--blue)}
+.eq-card.is-responded{border-left:3px solid var(--green)}
+.eq-card.is-read{border-left:3px solid var(--border)}
+.eq-header{display:grid;grid-template-columns:1fr auto;align-items:center;padding:1rem 1.25rem;cursor:pointer;gap:1rem}
+.eq-header:hover{background:var(--bg)}
+.eq-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.eq-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;color:var(--navy)}
+.eq-email{font-size:0.78rem;color:var(--blue);text-decoration:none}
+.eq-email:hover{text-decoration:underline}
+.eq-service{font-size:0.72rem;background:var(--bg);border:1px solid var(--border);padding:0.18rem 0.6rem;border-radius:100px;color:var(--muted)}
+.eq-date{font-size:0.72rem;color:var(--muted)}
+.eq-right{display:flex;align-items:center;gap:0.6rem}
+.status-badge{font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.65rem;border-radius:100px}
+.sb-new{background:var(--blue-lt);color:var(--blue)}
+.sb-read{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+.sb-responded{background:var(--green-lt);color:var(--green)}
+.eq-chevron{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;transition:transform 0.2s}
+.eq-card.open .eq-chevron{transform:rotate(180deg)}
+
+/* EXPANDED DETAIL */
+.eq-detail{display:none;border-top:1px solid var(--border);padding:1.25rem 1.5rem;background:var(--bg)}
+.eq-card.open .eq-detail{display:block}
+.eq-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:600px){.eq-detail-grid{grid-template-columns:1fr}}
+.eq-fields h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:var(--navy);margin-bottom:0.75rem}
+.eq-field-row{display:flex;gap:0.75rem;font-size:0.8rem;padding:0.4rem 0;border-bottom:1px solid var(--border)}
+.eq-field-row:last-child{border-bottom:none}
+.eq-field-key{color:var(--muted);min-width:120px;flex-shrink:0;font-weight:500}
+.eq-field-val{color:var(--text)}
+.eq-actions h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:var(--navy);margin-bottom:0.75rem}
+.notes-area{width:100%;border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.85rem;font-size:0.82rem;font-family:'DM Sans',sans-serif;resize:vertical;min-height:80px;outline:none;background:var(--white);transition:border-color 0.2s;margin-bottom:0.75rem}
+.notes-area:focus{border-color:var(--blue)}
+.action-btns{display:flex;gap:0.5rem;flex-wrap:wrap}
+.act-btn{padding:0.45rem 0.9rem;border-radius:7px;font-size:0.78rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border:none;transition:opacity 0.15s,transform 0.15s}
+.act-btn:hover{opacity:0.85;transform:translateY(-1px)}
+.btn-read{background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+.btn-responded{background:var(--green-lt);color:var(--green);border:1px solid rgba(13,158,114,0.2)}
+.btn-reply{background:var(--blue-lt);color:var(--blue);border:1px solid rgba(26,86,219,0.2)}
+.btn-save{background:var(--navy);color:#fff}
+.btn-delete{background:var(--red-lt);color:var(--red);border:1px solid rgba(192,57,43,0.2)}
+
+.empty-state{text-align:center;padding:4rem 2rem;color:var(--muted)}
+.empty-state svg{width:48px;height:48px;stroke:var(--border);fill:none;stroke-width:1.2;margin:0 auto 1rem;display:block}
+.empty-state p{font-size:0.88rem}
+
+.loading{text-align:center;padding:3rem;color:var(--muted);font-size:0.88rem}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Qua<span>tech</span></div>
+    <div class="login-sub">Admin Dashboard &mdash; Sign in to continue</div>
+    <label class="login-label" for="pwd">Admin Password</label>
+    <input class="login-input" type="password" id="pwd" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="login-btn" onclick="login()">Sign In</button>
+    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <nav class="dash-nav">
+    <div class="dash-nav-logo">Qua<span>tech</span> Admin</div>
+    <div class="dash-nav-right">
+      <span class="dash-nav-label" id="dash-nav-date"></span>
+      <button class="logout-btn" onclick="logout()">Sign out</button>
+    </div>
+  </nav>
+  <div class="dash-body">
+    <!-- Stats -->
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card"><div class="stat-label">Total Enquiries</div><div class="stat-value" id="s-total">--</div></div>
+      <div class="stat-card s-new"><div class="stat-label">New</div><div class="stat-value" id="s-new">--</div></div>
+      <div class="stat-card"><div class="stat-label">Read</div><div class="stat-value" id="s-read">--</div></div>
+      <div class="stat-card s-responded"><div class="stat-label">Responded</div><div class="stat-value" id="s-responded">--</div></div>
+    </div>
+    <!-- Filters -->
+    <div class="filters-bar">
+      <div class="filter-group">
+        <div class="filter-label">Status</div>
+        <select class="filter-select" id="filter-status" onchange="loadEnquiries()">
+          <option value="all">All</option>
+          <option value="new">New</option>
+          <option value="read">Read</option>
+          <option value="responded">Responded</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Service</div>
+        <select class="filter-select" id="filter-service" onchange="loadEnquiries()">
+          <option value="all">All Services</option>
+          <option value="Network">Network Services</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="Software">Software Services</option>
+          <option value="Financial">Financial Services</option>
+          <option value="Engineering">Engineering Services</option>
+        </select>
+      </div>
+      <button class="refresh-btn" onclick="refresh()">&#8635; Refresh</button>
+    </div>
+    <!-- List -->
+    <div class="enquiries-list" id="enquiries-list">
+      <div class="loading">Loading enquiries&hellip;</div>
+    </div>
+  </div>
+</div>
+
+<script>
+let adminKey = '';
+let allEnquiries = [];
+let openId = null;
+
+function login() {
+  const pwd = document.getElementById('pwd').value.trim();
+  if (!pwd) return;
+  adminKey = pwd;
+  verifyAndLoad();
+}
+
+async function verifyAndLoad() {
+  try {
+    const res = await fetch('/api/enquiries/stats', { headers: { 'x-admin-key': adminKey } });
+    if (res.status === 401) {
+      document.getElementById('login-error').style.display = 'block';
+      adminKey = '';
+      return;
+    }
+    const stats = await res.json();
+    sessionStorage.setItem('quatech_admin_key', adminKey);
+    showDashboard(stats);
+    loadEnquiries();
+  } catch(e) {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function showDashboard(stats) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('dash-nav-date').textContent = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  updateStats(stats);
+}
+
+function updateStats(stats) {
+  document.getElementById('s-total').textContent = stats.total;
+  document.getElementById('s-new').textContent = stats.new;
+  document.getElementById('s-read').textContent = stats.read;
+  document.getElementById('s-responded').textContent = stats.responded;
+}
+
+async function loadStats() {
+  try {
+    const res = await fetch('/api/enquiries/stats', { headers: { 'x-admin-key': adminKey } });
+    if (res.ok) updateStats(await res.json());
+  } catch(e) {}
+}
+
+async function loadEnquiries() {
+  const status = document.getElementById('filter-status').value;
+  const service = document.getElementById('filter-service').value;
+  let url = '/api/enquiries?status=' + status + '&service=' + service;
+  document.getElementById('enquiries-list').innerHTML = '<div class="loading">Loading&hellip;</div>';
+  try {
+    const res = await fetch(url, { headers: { 'x-admin-key': adminKey } });
+    allEnquiries = await res.json();
+    renderEnquiries();
+  } catch(e) {
+    document.getElementById('enquiries-list').innerHTML = '<div class="loading">Failed to load. Check connection.</div>';
+  }
+}
+
+function refresh() { loadStats(); loadEnquiries(); }
+
+function renderEnquiries() {
+  const el = document.getElementById('enquiries-list');
+  if (!allEnquiries.length) {
+    el.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><p>No enquiries match the current filter.</p></div>';
+    return;
+  }
+  el.innerHTML = allEnquiries.map(eq => renderCard(eq)).join('');
+}
+
+function renderCard(eq) {
+  const isOpen = openId === eq.id;
+  const sbClass = { new: 'sb-new', read: 'sb-read', responded: 'sb-responded' }[eq.status] || 'sb-read';
+  const cardClass = 'eq-card is-' + eq.status + (isOpen ? ' open' : '');
+  const fields = tryParseFields(eq.fields);
+  const dt = new Date(eq.created_at + 'Z').toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+  const fieldRows = Object.entries(fields).map(([k,v]) =>
+    `<div class="eq-field-row"><span class="eq-field-key">${esc(k)}</span><span class="eq-field-val">${esc(v)}</span></div>`
+  ).join('');
+
+  return `
+<div class="${cardClass}" id="eq-${eq.id}">
+  <div class="eq-header" onclick="toggleCard(${eq.id})">
+    <div class="eq-meta">
+      <span class="eq-name">${esc(eq.name)}</span>
+      <a class="eq-email" href="mailto:${esc(eq.email)}" onclick="event.stopPropagation()">${esc(eq.email)}</a>
+      ${eq.service ? `<span class="eq-service">${esc(eq.service)}</span>` : ''}
+      <span class="eq-date">${dt}</span>
+    </div>
+    <div class="eq-right">
+      <span class="status-badge ${sbClass}">${eq.status}</span>
+      <svg class="eq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </div>
+  <div class="eq-detail">
+    <div class="eq-detail-grid">
+      <div class="eq-fields">
+        <h4>Enquiry Details</h4>
+        <div class="eq-field-row"><span class="eq-field-key">Name</span><span class="eq-field-val">${esc(eq.name)}</span></div>
+        <div class="eq-field-row"><span class="eq-field-key">Email</span><span class="eq-field-val"><a href="mailto:${esc(eq.email)}">${esc(eq.email)}</a></span></div>
+        ${eq.phone ? `<div class="eq-field-row"><span class="eq-field-key">Phone</span><span class="eq-field-val">${esc(eq.phone)}</span></div>` : ''}
+        ${eq.company ? `<div class="eq-field-row"><span class="eq-field-key">Company</span><span class="eq-field-val">${esc(eq.company)}</span></div>` : ''}
+        ${fieldRows}
+      </div>
+      <div class="eq-actions">
+        <h4>Actions &amp; Notes</h4>
+        <textarea class="notes-area" id="notes-${eq.id}" placeholder="Add internal notes here&hellip;">${esc(eq.notes || '')}</textarea>
+        <div class="action-btns">
+          <button class="act-btn btn-save" onclick="saveNotes(${eq.id})">Save Notes</button>
+          <button class="act-btn btn-read" onclick="setStatus(${eq.id},'read')">Mark Read</button>
+          <button class="act-btn btn-responded" onclick="setStatus(${eq.id},'responded')">&#10003; Responded</button>
+          <button class="act-btn btn-reply" onclick="replyEmail('${esc(eq.email)}','${esc(eq.name)}','${esc(eq.service)}')">&#9993; Reply</button>
+          <button class="act-btn btn-delete" onclick="deleteEnquiry(${eq.id})">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`;
+}
+
+function tryParseFields(raw) {
+  try { return JSON.parse(raw || '{}'); } catch(e) { return {}; }
+}
+
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toggleCard(id) {
+  openId = openId === id ? null : id;
+  renderEnquiries();
+  if (openId) document.getElementById('eq-' + id).scrollIntoView({ behavior:'smooth', block:'nearest' });
+  if (openId) setRead(id);
+}
+
+async function setRead(id) {
+  const eq = allEnquiries.find(e => e.id === id);
+  if (eq && eq.status === 'new') await setStatus(id, 'read', false);
+}
+
+async function setStatus(id, status, rerender = true) {
+  const eq = allEnquiries.find(e => e.id === id);
+  const notes = document.getElementById('notes-' + id)?.value || eq?.notes || '';
+  await fetch('/api/enquiry/' + id, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
+    body: JSON.stringify({ status, notes })
+  });
+  if (eq) eq.status = status;
+  if (rerender) { renderEnquiries(); loadStats(); }
+}
+
+async function saveNotes(id) {
+  const eq = allEnquiries.find(e => e.id === id);
+  const notes = document.getElementById('notes-' + id)?.value || '';
+  await fetch('/api/enquiry/' + id, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
+    body: JSON.stringify({ status: eq?.status || 'read', notes })
+  });
+  if (eq) eq.notes = notes;
+  const btn = document.querySelector(`#eq-${id} .btn-save`);
+  if (btn) { btn.textContent = 'Saved ✓'; setTimeout(() => { btn.textContent = 'Save Notes'; }, 1500); }
+}
+
+async function deleteEnquiry(id) {
+  if (!confirm('Delete this enquiry? This cannot be undone.')) return;
+  await fetch('/api/enquiry/' + id, { method: 'DELETE', headers: { 'x-admin-key': adminKey } });
+  allEnquiries = allEnquiries.filter(e => e.id !== id);
+  if (openId === id) openId = null;
+  renderEnquiries();
+  loadStats();
+}
+
+function replyEmail(email, name, service) {
+  const subject = encodeURIComponent('Re: Your enquiry – ' + service + ' – Quatech');
+  const body = encodeURIComponent('Dear ' + name + ',\n\nThank you for contacting Quatech regarding our ' + service + '.\n\n');
+  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+}
+
+function logout() {
+  sessionStorage.removeItem('quatech_admin_key');
+  adminKey = '';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pwd').value = '';
+  document.getElementById('login-error').style.display = 'none';
+}
+
+// Auto-login from session
+const savedKey = sessionStorage.getItem('quatech_admin_key');
+if (savedKey) { adminKey = savedKey; verifyAndLoad(); }
+</script>
+</body>
+</html>

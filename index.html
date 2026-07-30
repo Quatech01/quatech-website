@@ -561,19 +561,35 @@ function closeMenu(){
 async function submitForm(e){
   e.preventDefault();
   const form = document.getElementById('cf');
-  const fields = form.querySelectorAll('.bf-field, .cf-field');
-  const data = { '_subject': 'New Enquiry &mdash; Quatech Website' };
+  const formData = { '_subject': 'New Enquiry &mdash; Quatech Website' };
+  let name = '', email = '', phone = '', company = '';
   form.querySelectorAll('input, select, textarea').forEach(input => {
     const label = input.closest('[class]') && input.closest('[class]').querySelector('label');
-    if (label && input.value.trim()) data[label.textContent.trim()] = input.value.trim();
+    if (label && input.value.trim()) {
+      const key = label.textContent.trim(), val = input.value.trim();
+      formData[key] = val;
+      const kl = key.toLowerCase();
+      if (!name && kl.includes('name') && !kl.includes('company') && !kl.includes('business')) name = val;
+      if (!email && kl.includes('email')) email = val;
+      if (!phone && (kl.includes('phone') || kl.includes('mobile'))) phone = val;
+      if (!company && (kl.includes('company') || kl.includes('organisation') || kl.includes('organization') || kl.includes('business'))) company = val;
+    }
   });
   try {
-    const res = await fetch('https://formspree.io/f/xkodanwb', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    });
-    if (res.ok) {
+    const [dbRes, fsRes] = await Promise.allSettled([
+      fetch('/api/enquiry', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, phone, company, service: 'General', fields: formData }),
+        headers: { 'Content-Type': 'application/json' }
+      }),
+      fetch('https://formspree.io/f/xkodanwb', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      })
+    ]);
+    const ok = (fsRes.status === 'fulfilled' && fsRes.value.ok) || (dbRes.status === 'fulfilled' && dbRes.value.ok);
+    if (ok) {
       form.style.display='none';
       document.getElementById('cf-success').style.display='block';
     } else {
