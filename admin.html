@@ -248,7 +248,6 @@ async function verifyAndLoad() {
       return;
     }
     const stats = await res.json();
-    sessionStorage.setItem('quatech_admin_key', adminKey);
     showDashboard(stats);
     loadEnquiries();
     resetSessionTimer();
@@ -423,7 +422,6 @@ function replyEmail(email, name, service) {
 function logout() {
   clearTimeout(sessionTimer);
   clearTimeout(warnTimer);
-  sessionStorage.removeItem('quatech_admin_key');
   adminKey = '';
   document.getElementById('session-warning').style.display = 'none';
   document.getElementById('dashboard').style.display = 'none';
@@ -433,9 +431,6 @@ function logout() {
   document.getElementById('login-lockout').style.display = 'none';
 }
 
-// Auto-login from session
-const savedKey = sessionStorage.getItem('quatech_admin_key');
-if (savedKey) { adminKey = savedKey; verifyAndLoad(); }
 </script>
 </body>
 </html>
