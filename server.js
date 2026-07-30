@@ -7,8 +7,21 @@ const PORT = process.env.PORT || 3000;
 const ADMIN_KEY = process.env.ADMIN_PASSWORD || 'quatech-admin-2026';
 
 const MAX_ATTEMPTS = 5;
-const LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes
+const LOCKOUT_MS = 15 * 60 * 1000;
 const loginAttempts = new Map(); // ip -> { count, lockedUntil }
+
+const RATE_LIMIT = 3;
+const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const submissionLog = new Map(); // ip -> [timestamps]
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const log = (submissionLog.get(ip) || []).filter(t => now - t < RATE_WINDOW_MS);
+  if (log.length >= RATE_LIMIT) return false;
+  log.push(now);
+  submissionLog.set(ip, log);
+  return true;
+}
 
 const dataDir = path.join(__dirname, 'data');
 const dbFile = path.join(dataDir, 'enquiries.json');
@@ -80,7 +93,10 @@ function requireAdmin(req, res, next) {
 // POST /api/enquiry
 app.post('/api/enquiry', (req, res) => {
   try {
-    const { name, email, phone, company, service, fields } = req.body;
+    const { name, email, phone, company, service, fields, hp } = req.body;
+    if (hp) return res.json({ ok: true }); // honeypot triggered — silently discard
+    const ip = getClientIP(req);
+    if (!checkRateLimit(ip)) return res.status(429).json({ error: 'Too many submissions. Please try again in an hour.' });
     if (!name || !email) return res.status(400).json({ error: 'Name and email required' });
     const db = readDB();
     const enquiry = {

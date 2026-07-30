@@ -743,6 +743,7 @@ function showPage(id, tagEl, type, tabEl) {
 
 async function submitBooking(svc) {
   const container = document.getElementById('bf-' + svc + '-form');
+  const hp = (container.querySelector('.hp-input') || {}).value || '';
   const bfFields = container.querySelectorAll('.bf-field');
   const formData = {};
   let name = '', email = '', phone = '', company = '';
@@ -763,7 +764,7 @@ async function submitBooking(svc) {
     const [dbRes, fsRes] = await Promise.allSettled([
       fetch('/api/enquiry', {
         method: 'POST',
-        body: JSON.stringify({ name, email, phone, company, service: 'Engineering Services', fields: formData }),
+        body: JSON.stringify({ name, email, phone, company, service: 'Engineering Services', fields: formData, hp }),
         headers: { 'Content-Type': 'application/json' }
       }),
       fetch('https://formspree.io/f/xkodanwb', {
@@ -788,6 +789,13 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
 }, {threshold: 0.08});
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+document.querySelectorAll('[id$="-form"]').forEach(form => {
+  const trap = document.createElement('div');
+  trap.setAttribute('aria-hidden', 'true');
+  trap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden';
+  trap.innerHTML = '<input type="text" class="hp-input" tabindex="-1" autocomplete="new-password">';
+  form.appendChild(trap);
+});
 </script>
 </body>
 </html>
