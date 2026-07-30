@@ -549,9 +549,30 @@ function showPage(id, tagEl, type, tabEl) {
     });
   }, 100);
 }
-function submitBooking(svc) {
-  document.getElementById('bf-' + svc + '-form').style.display = 'none';
-  document.getElementById('bf-' + svc + '-success').style.display = 'block';
+async function submitBooking(svc) {
+  const container = document.getElementById('bf-' + svc + '-form');
+  const fields = container.querySelectorAll('.bf-field');
+  const data = { '_subject': 'New Enquiry — Network Services — Quatech' };
+  fields.forEach(field => {
+    const label = field.querySelector('label');
+    const input = field.querySelector('input, select, textarea');
+    if (label && input && input.value.trim()) data[label.textContent.trim()] = input.value.trim();
+  });
+  try {
+    const res = await fetch('https://formspree.io/f/xkodanwb', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    });
+    if (res.ok) {
+      container.style.display = 'none';
+      document.getElementById('bf-' + svc + '-success').style.display = 'block';
+    } else {
+      alert('Something went wrong. Please email us at info@quatech.co.uk');
+    }
+  } catch(e) {
+    alert('Network error. Please try again or email us directly.');
+  }
 }
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
