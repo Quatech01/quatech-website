@@ -6,6 +6,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_KEY = process.env.ADMIN_PASSWORD || 'quatech-admin-2026';
 
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes
+const loginAttempts = new Map(); // ip -> { count, lockedUntil }
+
 const dataDir = path.join(__dirname, 'data');
 const dbFile = path.join(dataDir, 'enquiries.json');
 
@@ -21,17 +25,59 @@ function writeDB(data) {
   fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
 }
 
+// Security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  res.setHeader('Content-Security-Policy',
+    "default-src 'self'; " +
+    "script-src 'self' 'unsafe-inline'; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "font-src 'self' https://fonts.gstatic.com; " +
+    "img-src 'self' data: https:; " +
+    "connect-src 'self' https://formspree.io https://mail.google.com; " +
+    "frame-ancestors 'none';"
+  );
+  next();
+});
+
 app.use(express.json({ limit: '50kb' }));
 app.use('/data', (req, res) => res.status(404).end());
 app.use(express.static(path.join(__dirname), { index: 'index.html' }));
 
+function getClientIP(req) {
+  return (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.ip || 'unknown';
+}
+
 function requireAdmin(req, res, next) {
+  const ip = getClientIP(req);
+  const now = Date.now();
+  const record = loginAttempts.get(ip) || { count: 0, lockedUntil: 0 };
+
+  if (record.lockedUntil > now) {
+    const mins = Math.ceil((record.lockedUntil - now) / 60000);
+    return res.status(429).json({ error: `Too many failed attempts. Try again in ${mins} minute${mins === 1 ? '' : 's'}.` });
+  }
+
   if (req.headers['x-admin-key'] !== ADMIN_KEY) {
+    record.count += 1;
+    if (record.count >= MAX_ATTEMPTS) {
+      record.lockedUntil = now + LOCKOUT_MS;
+      record.count = 0;
+    }
+    loginAttempts.set(ip, record);
     return res.status(401).json({ error: 'Unauthorized' });
   }
+
+  loginAttempts.delete(ip);
   next();
 }
 
+// POST /api/enquiry
 app.post('/api/enquiry', (req, res) => {
   try {
     const { name, email, phone, company, service, fields } = req.body;
@@ -58,6 +104,7 @@ app.post('/api/enquiry', (req, res) => {
   }
 });
 
+// GET /api/enquiries (admin)
 app.get('/api/enquiries', requireAdmin, (req, res) => {
   const { status, service } = req.query;
   let list = readDB().enquiries;
@@ -66,6 +113,7 @@ app.get('/api/enquiries', requireAdmin, (req, res) => {
   res.json(list);
 });
 
+// GET /api/enquiries/stats (admin)
 app.get('/api/enquiries/stats', requireAdmin, (req, res) => {
   const list = readDB().enquiries;
   res.json({
@@ -76,6 +124,7 @@ app.get('/api/enquiries/stats', requireAdmin, (req, res) => {
   });
 });
 
+// PATCH /api/enquiry/:id (admin)
 app.patch('/api/enquiry/:id', requireAdmin, (req, res) => {
   const id = parseInt(req.params.id);
   const { status, notes } = req.body;
@@ -88,6 +137,7 @@ app.patch('/api/enquiry/:id', requireAdmin, (req, res) => {
   res.json({ ok: true });
 });
 
+// DELETE /api/enquiry/:id (admin)
 app.delete('/api/enquiry/:id', requireAdmin, (req, res) => {
   const id = parseInt(req.params.id);
   const db = readDB();

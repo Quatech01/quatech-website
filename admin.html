@@ -22,6 +22,12 @@ body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--bg);color
 .login-btn{width:100%;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:0.8rem;font-size:0.9rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;margin-top:1rem;transition:background 0.2s}
 .login-btn:hover{background:#162d5a}
 .login-error{color:var(--red);font-size:0.8rem;margin-top:0.5rem;display:none}
+.login-lockout{color:var(--amber);font-size:0.8rem;margin-top:0.5rem;display:none}
+
+/* SESSION TIMEOUT BANNER */
+#session-warning{display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:0.85rem 1.5rem;border-radius:10px;font-size:0.85rem;display:none;align-items:center;gap:1rem;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1)}
+#session-warning span{color:#f5c542;font-weight:500}
+#session-warning button{background:#1a56db;color:#fff;border:none;border-radius:6px;padding:0.35rem 0.85rem;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif}
 
 /* DASHBOARD */
 #dashboard{display:none;min-height:100vh}
@@ -116,10 +122,15 @@ body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--bg);color
     <input class="login-input" type="password" id="pwd" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')login()"/>
     <button class="login-btn" onclick="login()">Sign In</button>
     <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+    <div class="login-lockout" id="login-lockout"></div>
   </div>
 </div>
 
 <!-- DASHBOARD -->
+<div id="session-warning">
+  Session expires in <span id="session-countdown"></span> &mdash; <button onclick="resetSessionTimer()">Stay signed in</button>
+</div>
+
 <div id="dashboard">
   <nav class="dash-nav">
     <div class="dash-nav-logo">Qua<span>tech</span> Admin</div>
@@ -172,6 +183,45 @@ let adminKey = '';
 let allEnquiries = [];
 let openId = null;
 
+// Session timeout: 30 min, warn at 5 min remaining
+const SESSION_MS = 30 * 60 * 1000;
+const WARN_MS = 5 * 60 * 1000;
+let sessionTimer = null;
+let warnTimer = null;
+
+function resetSessionTimer() {
+  clearTimeout(sessionTimer);
+  clearTimeout(warnTimer);
+  document.getElementById('session-warning').style.display = 'none';
+  if (!adminKey) return;
+  warnTimer = setTimeout(showSessionWarning, SESSION_MS - WARN_MS);
+  sessionTimer = setTimeout(() => {
+    logout();
+    alert('Your session has expired. Please sign in again.');
+  }, SESSION_MS);
+}
+
+function showSessionWarning() {
+  const warn = document.getElementById('session-warning');
+  warn.style.display = 'flex';
+  let secs = Math.floor(WARN_MS / 1000);
+  document.getElementById('session-countdown').textContent = formatCountdown(secs);
+  const tick = setInterval(() => {
+    secs--;
+    if (secs <= 0) { clearInterval(tick); return; }
+    document.getElementById('session-countdown').textContent = formatCountdown(secs);
+  }, 1000);
+}
+
+function formatCountdown(secs) {
+  const m = Math.floor(secs / 60), s = secs % 60;
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+['click','keydown','mousemove','touchstart'].forEach(evt =>
+  document.addEventListener(evt, () => { if (adminKey) resetSessionTimer(); }, { passive: true })
+);
+
 function login() {
   const pwd = document.getElementById('pwd').value.trim();
   if (!pwd) return;
@@ -182,8 +232,18 @@ function login() {
 async function verifyAndLoad() {
   try {
     const res = await fetch('/api/enquiries/stats', { headers: { 'x-admin-key': adminKey } });
+    if (res.status === 429) {
+      const data = await res.json().catch(() => ({ error: 'Too many attempts. Please wait before trying again.' }));
+      const lockEl = document.getElementById('login-lockout');
+      lockEl.textContent = data.error;
+      lockEl.style.display = 'block';
+      document.getElementById('login-error').style.display = 'none';
+      adminKey = '';
+      return;
+    }
     if (res.status === 401) {
       document.getElementById('login-error').style.display = 'block';
+      document.getElementById('login-lockout').style.display = 'none';
       adminKey = '';
       return;
     }
@@ -191,6 +251,7 @@ async function verifyAndLoad() {
     sessionStorage.setItem('quatech_admin_key', adminKey);
     showDashboard(stats);
     loadEnquiries();
+    resetSessionTimer();
   } catch(e) {
     document.getElementById('login-error').style.display = 'block';
   }
@@ -360,12 +421,16 @@ function replyEmail(email, name, service) {
 }
 
 function logout() {
+  clearTimeout(sessionTimer);
+  clearTimeout(warnTimer);
   sessionStorage.removeItem('quatech_admin_key');
   adminKey = '';
+  document.getElementById('session-warning').style.display = 'none';
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('pwd').value = '';
   document.getElementById('login-error').style.display = 'none';
+  document.getElementById('login-lockout').style.display = 'none';
 }
 
 // Auto-login from session
