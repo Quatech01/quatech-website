@@ -248,8 +248,9 @@ function renderCard(eq) {
   const cardClass = 'eq-card is-' + eq.status + (isOpen ? ' open' : '');
   const fields = tryParseFields(eq.fields);
   const displayName = (eq.name + (fields['Last Name'] ? ' ' + fields['Last Name'] : '')).trim() || '(no name)';
-  const skipKeys = new Set(['First Name', 'Last Name']);
-  const dt = new Date(eq.created_at + 'Z').toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  const skipKeys = new Set(['First Name', 'Last Name', 'Email Address', 'Email', 'Company', 'Company Name', 'Phone', 'Phone Number', 'Mobile', 'Name', 'Full Name']);
+  const dtRaw = eq.created_at.endsWith('Z') ? eq.created_at : eq.created_at + 'Z';
+  const dt = new Date(dtRaw).toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
 
   const fieldRows = Object.entries(fields)
     .filter(([k]) => !skipKeys.has(k))
@@ -353,9 +354,9 @@ async function deleteEnquiry(id) {
 }
 
 function replyEmail(email, name, service) {
-  const subject = encodeURIComponent('Re: Your enquiry – ' + service + ' – Quatech');
-  const body = encodeURIComponent('Dear ' + name + ',\n\nThank you for contacting Quatech regarding our ' + service + '.\n\n');
-  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+  const su = encodeURIComponent('Re: Your enquiry – ' + service + ' – Quatech');
+  const body = encodeURIComponent('Dear ' + name + ',\n\nThank you for contacting Quatech regarding our ' + service + ' services. We have reviewed your enquiry and would like to discuss this further.\n\nBest regards,\nQuatech Team\nquetechglobal@gmail.com');
+  window.open('https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email) + '&su=' + su + '&body=' + body, '_blank');
 }
 
 function logout() {
