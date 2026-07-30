@@ -17,7 +17,7 @@ nav{background:var(--navy);padding:0 5vw;display:flex;align-items:center;justify
 .back-link{font-size:0.8rem;color:#93b4f5;text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s}
 .back-link:hover{color:#fff}
 .back-link svg{width:14px;height:14px;stroke:#93b4f5;fill:none;stroke-width:2}
-.eng-hero{background:var(--navy);padding:4rem 5vw 3rem;position:relative;overflow:hidden}
+.eng-hero{background:linear-gradient(135deg,rgba(12,26,58,0.86) 0%,rgba(8,18,44,0.92) 100%),url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1920&q=60') center/cover no-repeat;padding:4rem 5vw 3rem;position:relative;overflow:hidden}
 .eng-hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:24px 24px}
 .eng-hero-accent{position:absolute;right:-80px;top:-80px;width:340px;height:340px;border:1px solid rgba(147,180,245,0.12);border-radius:50%}
 .eng-hero-accent2{position:absolute;right:-40px;top:-40px;width:200px;height:200px;border:1px solid rgba(147,180,245,0.08);border-radius:50%}
@@ -43,8 +43,8 @@ nav{background:var(--navy);padding:0 5vw;display:flex;align-items:center;justify
 .svc-overview-card:hover{border-color:#93b4f5;box-shadow:0 6px 28px rgba(26,86,219,0.09)}
 .soc-img{height:180px;background:var(--steel);display:flex;align-items:center;justify-content:center}
 .soc-img-placeholder{display:flex;flex-direction:column;align-items:center;gap:0.75rem}
-.soc-img-placeholder svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:0.5}
-.soc-img-placeholder span{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;opacity:0.7}
+.soc-img-placeholder svg{width:40px;height:40px;stroke:rgba(255,255,255,0.85);fill:none;stroke-width:1.2}
+.soc-img-placeholder span{font-size:0.72rem;color:rgba(255,255,255,0.8);letter-spacing:0.06em;font-weight:500}
 .soc-body{padding:1.5rem}
 .soc-tag{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;color:var(--blue);text-transform:uppercase;margin-bottom:0.4rem}
 .soc-body h3{font-family:'Inter',sans-serif;font-weight:700;font-size:0.88rem;color:var(--navy);margin-bottom:0.5rem}
@@ -167,19 +167,19 @@ footer p{font-size:0.76rem;color:#4a6080}
   </div>
   <div class="svc-cards-grid">
     <div class="svc-overview-card fade-up" onclick="showPage('pentest')">
-      <div class="soc-img" style="background:#feeaea"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Offensive Security</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Offensive Security</span></div></div>
       <div class="soc-body"><div class="soc-tag">Offensive</div><h3>Penetration Testing</h3><p>Web, network, and infrastructure penetration testing using industry-standard methodology and tooling.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
     <div class="svc-overview-card fade-up" onclick="showPage('vuln')">
-      <div class="soc-img" style="background:#fff3e0"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span>Assessment</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1563986768494-4759ab5e3498?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span>Assessment</span></div></div>
       <div class="soc-body"><div class="soc-tag">Assessment</div><h3>Vulnerability Assessment &amp; Scanning</h3><p>Systematic scanning and analysis using Nmap, Nikto, and OpenVAS to enumerate and prioritise vulnerabilities.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
     <div class="svc-overview-card fade-up" onclick="showPage('intel')">
-      <div class="soc-img" style="background:#e8f0fe"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>Intelligence</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>Intelligence</span></div></div>
       <div class="soc-body"><div class="soc-tag">Intelligence</div><h3>Threat Intelligence Services</h3><p>IP reputation, geolocation, and threat context powered by our NetraIQ platform integrating AbuseIPDB and live threat feeds.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
     <div class="svc-overview-card fade-up" onclick="showPage('soc')">
-      <div class="soc-img" style="background:#e8faf0"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>Defence</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>Defence</span></div></div>
       <div class="soc-body"><div class="soc-tag">Defence</div><h3>SOC-as-a-Service &amp; Awareness Training</h3><p>Security monitoring and detection for SMEs, plus staff awareness training and phishing simulation programmes.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
   </div>

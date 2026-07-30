@@ -17,7 +17,7 @@ nav{background:var(--navy);padding:0 5vw;display:flex;align-items:center;justify
 .back-link{font-size:0.8rem;color:#93b4f5;text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s}
 .back-link:hover{color:#fff}
 .back-link svg{width:14px;height:14px;stroke:#93b4f5;fill:none;stroke-width:2}
-.eng-hero{background:var(--navy);padding:4rem 5vw 3rem;position:relative;overflow:hidden}
+.eng-hero{background:linear-gradient(135deg,rgba(12,26,58,0.86) 0%,rgba(8,18,44,0.92) 100%),url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1920&q=60') center/cover no-repeat;padding:4rem 5vw 3rem;position:relative;overflow:hidden}
 .eng-hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:24px 24px}
 .eng-hero-accent{position:absolute;right:-80px;top:-80px;width:340px;height:340px;border:1px solid rgba(147,180,245,0.12);border-radius:50%}
 .eng-hero-accent2{position:absolute;right:-40px;top:-40px;width:200px;height:200px;border:1px solid rgba(147,180,245,0.08);border-radius:50%}
@@ -42,8 +42,8 @@ nav{background:var(--navy);padding:0 5vw;display:flex;align-items:center;justify
 .svc-overview-card:hover{border-color:#93b4f5;box-shadow:0 6px 28px rgba(26,86,219,0.09)}
 .soc-img{height:180px;display:flex;align-items:center;justify-content:center}
 .soc-img-placeholder{display:flex;flex-direction:column;align-items:center;gap:0.75rem}
-.soc-img-placeholder svg{width:40px;height:40px;stroke:var(--muted);fill:none;stroke-width:1.2;opacity:0.5}
-.soc-img-placeholder span{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;opacity:0.7}
+.soc-img-placeholder svg{width:40px;height:40px;stroke:rgba(255,255,255,0.85);fill:none;stroke-width:1.2}
+.soc-img-placeholder span{font-size:0.72rem;color:rgba(255,255,255,0.8);letter-spacing:0.06em;font-weight:500}
 .soc-body{padding:1.5rem}
 .soc-tag{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;color:var(--blue);text-transform:uppercase;margin-bottom:0.4rem}
 .soc-body h3{font-family:'Inter',sans-serif;font-weight:700;font-size:0.88rem;color:var(--navy);margin-bottom:0.5rem}
@@ -165,19 +165,19 @@ footer p{font-size:0.76rem;color:#4a6080}
   </div>
   <div class="svc-cards-grid">
     <div class="svc-overview-card fade-up" onclick="showPage('fintech')">
-      <div class="soc-img" style="background:#fef3e0"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span>Fintech</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span>Fintech</span></div></div>
       <div class="soc-body"><div class="soc-tag">Consulting</div><h3>Fintech Consulting</h3><p>Technology strategy, digital transformation roadmaps, and technology selection advisory for financial services businesses.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
     <div class="svc-overview-card fade-up" onclick="showPage('payments')">
-      <div class="soc-img" style="background:#e8f0fe"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span>Payments</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1601597111158-2fceff292cdc?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span>Payments</span></div></div>
       <div class="soc-body"><div class="soc-tag">Integration</div><h3>Payment System Integration</h3><p>Stripe, Open Banking API, and payment gateway integration with PCI DSS compliance and secure transaction handling built in.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
     <div class="svc-overview-card fade-up" onclick="showPage('regtech')">
-      <div class="soc-img" style="background:#e8faf0"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Compliance</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Compliance</span></div></div>
       <div class="soc-body"><div class="soc-tag">RegTech</div><h3>RegTech &amp; Compliance</h3><p>AML/KYC process design, GDPR compliance advisory, FCA regulatory guidance, and compliance audit support for financial operations.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
     <div class="svc-overview-card fade-up" onclick="showPage('finsec')">
-      <div class="soc-img" style="background:#feeaea"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Security</span></div></div>
+      <div class="soc-img" style="background:linear-gradient(rgba(8,18,40,0.54),rgba(8,18,40,0.54)),url('https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=60') center/cover no-repeat"><div class="soc-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Security</span></div></div>
       <div class="soc-body"><div class="soc-tag">FinSec</div><h3>Cybersecurity for Financial Services</h3><p>Threat modelling, penetration testing, and security architecture review tailored to the financial sector threat landscape.</p><span class="soc-btn">View service <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
     </div>
   </div>
