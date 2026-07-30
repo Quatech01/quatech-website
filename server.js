@@ -1,37 +1,28 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const Database = require('better-sqlite3');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_KEY = process.env.ADMIN_PASSWORD || 'quatech-admin-2026';
 
-// Create data dir and init DB
 const dataDir = path.join(__dirname, 'data');
-if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+const dbFile = path.join(dataDir, 'enquiries.json');
 
-const db = new Database(path.join(dataDir, 'enquiries.db'));
-db.exec(`
-  CREATE TABLE IF NOT EXISTS enquiries (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL DEFAULT '',
-    email TEXT NOT NULL DEFAULT '',
-    phone TEXT DEFAULT '',
-    company TEXT DEFAULT '',
-    service TEXT DEFAULT '',
-    fields TEXT DEFAULT '{}',
-    created_at TEXT DEFAULT (datetime('now')),
-    status TEXT DEFAULT 'new',
-    notes TEXT DEFAULT ''
-  )
-`);
+if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+if (!fs.existsSync(dbFile)) fs.writeFileSync(dbFile, JSON.stringify({ nextId: 1, enquiries: [] }));
+
+function readDB() {
+  try { return JSON.parse(fs.readFileSync(dbFile, 'utf8')); }
+  catch (e) { return { nextId: 1, enquiries: [] }; }
+}
+
+function writeDB(data) {
+  fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+}
 
 app.use(express.json({ limit: '50kb' }));
-
-// Block direct access to data directory
 app.use('/data', (req, res) => res.status(404).end());
-
 app.use(express.static(path.join(__dirname), { index: 'index.html' }));
 
 function requireAdmin(req, res, next) {
@@ -41,62 +32,67 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-// POST /api/enquiry — receive form submission
 app.post('/api/enquiry', (req, res) => {
   try {
     const { name, email, phone, company, service, fields } = req.body;
     if (!name || !email) return res.status(400).json({ error: 'Name and email required' });
-    const result = db.prepare(
-      'INSERT INTO enquiries (name, email, phone, company, service, fields) VALUES (?, ?, ?, ?, ?, ?)'
-    ).run(
-      String(name).slice(0, 200),
-      String(email).slice(0, 200),
-      String(phone || '').slice(0, 100),
-      String(company || '').slice(0, 200),
-      String(service || '').slice(0, 200),
-      JSON.stringify(fields || {})
-    );
-    res.json({ ok: true, id: result.lastInsertRowid });
+    const db = readDB();
+    const enquiry = {
+      id: db.nextId++,
+      name: String(name).slice(0, 200),
+      email: String(email).slice(0, 200),
+      phone: String(phone || '').slice(0, 100),
+      company: String(company || '').slice(0, 200),
+      service: String(service || '').slice(0, 200),
+      fields: fields || {},
+      created_at: new Date().toISOString(),
+      status: 'new',
+      notes: ''
+    };
+    db.enquiries.unshift(enquiry);
+    writeDB(db);
+    res.json({ ok: true, id: enquiry.id });
   } catch (err) {
     console.error('DB error:', err.message);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
-// GET /api/enquiries — list (admin)
 app.get('/api/enquiries', requireAdmin, (req, res) => {
   const { status, service } = req.query;
-  let sql = 'SELECT * FROM enquiries';
-  const params = [];
-  const where = [];
-  if (status && status !== 'all') { where.push('status = ?'); params.push(status); }
-  if (service && service !== 'all') { where.push('service LIKE ?'); params.push('%' + service + '%'); }
-  if (where.length) sql += ' WHERE ' + where.join(' AND ');
-  sql += ' ORDER BY created_at DESC';
-  res.json(db.prepare(sql).all(...params));
+  let list = readDB().enquiries;
+  if (status && status !== 'all') list = list.filter(e => e.status === status);
+  if (service && service !== 'all') list = list.filter(e => e.service.includes(service));
+  res.json(list);
 });
 
-// GET /api/enquiries/stats — counts (admin)
 app.get('/api/enquiries/stats', requireAdmin, (req, res) => {
+  const list = readDB().enquiries;
   res.json({
-    total:     db.prepare('SELECT COUNT(*) as n FROM enquiries').get().n,
-    new:       db.prepare("SELECT COUNT(*) as n FROM enquiries WHERE status='new'").get().n,
-    read:      db.prepare("SELECT COUNT(*) as n FROM enquiries WHERE status='read'").get().n,
-    responded: db.prepare("SELECT COUNT(*) as n FROM enquiries WHERE status='responded'").get().n,
+    total:     list.length,
+    new:       list.filter(e => e.status === 'new').length,
+    read:      list.filter(e => e.status === 'read').length,
+    responded: list.filter(e => e.status === 'responded').length,
   });
 });
 
-// PATCH /api/enquiry/:id — update status + notes (admin)
 app.patch('/api/enquiry/:id', requireAdmin, (req, res) => {
+  const id = parseInt(req.params.id);
   const { status, notes } = req.body;
-  db.prepare('UPDATE enquiries SET status = ?, notes = ? WHERE id = ?')
-    .run(String(status || 'new'), String(notes || ''), parseInt(req.params.id));
+  const db = readDB();
+  const eq = db.enquiries.find(e => e.id === id);
+  if (!eq) return res.status(404).json({ error: 'Not found' });
+  if (status) eq.status = String(status);
+  if (notes !== undefined) eq.notes = String(notes);
+  writeDB(db);
   res.json({ ok: true });
 });
 
-// DELETE /api/enquiry/:id (admin)
 app.delete('/api/enquiry/:id', requireAdmin, (req, res) => {
-  db.prepare('DELETE FROM enquiries WHERE id = ?').run(parseInt(req.params.id));
+  const id = parseInt(req.params.id);
+  const db = readDB();
+  db.enquiries = db.enquiries.filter(e => e.id !== id);
+  writeDB(db);
   res.json({ ok: true });
 });
 
