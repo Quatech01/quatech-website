@@ -197,8 +197,8 @@ footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255
 
 <!-- STATS BAR -->
 <div class="stats-bar">
-  <div class="stat-item"><div class="stat-num">23<em>+</em></div><div class="stat-lbl">Projects Built</div></div>
-  <div class="stat-item"><div class="stat-num">570<em>+</em></div><div class="stat-lbl">Tests Passed</div></div>
+  <div class="stat-item"><div class="stat-num">24<em>+</em></div><div class="stat-lbl">Projects Built</div></div>
+  <div class="stat-item"><div class="stat-num">601<em>+</em></div><div class="stat-lbl">Tests Passed</div></div>
   <div class="stat-item"><div class="stat-num">2</div><div class="stat-lbl">Languages</div></div>
   <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">Categories</div></div>
   <div class="stat-item"><div class="stat-num">100<em>%</em></div><div class="stat-lbl">Pass Rate</div></div>
@@ -225,7 +225,7 @@ footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255
       <span class="pill" data-filter="lang:node" onclick="setFilter('lang:node',this)">Node.js</span>
       <span class="pill" data-filter="lang:python" onclick="setFilter('lang:python',this)">Python</span>
     </div>
-    <span class="filter-count" id="filterCount"><em>23</em> projects</span>
+    <span class="filter-count" id="filterCount"><em>24</em> projects</span>
   </div>
 </div>
 
@@ -287,6 +287,7 @@ const PROJECTS = [
   {id:21,type:'security_tool',slug:'session-fixation-demonstrator',title:'Session Fixation Vulnerability Demo',category:'authentication_and_access',lang:'python',fw:'fastapi',tests:25,date:'2026-07-23',repo:'cyberlab-session-fixation-demonstrator',desc:'Demonstrates session fixation by proving that un-regenerated session IDs after login allow attacker access. Contrasts a vulnerable login flow with a safe one that issues a new session on auth.'},
   {id:22,type:'fullstack_app',slug:'student-information-management-system',title:'Student Information Management System',category:'education_platforms',lang:'node',fw:'express',tests:36,date:'2026-07-28',repo:'cyberlab-student-information-management-system',desc:'Secure full-stack SPA for UK schools: JWT auth with short-lived access tokens, four-role RBAC (admin/teacher/student/parent), UPN validation, bcrypt, CSRF, Helmet, rate limiting, and audit log.',fullstack:true},
   {id:23,type:'security_tool',slug:'subdomain-enumerator',title:'Subdomain Enumerator',category:'osint_and_recon',lang:'python',fw:'fastapi',tests:33,date:'2026-07-29',repo:'cyberlab-subdomain-enumerator',desc:'Wordlist-based subdomain enumeration using a mock DNS-over-HTTP resolver. Probes a 60-label wordlist, discovers 10 configured subdomains, and classifies each by sensitivity (HIGH/MEDIUM/LOW).'},
+  {id:24,type:'fullstack_app',slug:'gp-appointment-booking-system',title:'GP Appointment Booking System',category:'uk_applications',lang:'node',fw:'express',tests:31,date:'2026-08-02',repo:'cyberlab-gp-appointment-booking-system',desc:'NHS-style GP appointment booking platform demonstrating eight core DevSecOps controls: JWT auth with short-lived access tokens, four-role RBAC (admin/gp/patient), CSRF double-submit cookie pattern, Helmet security headers, rate limiting, parameterised queries, IDOR-safe ownership checks on cancellations, and a timestamped audit log for incident response.',fullstack:true},
 ];
 
 let activeFilter = 'all';
