@@ -197,8 +197,8 @@ footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255
 
 <!-- STATS BAR -->
 <div class="stats-bar">
-  <div class="stat-item"><div class="stat-num">26<em>+</em></div><div class="stat-lbl">Projects Built</div></div>
-  <div class="stat-item"><div class="stat-num">655<em>+</em></div><div class="stat-lbl">Tests Passed</div></div>
+  <div class="stat-item"><div class="stat-num">28<em>+</em></div><div class="stat-lbl">Projects Built</div></div>
+  <div class="stat-item"><div class="stat-num">707<em>+</em></div><div class="stat-lbl">Tests Passed</div></div>
   <div class="stat-item"><div class="stat-num">2</div><div class="stat-lbl">Languages</div></div>
   <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">Categories</div></div>
   <div class="stat-item"><div class="stat-num">100<em>%</em></div><div class="stat-lbl">Pass Rate</div></div>
@@ -227,7 +227,7 @@ footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255
       <span class="pill" data-filter="lang:node" onclick="setFilter('lang:node',this)">Node.js</span>
       <span class="pill" data-filter="lang:python" onclick="setFilter('lang:python',this)">Python</span>
     </div>
-    <span class="filter-count" id="filterCount"><em>26</em> projects</span>
+    <span class="filter-count" id="filterCount"><em>28</em> projects</span>
   </div>
 </div>
 
@@ -292,6 +292,8 @@ const PROJECTS = [
   {id:24,type:'fullstack_app',slug:'gp-appointment-booking-system',title:'GP Appointment Booking System',category:'uk_applications',lang:'node',fw:'express',tests:31,date:'2026-08-02',repo:'cyberlab-gp-appointment-booking-system',desc:'NHS-style GP appointment booking platform demonstrating eight core DevSecOps controls: JWT auth with short-lived access tokens, four-role RBAC (admin/gp/patient), CSRF double-submit cookie pattern, Helmet security headers, rate limiting, parameterised queries, IDOR-safe ownership checks on cancellations, and a timestamped audit log for incident response.',fullstack:true},
   {id:25,type:'security_tool',slug:'hash-generator-authenticator',title:'Hash Generator & Authenticator',category:'cryptography',lang:'node',fw:'express',tests:24,date:'2026-08-02',repo:'cyberlab-hash-generator-authenticator',desc:'Generates and authenticates hashes across MD5, SHA-1, SHA-256, SHA-512, bcrypt, and HMAC-SHA256 with per-algorithm security ratings. Includes a dictionary-crack demo showing why unsalted MD5/SHA-1 hashes of common passwords are trivially broken, and a benchmark comparing fast crypto functions against bcrypt\'s deliberate slowness.'},
   {id:26,type:'fullstack_app',slug:'form-platform',title:'Form Platform',category:'secure_coding',lang:'node',fw:'express',tests:30,date:'2026-08-09',repo:'cyberlab-form-platform',desc:'Free online form builder with a no-code field editor, public submission endpoints, and a dashboard for managing responses. Demonstrates JWT auth, bcrypt password hashing, honeypot spam protection, per-form rate limiting, parameterised queries, Helmet security headers, CSV export, and input sanitisation to prevent stored XSS.',fullstack:true},
+  {id:27,type:'fullstack_app',slug:'totp-demo',title:'Two-Factor Authentication (TOTP) Demo',category:'authentication_and_access',lang:'node',fw:'express',tests:26,date:'2026-08-16',repo:'cyberlab-totp-demo',desc:'RFC 6238 TOTP implementation from scratch using Node\'s built-in crypto module — no external OTP libraries. Covers enrolment with otpauth:// URI generation, step-up authentication flow (pre-token &rarr; MFA token), replay attack prevention via used-window tracking, and brute-force lockout after configurable failed attempts.',fullstack:true},
+  {id:28,type:'security_tool',slug:'tls-inspector',title:'TLS/SSL Certificate Inspector',category:'network_security',lang:'node',fw:'express',tests:26,date:'2026-08-16',repo:'cyberlab-tls-inspector',desc:'Inspects live TLS connections and PEM certificates for expiry, cipher suite strength (STRONG/ACCEPTABLE/WEAK), protocol version (TLSv1.3 down to deprecated SSLv3), hostname validation, and chain trust. Includes SSRF protection blocking private IP ranges and localhost. Built entirely on Node\'s built-in tls and crypto modules.'},
 ];
 
 let activeFilter = 'all';
