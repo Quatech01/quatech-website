@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Community &amp; Social Impact &mdash; Quatech</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0b1e3d;
+  --navy-lt:#162d5a;
+  --blue:#1a56db;
+  --blue-lt:#e8f0fe;
+  --blue-mid:#93b4f5;
+  --bg:#f7f8fa;
+  --white:#ffffff;
+  --border:#e2e6ef;
+  --text:#1a202c;
+  --muted:#637085;
+  --green:#16a34a;
+  --green-lt:#f0fdf4;
+  --amber:#d97706;
+  --amber-lt:#fffbeb;
+  --purple:#7c3aed;
+  --purple-lt:#f5f3ff;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+
+/* --- NAV --- */
+nav{background:rgba(11,30,61,0.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200}
+.logo{text-decoration:none;display:inline-flex;align-items:center}
+.logo-img{height:36px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.84rem;padding:0.4rem 0.85rem;border-radius:6px;transition:background 0.15s,color 0.15s;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,0.08);color:#fff}
+.nav-links a.active{color:#fff;background:rgba(255,255,255,0.08)}
+.nav-cta{background:var(--blue)!important;color:#fff!important;padding:0.42rem 1.1rem!important}
+.nav-cta:hover{opacity:0.88;background:var(--blue)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:64px 0 0;background:rgba(11,30,61,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;z-index:199}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:rgba(255,255,255,0.8);text-decoration:none;font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:700;transition:color 0.2s}
+.mobile-menu a:hover{color:#fff}
+.mobile-menu .m-cta{background:var(--blue);color:#fff!important;padding:0.7rem 2rem;border-radius:8px;font-size:1rem}
+
+/* --- SHARED --- */
+section{padding:5rem 5vw}
+.sec-label{font-size:0.68rem;font-weight:600;letter-spacing:0.14em;color:var(--blue);text-transform:uppercase;margin-bottom:0.55rem}
+.sec-title{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1.35rem,2.5vw,2rem);color:var(--navy);line-height:1.12;letter-spacing:-0.02em;margin-bottom:1rem}
+.sec-sub{color:var(--muted);max-width:540px;font-size:0.93rem;margin-bottom:2.5rem}
+.btn-primary{display:inline-block;background:var(--blue);color:#fff;padding:0.72rem 1.8rem;border-radius:7px;text-decoration:none;font-size:0.88rem;font-weight:500;transition:opacity 0.2s,transform 0.15s;border:none;cursor:pointer}
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px)}
+
+/* --- HERO --- */
+.hero{background:linear-gradient(140deg,rgba(7,20,50,0.91) 0%,rgba(22,45,90,0.86) 60%,rgba(11,30,61,0.92) 100%),url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1920&q=60') center/cover no-repeat;color:#fff;padding:7rem 5vw 5.5rem;position:relative;overflow:hidden}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:30px 30px}
+.hero-glow{position:absolute;top:-80px;right:-80px;width:600px;height:500px;background:radial-gradient(ellipse,rgba(124,58,237,0.13) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:700px}
+.hero .sec-label{color:var(--blue-mid)}
+.hero .sec-title{color:#fff;font-size:clamp(1.5rem,2.8vw,2.6rem);max-width:none;margin-bottom:1.2rem}
+.hero-sub{color:#a0b4cc;font-size:0.97rem;max-width:560px;margin-bottom:2.5rem;line-height:1.75}
+.hero-pillars{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,0.09)}
+.pillar-chip{display:flex;align-items:center;gap:0.55rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.55rem 1rem;font-size:0.78rem;color:rgba(255,255,255,0.75);font-weight:500}
+.pillar-chip svg{width:14px;height:14px;stroke:var(--blue-mid);fill:none;stroke-width:2;flex-shrink:0}
+
+/* --- MISSION BAND --- */
+.mission-band{background:var(--blue);color:#fff;padding:3.5rem 5vw;text-align:center}
+.mission-band blockquote{font-size:clamp(1rem,1.8vw,1.35rem);font-weight:500;max-width:740px;margin:0 auto;line-height:1.65;font-style:italic;color:rgba(255,255,255,0.92)}
+.mission-band cite{display:block;margin-top:1rem;font-size:0.78rem;font-style:normal;color:rgba(255,255,255,0.6);letter-spacing:0.06em;text-transform:uppercase}
+
+/* --- INITIATIVES --- */
+#initiatives{background:var(--bg)}
+.init-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.init-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s}
+.init-card:hover{border-color:#93b4f5;box-shadow:0 6px 28px rgba(26,86,219,0.08);transform:translateY(-2px)}
+.init-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.ic-blue::before{background:linear-gradient(90deg,#1a56db,#4f8ef7)}
+.ic-green::before{background:linear-gradient(90deg,#16a34a,#4ade80)}
+.ic-amber::before{background:linear-gradient(90deg,#d97706,#fbbf24)}
+.ic-purple::before{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.init-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.3rem}
+.ic-icon-blue{background:var(--blue-lt)}.ic-icon-blue svg{stroke:var(--blue)}
+.ic-icon-green{background:var(--green-lt)}.ic-icon-green svg{stroke:var(--green)}
+.ic-icon-amber{background:var(--amber-lt)}.ic-icon-amber svg{stroke:var(--amber)}
+.ic-icon-purple{background:var(--purple-lt)}.ic-icon-purple svg{stroke:var(--purple)}
+.init-icon svg{width:22px;height:22px;stroke-width:1.8;fill:none}
+.init-status{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.63rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;padding:0.22rem 0.65rem;border-radius:100px;margin-bottom:0.9rem}
+.status-live{background:#f0fdf4;color:var(--green);border:1px solid rgba(22,163,74,0.2)}
+.status-soon{background:var(--amber-lt);color:var(--amber);border:1px solid rgba(217,119,6,0.2)}
+.status-planned{background:var(--blue-lt);color:var(--blue);border:1px solid rgba(26,86,219,0.2)}
+.status-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.init-card h3{font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:0.55rem;line-height:1.3}
+.init-card p{font-size:0.83rem;color:var(--muted);line-height:1.75}
+.init-detail{margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:0.5rem}
+.init-row{display:flex;align-items:flex-start;gap:0.55rem;font-size:0.79rem;color:var(--muted)}
+.init-row svg{width:13px;height:13px;stroke:var(--blue);fill:none;stroke-width:2;flex-shrink:0;margin-top:2px}
+
+/* --- HOW IT WORKS --- */
+#how{background:var(--white)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;counter-reset:step}
+.step{position:relative;padding-left:0;counter-increment:step}
+.step-num{font-family:'Inter',sans-serif;font-size:2.5rem;font-weight:800;color:var(--blue-lt);letter-spacing:-0.04em;line-height:1;margin-bottom:0.75rem}
+.step-num span{color:var(--blue)}
+.step h4{font-family:'Inter',sans-serif;font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:0.4rem}
+.step p{font-size:0.82rem;color:var(--muted);line-height:1.75}
+.step-connector{display:none}
+
+/* --- IMPACT NUMBERS --- */
+.impact-band{background:var(--navy);padding:4rem 5vw}
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;max-width:900px;margin:0 auto;text-align:center}
+.impact-stat{}
+.impact-num{font-family:'Inter',sans-serif;font-size:2rem;font-weight:800;color:#fff;letter-spacing:-0.03em}
+.impact-num em{color:var(--blue-mid);font-style:normal}
+.impact-lbl{font-size:0.7rem;letter-spacing:0.1em;color:#6a85a8;margin-top:0.2rem;text-transform:uppercase}
+.impact-sub{font-size:0.75rem;color:#4a6080;margin-top:0.15rem}
+
+/* --- NOMINATE --- */
+#nominate{background:var(--bg)}
+.nominate-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:4.5rem;align-items:start}
+.nominate-feats{display:flex;flex-direction:column;gap:1.25rem;margin-top:1.5rem}
+.nf{display:flex;gap:1rem;align-items:flex-start}
+.nf-icon{width:34px;height:34px;background:var(--blue-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.nf-icon svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2}
+.nf h4{font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:0.15rem}
+.nf p{font-size:0.81rem;color:var(--muted);line-height:1.7}
+.nominate-form{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2.25rem;display:flex;flex-direction:column;gap:1.1rem}
+.nf-form-title{font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:0.25rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-field{display:flex;flex-direction:column;gap:0.35rem}
+.form-field label{font-size:0.7rem;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;font-weight:600}
+.form-field input,.form-field select,.form-field textarea{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:0.62rem 0.88rem;font-size:0.86rem;color:var(--text);font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;width:100%}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--blue)}
+.form-field textarea{resize:vertical;min-height:90px}
+.form-field select option{background:var(--white)}
+.form-btn{background:var(--blue);color:#fff;border:none;padding:0.8rem;border-radius:8px;font-size:0.9rem;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;width:100%;transition:opacity 0.2s}
+.form-btn:hover{opacity:0.88}
+.form-success{display:none;text-align:center;padding:2rem;color:var(--green);font-size:0.9rem}
+.form-note{font-size:0.73rem;color:var(--muted);text-align:center}
+
+/* --- FOOTER --- */
+footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{text-decoration:none;display:inline-flex;align-items:center}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:0.78rem;color:#4a6080;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:0.75rem;color:#3a4f68}
+
+/* --- ANIMATIONS --- */
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity 0.55s ease,transform 0.55s ease}
+.fade-up.in{opacity:1;transform:none}
+
+/* --- RESPONSIVE --- */
+@media(max-width:900px){
+  .nominate-wrap{grid-template-columns:1fr;gap:2.5rem}
+}
+@media(max-width:720px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .steps{grid-template-columns:1fr;gap:1.75rem}
+}
+@media(max-width:480px){
+  section{padding:4rem 5vw}
+  .form-row{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo"><img src="assets/logo.svg" alt="Quatech" class="logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#labs">Security Lab</a></li>
+    <li><a href="index.html#about-section">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="community.html" class="active">Community</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" aria-label="Open menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#services" onclick="closeMenu()">Services</a>
+  <a href="index.html#labs" onclick="closeMenu()">Security Lab</a>
+  <a href="projects.html">Projects</a>
+  <a href="community.html">Community</a>
+  <a href="index.html#contact" onclick="closeMenu()" class="m-cta">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="sec-label">Community &amp; Social Impact</div>
+    <h1 class="sec-title">Technology should lift<br>more people than it serves</h1>
+    <p class="hero-sub">Quatech's commercial success funds a commitment to the communities that shaped us. Through scholarships, mentorship, and free resources, we invest directly in people who lack access to opportunity in technology.</p>
+    <a href="#initiatives" class="btn-primary">See Our Initiatives</a>
+    <div class="hero-pillars">
+      <div class="pillar-chip">
+        <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        Scholarships
+      </div>
+      <div class="pillar-chip">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Mentorship
+      </div>
+      <div class="pillar-chip">
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Free Resources
+      </div>
+      <div class="pillar-chip">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Community Events
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION BAND -->
+<div class="mission-band">
+  <blockquote>
+    "Access to quality technology education should not be determined by where you were born or how much your family earns. We are building Quatech to prove that a commercially successful company and a socially responsible one are the same thing."
+    <cite>Uchechukwu Odoemelam &mdash; Founder, Quatech</cite>
+  </blockquote>
+</div>
+
+<!-- INITIATIVES -->
+<section id="initiatives">
+  <div class="fade-up" style="margin-bottom:2.75rem">
+    <div class="sec-label">What We Do</div>
+    <div class="sec-title">Our Community Initiatives</div>
+    <p class="sec-sub">A growing programme of support. Each initiative is funded directly by Quatech revenue and runs independently of commercial work.</p>
+  </div>
+  <div class="init-grid">
+
+    <!-- SCHOLARSHIP -->
+    <div class="init-card ic-blue fade-up">
+      <div class="init-icon ic-icon-blue">
+        <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div class="init-status status-planned"><span class="status-dot"></span>Launching Soon</div>
+      <h3>Quatech Technology Scholarship</h3>
+      <p>Annual financial award for UK students from underrepresented backgrounds pursuing degrees in Computer Science, Cybersecurity, or Software Engineering. Priority given to first-generation university students.</p>
+      <div class="init-detail">
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Open to undergraduate and postgraduate students at UK universities
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Merit and means-tested — both academic promise and financial need considered
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Recipients also gain access to mentorship and Quatech's lab resources
+        </div>
+      </div>
+    </div>
+
+    <!-- MENTORSHIP -->
+    <div class="init-card ic-green fade-up">
+      <div class="init-icon ic-icon-green">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="init-status status-planned"><span class="status-dot"></span>Launching Soon</div>
+      <h3>1-to-1 Mentorship Programme</h3>
+      <p>Free structured mentorship pairing early-career professionals and students with Quatech engineers. Sessions cover career navigation, technical growth, breaking into cybersecurity, and building a portfolio.</p>
+      <div class="init-detail">
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Monthly 1-hour sessions over a 6-month engagement
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Focus areas: cybersecurity, full-stack development, career strategy
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Open to those without industry connections or professional networks
+        </div>
+      </div>
+    </div>
+
+    <!-- FREE LEARNING RESOURCES -->
+    <div class="init-card ic-amber fade-up">
+      <div class="init-icon ic-icon-amber">
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <div class="init-status status-live"><span class="status-dot"></span>Live Now</div>
+      <h3>Open Security Lab &amp; Resources</h3>
+      <p>Our entire Security Lab portfolio — 34 real projects covering cryptography, network security, threat modelling, OSINT, and more — is publicly available on GitHub at no cost, as a free learning resource for the community.</p>
+      <div class="init-detail">
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          34 open-source security and software projects on GitHub
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          700+ automated tests as working examples of good engineering practice
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          New projects added bi-weekly — follow the lab to stay updated
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY EVENTS -->
+    <div class="init-card ic-purple fade-up">
+      <div class="init-icon ic-icon-purple">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="init-status status-planned"><span class="status-dot"></span>Coming Soon</div>
+      <h3>Tech Workshops &amp; Community Events</h3>
+      <p>Free workshops in the Liverpool area focused on practical skills: introduction to cybersecurity, building your first web app, navigating the tech job market, and understanding UK digital regulations.</p>
+      <div class="init-detail">
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Targeted at school leavers, career changers, and community groups
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Delivered in-person in Liverpool and online for wider reach
+        </div>
+        <div class="init-row">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          No prior technical knowledge required
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--white)">
+  <div class="fade-up" style="margin-bottom:3rem">
+    <div class="sec-label">Process</div>
+    <div class="sec-title">How the Scholarship Works</div>
+    <p class="sec-sub">A straightforward, fair process. No hidden criteria, no industry connections required.</p>
+  </div>
+  <div class="steps">
+    <div class="step fade-up">
+      <div class="step-num">0<span>1</span></div>
+      <h4>Apply Online</h4>
+      <p>Submit a short application form sharing your background, course, financial situation, and what you hope to achieve in technology.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">0<span>2</span></div>
+      <h4>Shortlisting</h4>
+      <p>Applications are reviewed by the Quatech team against both academic merit and financial need. We contact shortlisted candidates within four weeks.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">0<span>3</span></div>
+      <h4>Conversation</h4>
+      <p>A short informal call to understand your goals and answer any questions. No formal interview — just a conversation.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">0<span>4</span></div>
+      <h4>Award &amp; Support</h4>
+      <p>Recipients receive the scholarship award plus ongoing mentorship access and inclusion in the Quatech alumni network for future opportunities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT NUMBERS -->
+<div class="impact-band">
+  <div class="impact-grid">
+    <div class="impact-stat fade-up">
+      <div class="impact-num">34<em>+</em></div>
+      <div class="impact-lbl">Open projects</div>
+      <div class="impact-sub">Free for anyone to learn from</div>
+    </div>
+    <div class="impact-stat fade-up">
+      <div class="impact-num">700<em>+</em></div>
+      <div class="impact-lbl">Tests published</div>
+      <div class="impact-sub">Working examples of good practice</div>
+    </div>
+    <div class="impact-stat fade-up">
+      <div class="impact-num"><em>£</em>0</div>
+      <div class="impact-lbl">Cost to access</div>
+      <div class="impact-sub">Every lab resource is free</div>
+    </div>
+    <div class="impact-stat fade-up">
+      <div class="impact-num">1<em>st</em></div>
+      <div class="impact-lbl">Scholarship cohort</div>
+      <div class="impact-sub">Applications opening soon</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOMINATE / REGISTER INTEREST -->
+<section id="nominate">
+  <div class="nominate-wrap">
+    <div class="fade-up">
+      <div class="sec-label">Get Involved</div>
+      <div class="sec-title">Register Your Interest</div>
+      <p class="sec-sub">Whether you want to apply for the scholarship, join the mentorship programme, or be notified when events open — register below and we'll be in touch.</p>
+      <div class="nominate-feats">
+        <div class="nf">
+          <div class="nf-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div>
+            <h4>Scholarship Applications</h4>
+            <p>Open to UK-based undergraduate and postgraduate students. No sponsorship or connection required — just apply.</p>
+          </div>
+        </div>
+        <div class="nf">
+          <div class="nf-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div>
+            <h4>Mentorship Requests</h4>
+            <p>Open to anyone early in their tech journey. We match based on your goals, not your credentials.</p>
+          </div>
+        </div>
+        <div class="nf">
+          <div class="nf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <h4>Event Notifications</h4>
+            <p>Be the first to hear about free workshops and community events before they open to the public.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nominate-form fade-up">
+      <div class="nf-form-title">Register Interest</div>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem">Takes under 2 minutes. We respond to every submission.</p>
+      <div id="nom-form-wrap">
+        <div class="form-row">
+          <div class="form-field">
+            <label>First Name</label>
+            <input type="text" id="nom-fname" placeholder="Jane">
+          </div>
+          <div class="form-field">
+            <label>Last Name</label>
+            <input type="text" id="nom-lname" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" id="nom-email" placeholder="jane@university.ac.uk">
+        </div>
+        <div class="form-field">
+          <label>I am interested in</label>
+          <select id="nom-interest">
+            <option value="">Select an option…</option>
+            <option value="scholarship">Quatech Technology Scholarship</option>
+            <option value="mentorship">1-to-1 Mentorship Programme</option>
+            <option value="events">Free Workshops &amp; Community Events</option>
+            <option value="all">All of the above</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Tell us a little about yourself</label>
+          <textarea id="nom-bio" placeholder="e.g. I'm a second-year Computer Science student at University of Liverpool, first in my family to attend university, interested in breaking into cybersecurity…"></textarea>
+        </div>
+        <button class="form-btn" onclick="submitNomination()">Register Interest</button>
+        <p class="form-note">Your information is used only to process your registration and will never be shared or sold.</p>
+      </div>
+      <div class="form-success" id="nom-success">
+        <svg viewBox="0 0 24 24" style="width:40px;height:40px;stroke:var(--green);fill:none;stroke-width:1.8;margin:0 auto 1rem;display:block"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        <strong style="color:var(--navy);display:block;margin-bottom:0.4rem">We've received your registration</strong>
+        Thank you. We'll be in touch as soon as the programme opens. Keep an eye on your inbox.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="Quatech" style="height:30px;width:auto"></a>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="community.html">Community</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Quatech. Liverpool, UK.</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hbg').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Fade-up observer
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// Form submission — sends to same endpoint as main contact form
+async function submitNomination(){
+  const fname    = document.getElementById('nom-fname').value.trim();
+  const lname    = document.getElementById('nom-lname').value.trim();
+  const email    = document.getElementById('nom-email').value.trim();
+  const interest = document.getElementById('nom-interest').value;
+  const bio      = document.getElementById('nom-bio').value.trim();
+
+  if(!fname || !lname || !email || !interest){
+    alert('Please fill in all required fields before submitting.');
+    return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  const btn = document.querySelector('.form-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  try {
+    await fetch('/api/contact', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name:    fname + ' ' + lname,
+        email,
+        service: 'Community — ' + interest,
+        message: bio || '(No additional details provided)',
+      }),
+    });
+  } catch(_){}
+
+  document.getElementById('nom-form-wrap').style.display = 'none';
+  document.getElementById('nom-success').style.display = '';
+}
+</script>
+</body>
+</html>
