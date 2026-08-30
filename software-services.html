@@ -117,6 +117,37 @@ footer p{font-size:0.76rem;color:#4a6080}
 .fade-up{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease}
 .fade-up.in{opacity:1;transform:none}
 @media(max-width:600px){.svc-tab{padding:0.85rem 0.9rem;font-size:0.76rem}}
+/* Products section */
+.products-intro{padding:4rem 5vw 1.5rem;max-width:760px}
+.products-intro h2{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(0.95rem,2vw,1.3rem);color:var(--navy);margin-bottom:0.65rem;line-height:1.15}
+.products-intro p{color:var(--muted);font-size:0.93rem;line-height:1.75}
+.products-grid{padding:1.5rem 5vw 5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.product-card{background:var(--white);border:1px solid var(--border);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.25s,border-color 0.25s}
+.product-card:hover{border-color:#93b4f5;box-shadow:0 8px 36px rgba(26,86,219,0.1)}
+.prod-banner{height:200px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:1.5rem;position:relative;overflow:hidden}
+.prod-banner-icon{position:absolute;right:1.5rem;top:50%;transform:translateY(-60%);opacity:0.12}
+.prod-banner-icon svg{width:100px;height:100px;stroke:#fff;fill:none;stroke-width:0.8}
+.prod-status{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:100px;margin-bottom:0.6rem}
+.prod-status.live{background:rgba(29,158,117,0.25);color:#2dcc95;border:1px solid rgba(29,158,117,0.35)}
+.prod-status.beta{background:rgba(234,179,8,0.2);color:#f5c842;border:1px solid rgba(234,179,8,0.3)}
+.prod-status.dev{background:rgba(255,255,255,0.1);color:#b0c4e8;border:1px solid rgba(255,255,255,0.15)}
+.prod-status .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.prod-banner h3{font-family:'Inter',sans-serif;font-weight:800;font-size:1.25rem;color:#fff;letter-spacing:-0.02em;line-height:1}
+.prod-banner p.prod-tagline{font-size:0.78rem;color:rgba(255,255,255,0.7);margin-top:0.3rem}
+.prod-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+.prod-desc{font-size:0.86rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem}
+.prod-features{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem}
+.prod-feat{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.8rem;color:var(--text);line-height:1.55}
+.prod-feat svg{width:14px;height:14px;stroke:var(--blue);fill:none;stroke-width:2.5;flex-shrink:0;margin-top:2px}
+.prod-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.prod-chip{font-size:0.68rem;font-weight:600;letter-spacing:0.05em;padding:0.22rem 0.6rem;border-radius:6px;background:var(--blue-lt);color:#1a3a7a}
+.prod-actions{margin-top:auto;display:flex;gap:0.75rem;flex-wrap:wrap}
+.prod-btn-primary{display:inline-flex;align-items:center;gap:0.4rem;background:var(--navy);color:#fff;font-size:0.82rem;font-weight:600;padding:0.6rem 1.1rem;border-radius:9px;text-decoration:none;transition:background 0.2s;white-space:nowrap}
+.prod-btn-primary:hover{background:#162d5a}
+.prod-btn-secondary{display:inline-flex;align-items:center;gap:0.4rem;background:var(--bg);border:1px solid var(--border);color:var(--navy);font-size:0.82rem;font-weight:500;padding:0.6rem 1.1rem;border-radius:9px;text-decoration:none;transition:border-color 0.2s,background 0.2s;white-space:nowrap}
+.prod-btn-secondary:hover{border-color:#93b4f5;background:var(--blue-lt)}
+.prod-btn-primary svg,.prod-btn-secondary svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2}
+.prod-separator{height:1px;background:var(--border);margin:0 5vw 0}
 </style>
 </head>
 <body>
@@ -141,6 +172,7 @@ footer p{font-size:0.76rem;color:#4a6080}
       <div class="hero-tag" onclick="showPage('api',this)">API &amp; Cloud</div>
       <div class="hero-tag" onclick="showPage('tools',this)">Security Tools</div>
       <div class="hero-tag" onclick="showPage('data',this)">Data &amp; Dashboards</div>
+      <div class="hero-tag" onclick="showPage('products',this)">Our Products</div>
     </div>
   </div>
 </div>
@@ -151,6 +183,7 @@ footer p{font-size:0.76rem;color:#4a6080}
   <div class="svc-tab" onclick="showPage('api',null,'tab',this)">API &amp; Cloud</div>
   <div class="svc-tab" onclick="showPage('tools',null,'tab',this)">Security Tools</div>
   <div class="svc-tab" onclick="showPage('data',null,'tab',this)">Data &amp; Dashboards</div>
+  <div class="svc-tab" onclick="showPage('products',null,'tab',this)">Our Products</div>
 </div>
 
 <!-- OVERVIEW -->
@@ -444,7 +477,7 @@ footer p{font-size:0.76rem;color:#4a6080}
       <div>
         <h3>About This Service</h3>
         <p>Quatech builds data visualisation tools and reporting dashboards that give your team instant clarity on what matters: security metrics, operational KPIs, financial data, network performance, or whatever is critical to your business.</p>
-        <p>We work with React-based interactive frontends, Python data pipelines (pandas, folium, matplotlib), and RESTful data APIs to build dashboards that are fast, accurate, and easy to use. Our mapping and geolocation work includes IP visualisation and threat geography as part of our NetraIQ platform development.</p>
+        <p>We work with React-based interactive frontends, Python data pipelines (pandas, folium, matplotlib), and RESTful data APIs to build dashboards that are fast, accurate, and easy to use. Our mapping and geolocation work includes IP visualisation and threat geography as part of our Netra platform development.</p>
         <p>Legacy reporting processes that run on spreadsheets, manual exports, or slow queries are common targets for modernisation &mdash; we've rebuilt several into real-time web dashboards with significant efficiency gains.</p>
       </div>
       <div class="about-highlights">
@@ -470,7 +503,7 @@ footer p{font-size:0.76rem;color:#4a6080}
     <div class="section-block fade-up">
       <h3>Project Portfolio</h3>
       <div class="media-grid">
-        <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">NetraIQ threat map dashboard</div></div>
+        <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Netra threat map dashboard</div></div>
         <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Real-time metrics dashboard</div></div>
         <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><div class="play-badge">VIDEO</div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">Dashboard walkthrough demo</div></div>
         <div class="media-item"><div class="media-thumb" style="background:#e8f5fb"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><div class="cs-badge">COMING SOON</div></div><div class="media-caption">IP geolocation mapping</div></div>
@@ -479,7 +512,7 @@ footer p{font-size:0.76rem;color:#4a6080}
     <div class="section-block fade-up">
       <h3>Credentials &amp; Standards</h3>
       <div class="certs-grid">
-        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>NetraIQ Platform</h4><p>Production threat intelligence dashboard with geolocation mapping, IP reputation visualisation, and live feed integration.</p><span class="cert-badge">IN PROGRESS</span></div></div>
+        <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>Netra Platform</h4><p>Production threat intelligence dashboard with geolocation mapping, IP reputation visualisation, and live feed integration.</p><span class="cert-badge">IN PROGRESS</span></div></div>
         <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div><div><h4>React &amp; Python Data Stack</h4><p>React frontends, pandas pipelines, SQLite/PostgreSQL backends, and Folium mapping used across active projects.</p><span class="cert-badge">IN PROGRESS</span></div></div>
         <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div><h4>SSE &amp; Real-Time Streaming</h4><p>Server-Sent Events (SSE) streaming implemented in CyberLab projects for live data dashboards.</p><span class="cert-badge">IN PROGRESS</span></div></div>
         <div class="cert-card"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><div><h4>Banking Sector Background</h4><p>Financial reporting and data pipeline experience drawn from direct banking industry background informs enterprise dashboard delivery.</p><span class="cert-badge">IN PROGRESS</span></div></div>
@@ -516,6 +549,163 @@ footer p{font-size:0.76rem;color:#4a6080}
     </div>
   </div>
 </div>
+
+<!-- OUR PRODUCTS -->
+<div class="page" id="page-products">
+  <div class="svc-hero"><div class="svc-hero-dots"></div><div class="svc-hero-inner">
+    <div class="svc-hero-label">Software Services / Products</div>
+    <h2>Our Software Products</h2>
+    <p>Live platforms and applications built by Quatech — real tools solving real problems, shipped with our full DevSecOps standard.</p>
+  </div></div>
+
+  <div class="products-intro fade-up">
+    <h2>Built by Quatech. Used in the real world.</h2>
+    <p>Alongside client work, Quatech builds and operates its own software products. Each one is designed to solve a specific problem, built to production standard, and backed by the same security practices we apply to every client engagement.</p>
+  </div>
+
+  <div class="prod-separator fade-up"></div>
+
+  <div class="products-grid">
+
+    <!-- Qsign -->
+    <div class="product-card fade-up">
+      <div class="prod-banner" style="background:linear-gradient(135deg,#0b1e3d 0%,#1a3a7a 100%)">
+        <div class="prod-banner-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="prod-status live"><span class="dot"></span>Live</div>
+        <h3>Qsign</h3>
+        <p class="prod-tagline">GPS Attendance &amp; Workforce Management</p>
+      </div>
+      <div class="prod-body">
+        <p class="prod-desc">Qsign is a multi-tenant GPS attendance platform that lets organisations track workforce presence against defined work locations using geofence verification. Workers clock in via mobile; admins get a live dashboard with location maps, attendance history, and exportable reports.</p>
+        <div class="prod-features">
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Company sign-in codes — one platform, multiple organisations</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>GPS geofence clock-in with Haversine distance check</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Admin dashboard: workers, locations, live attendance map</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Staff ID login — no email required for workers</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Installable PWA — works on any phone, no app store needed</div>
+        </div>
+        <div class="prod-stack">
+          <span class="prod-chip">Node.js</span>
+          <span class="prod-chip">Express</span>
+          <span class="prod-chip">PostgreSQL</span>
+          <span class="prod-chip">JWT</span>
+          <span class="prod-chip">Leaflet.js</span>
+          <span class="prod-chip">PWA</span>
+        </div>
+        <div class="prod-actions">
+          <a href="https://qsign.uk" target="_blank" rel="noopener" class="prod-btn-primary">Visit qsign.uk <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          <a href="projects.html" class="prod-btn-secondary">See case study <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Qmeet -->
+    <div class="product-card fade-up">
+      <div class="prod-banner" style="background:linear-gradient(135deg,#0d2340 0%,#0e4f8a 100%)">
+        <div class="prod-banner-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+        <div class="prod-status beta"><span class="dot"></span>Beta</div>
+        <h3>Qmeet</h3>
+        <p class="prod-tagline">WebRTC Video Conferencing Platform</p>
+      </div>
+      <div class="prod-body">
+        <p class="prod-desc">Qmeet is a browser-based video conferencing platform built on WebRTC. No app download required — participants join via a shared room link. Designed for small teams and organisations that need reliable, private video calls without a third-party subscription.</p>
+        <div class="prod-features">
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Peer-to-peer WebRTC video and audio calls</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Join by room link — no account needed for participants</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Screen sharing and text chat in-session</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Works in any modern browser — mobile and desktop</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>No third-party tracking or data retention</div>
+        </div>
+        <div class="prod-stack">
+          <span class="prod-chip">WebRTC</span>
+          <span class="prod-chip">Node.js</span>
+          <span class="prod-chip">Socket.io</span>
+          <span class="prod-chip">STUN/TURN</span>
+        </div>
+        <div class="prod-actions">
+          <a href="projects.html" class="prod-btn-primary">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- XploreUK -->
+    <div class="product-card fade-up">
+      <div class="prod-banner" style="background:linear-gradient(135deg,#12284a 0%,#1a6e58 100%)">
+        <div class="prod-banner-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg></div>
+        <div class="prod-status dev"><span class="dot"></span>In Development</div>
+        <h3>XploreUK</h3>
+        <p class="prod-tagline">Social Events &amp; Community Discovery</p>
+      </div>
+      <div class="prod-body">
+        <p class="prod-desc">XploreUK is a social events and community discovery platform for the UK. Locals and visitors can find, join, and create events by location and interest — from pub nights to cultural festivals. Built with a full authentication system, 32 passing tests, and ready for deployment.</p>
+        <div class="prod-features">
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Browse and join events by location and category</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Organiser tools — create, manage, and promote events</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Community profiles and RSVP system</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Full authentication, JWT security, 32 automated tests</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Launching at xploreuk.com</div>
+        </div>
+        <div class="prod-stack">
+          <span class="prod-chip">FastAPI</span>
+          <span class="prod-chip">Python</span>
+          <span class="prod-chip">SQLite</span>
+          <span class="prod-chip">React</span>
+          <span class="prod-chip">JWT</span>
+          <span class="prod-chip">pytest</span>
+        </div>
+        <div class="prod-actions">
+          <a href="projects.html" class="prod-btn-primary">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Netra -->
+    <div class="product-card fade-up">
+      <div class="prod-banner" style="background:linear-gradient(135deg,#0f1f36 0%,#3a1a5e 100%)">
+        <div class="prod-banner-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="prod-status dev"><span class="dot"></span>In Development</div>
+        <h3>Netra</h3>
+        <p class="prod-tagline">Threat Intelligence &amp; Network Monitoring</p>
+      </div>
+      <div class="prod-body">
+        <p class="prod-desc">Netra is a threat intelligence platform combining real-time network traffic analysis, IP geolocation mapping, and threat feed aggregation. Designed for security operations teams who need clear, actionable visibility across their network perimeter without the cost of enterprise SIEM licensing.</p>
+        <div class="prod-features">
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Live network traffic monitoring and anomaly detection</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>IP geolocation mapping with threat scoring</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Threat feed aggregation from multiple open-source intel sources</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>SOC alert triage dashboard with severity classification</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Exportable reports for compliance and incident response</div>
+        </div>
+        <div class="prod-stack">
+          <span class="prod-chip">FastAPI</span>
+          <span class="prod-chip">Python</span>
+          <span class="prod-chip">Folium</span>
+          <span class="prod-chip">React</span>
+          <span class="prod-chip">PostgreSQL</span>
+          <span class="prod-chip">SSE</span>
+        </div>
+        <div class="prod-actions">
+          <a href="projects.html" class="prod-btn-primary">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /products-grid -->
+
+  <!-- CTA Banner -->
+  <div style="margin:0 5vw 5rem;background:var(--navy);border-radius:16px;padding:2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem" class="fade-up">
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;color:#93b4f5;text-transform:uppercase;margin-bottom:0.5rem">Custom Software</div>
+      <h3 style="font-family:'Inter',sans-serif;font-weight:800;font-size:1rem;color:#fff;line-height:1.2;margin-bottom:0.4rem">Need something built for your organisation?</h3>
+      <p style="font-size:0.84rem;color:#a0b4cc">We build bespoke platforms, APIs, and internal tools. Get a fixed-price quote within one business day.</p>
+    </div>
+    <a href="software-services.html" onclick="showPage('webdev');return false;" style="flex-shrink:0;display:inline-flex;align-items:center;gap:0.5rem;background:#1a56db;color:#fff;font-size:0.85rem;font-weight:600;padding:0.75rem 1.4rem;border-radius:10px;text-decoration:none;white-space:nowrap;transition:background 0.2s" onmouseover="this.style.background='#1443b0'" onmouseout="this.style.background='#1a56db'">
+      Request a quote
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+</div><!-- /page-products -->
 
 <footer>
   <a href="index.html" class="logo"><img src="assets/logo.svg" alt="Quatech" class="logo-img"></a>
