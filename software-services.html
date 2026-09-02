@@ -603,7 +603,7 @@ footer p{font-size:0.76rem;color:#4a6080}
     <div class="product-card fade-up">
       <div class="prod-banner" style="background:linear-gradient(135deg,#0d2340 0%,#0e4f8a 100%)">
         <div class="prod-banner-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
-        <div class="prod-status beta"><span class="dot"></span>Beta</div>
+        <div class="prod-status live"><span class="dot"></span>Live</div>
         <h3>Qmeet</h3>
         <p class="prod-tagline">WebRTC Video Conferencing Platform</p>
       </div>
@@ -623,7 +623,39 @@ footer p{font-size:0.76rem;color:#4a6080}
           <span class="prod-chip">STUN/TURN</span>
         </div>
         <div class="prod-actions">
-          <a href="projects.html" class="prod-btn-primary">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="https://qmeet-nhee.onrender.com" target="_blank" rel="noopener" class="prod-btn-primary">Try Qmeet <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          <a href="projects.html" class="prod-btn-secondary">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MFA Authenticator -->
+    <div class="product-card fade-up">
+      <div class="prod-banner" style="background:linear-gradient(135deg,#0d1f1a 0%,#0a4a35 100%)">
+        <div class="prod-banner-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <div class="prod-status live"><span class="dot"></span>Live</div>
+        <h3>MFA Authenticator</h3>
+        <p class="prod-tagline">Offline TOTP Authenticator PWA</p>
+      </div>
+      <div class="prod-body">
+        <p class="prod-desc">A privacy-first, offline-capable multi-factor authentication app. Generates RFC 6238 TOTP codes for any service that supports authenticator apps. Accounts are stored in an AES-256-GCM encrypted vault — protected by a PIN, never sent to a server. Works fully offline after first load and installs to your home screen.</p>
+        <div class="prod-features">
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>RFC 6238 TOTP — compatible with Google Auth, GitHub, AWS, and more</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>PIN-encrypted AES-256-GCM vault — zero data sent to any server</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Add accounts manually or by scanning an otpauth:// QR code</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>30-second countdown ring with colour warning</div>
+          <div class="prod-feat"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Installable PWA — works offline, no app store needed</div>
+        </div>
+        <div class="prod-stack">
+          <span class="prod-chip">WebCrypto API</span>
+          <span class="prod-chip">PWA</span>
+          <span class="prod-chip">TOTP / RFC 6238</span>
+          <span class="prod-chip">AES-256-GCM</span>
+          <span class="prod-chip">Node.js</span>
+        </div>
+        <div class="prod-actions">
+          <a href="https://mfa.quatech.co.uk" target="_blank" rel="noopener" class="prod-btn-primary">Try MFA Auth <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          <a href="projects.html" class="prod-btn-secondary">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
     </div>
