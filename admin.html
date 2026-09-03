@@ -416,7 +416,7 @@ async function deleteEnquiry(id) {
 
 function replyEmail(email, name, service) {
   const su = encodeURIComponent('Re: Your enquiry – ' + service + ' – Quatech');
-  const body = encodeURIComponent('Dear ' + name + ',\n\nThank you for contacting Quatech regarding our ' + service + ' services. We have reviewed your enquiry and would like to discuss this further.\n\nBest regards,\nQuatech Team\nquetechglobal@gmail.com');
+  const body = encodeURIComponent('Dear ' + name + ',\n\nThank you for contacting Quatech regarding our ' + service + ' services. We have reviewed your enquiry and would like to discuss this further.\n\nBest regards,\nQuatech Team\ninfo@quatech.co.uk');
   window.open('https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email) + '&su=' + su + '&body=' + body, '_blank');
 }
 
