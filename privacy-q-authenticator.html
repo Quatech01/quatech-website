@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Q-Authenticator Privacy Policy &mdash; Quatech</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0b1e3d;
+  --navy-lt:#162d5a;
+  --blue:#1a56db;
+  --blue-lt:#e8f0fe;
+  --bg:#f7f8fa;
+  --white:#ffffff;
+  --border:#e2e6ef;
+  --text:#1a202c;
+  --muted:#637085;
+  --green:#16a34a;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+
+nav{
+  background:rgba(11,30,61,0.96);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;position:sticky;top:0;z-index:200;
+}
+.logo{text-decoration:none;display:inline-flex;align-items:center}
+.logo-img{height:36px;width:auto;display:block}
+.nav-back{color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.84rem;padding:0.4rem 0.85rem;border-radius:6px;transition:background 0.15s,color 0.15s;display:flex;align-items:center;gap:6px;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff}
+
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-lt) 100%);
+  padding:64px 5vw 56px;
+  color:#fff;
+}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(57,211,83,0.15);
+  color:#39d353;
+  border:1px solid rgba(57,211,83,0.3);
+  border-radius:20px;font-size:12px;font-weight:600;
+  padding:4px 12px;margin-bottom:20px;letter-spacing:.3px;
+}
+.hero h1{font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:12px}
+.hero-meta{font-size:14px;color:rgba(255,255,255,0.5)}
+
+.content{max-width:760px;margin:0 auto;padding:56px 24px 96px;}
+
+.summary-box{
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  border-left:4px solid var(--green);
+  border-radius:var(--radius);
+  padding:20px 24px;
+  margin-bottom:40px;
+  font-size:15px;
+  font-weight:500;
+  color:#14532d;
+}
+
+h2{font-size:18px;font-weight:700;color:var(--navy);margin-top:40px;margin-bottom:12px;padding-top:32px;border-top:1px solid var(--border);}
+h2:first-of-type{border-top:none;padding-top:0;}
+p{margin-bottom:14px;color:var(--text);font-size:15px;}
+ul{padding-left:20px;margin-bottom:14px;}
+li{margin-bottom:6px;color:var(--text);font-size:15px;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+strong{font-weight:600;}
+
+.contact-box{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px;
+  margin-top:40px;
+}
+.contact-box p{margin:0;font-size:15px;}
+
+footer{
+  background:var(--navy);
+  color:rgba(255,255,255,0.45);
+  text-align:center;
+  padding:32px 24px;
+  font-size:13px;
+}
+footer a{color:rgba(255,255,255,0.6);text-decoration:none;}
+footer a:hover{color:#fff;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">
+    <img class="logo-img" src="assets/logo.svg" alt="Quatech" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <span style="display:none;color:#fff;font-weight:800;font-size:1.1rem;letter-spacing:-.3px">Quatech</span>
+  </a>
+  <a class="nav-back" href="index.html">← Back to Quatech</a>
+</nav>
+
+<div class="hero">
+  <div style="max-width:760px;margin:0 auto;">
+    <div class="hero-chip">🔒 No data collection</div>
+    <h1>Q-Authenticator<br>Privacy Policy</h1>
+    <div class="hero-meta">Effective date: 3 September 2026 &nbsp;·&nbsp; Quatech Ltd &nbsp;·&nbsp; quatech.co.uk</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="summary-box">
+    Q-Authenticator stores all data locally on your device, encrypted with your PIN. We do not collect, transmit, or share any personal data. No accounts, no servers, no tracking.
+  </div>
+
+  <h2>1. Information We Collect</h2>
+  <p>Q-Authenticator does not collect any personal information. The app operates entirely on your device without communicating with external servers.</p>
+  <p>The following data is stored <strong>locally on your device only</strong> and is never transmitted:</p>
+  <ul>
+    <li>TOTP account names and secret keys you add manually or via QR code scan</li>
+    <li>A PIN-derived encryption key (never stored — re-derived on each unlock)</li>
+  </ul>
+  <p>All stored data is encrypted using <strong>AES-256-GCM</strong> with a key derived from your PIN via PBKDF2 (100,000 iterations, SHA-256). Quatech cannot access this data under any circumstances.</p>
+
+  <h2>2. Camera Access</h2>
+  <p>The app requests camera permission solely to scan <strong>otpauth:// QR codes</strong> when you choose to add an account via QR scan. Camera frames are processed locally in real time and are never stored, transmitted, or used for any other purpose.</p>
+  <p>You may decline camera access and use manual key entry instead — the app's full functionality remains available.</p>
+
+  <h2>3. Data Sharing</h2>
+  <p>We do not share any data with third parties. Q-Authenticator contains no analytics SDKs, no advertising libraries, no crash reporting services, and no backend servers. The app functions fully offline.</p>
+
+  <h2>4. Data Storage &amp; Security</h2>
+  <p>All account secrets are stored in your device's local storage, encrypted with AES-256-GCM. The encryption key is derived from your PIN at runtime and is never persisted to disk. Uninstalling the app permanently deletes all data from your device.</p>
+
+  <h2>5. Children's Privacy</h2>
+  <p>Q-Authenticator is not directed at children under 13. We do not knowingly collect any information from children. If you believe a child has provided information through the app, please contact us and we will take appropriate steps.</p>
+
+  <h2>6. Changes to This Policy</h2>
+  <p>If we make material changes to this privacy policy, we will update the effective date above and publish the revised policy at this URL. Continued use of the app after changes are posted constitutes acceptance of the revised policy.</p>
+
+  <div class="contact-box">
+    <p><strong>Contact us</strong><br>
+    For privacy-related questions or concerns, contact Quatech at:<br>
+    📧 <a href="mailto:info@quatech.co.uk">info@quatech.co.uk</a><br>
+    🌐 <a href="https://quatech.co.uk">quatech.co.uk</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Quatech · <a href="index.html">quatech.co.uk</a> · All rights reserved</p>
+</footer>
+
+</body>
+</html>
