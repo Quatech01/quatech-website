@@ -6,6 +6,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_KEY = process.env.ADMIN_PASSWORD || 'quatech-admin-2026';
 
+app.get('/api/health', (_, res) => res.json({ ok: true }));
+
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_MS = 15 * 60 * 1000;
 const loginAttempts = new Map(); // ip -> { count, lockedUntil }
