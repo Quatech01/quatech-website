@@ -21,6 +21,27 @@
   --muted:#637085;
   --radius:12px;
 }
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f172a;--white:#1e293b;--border:#334155;
+    --text:#f1f5f9;--muted:#94a3b8;--blue-lt:rgba(26,86,219,0.15);--steel:#0f172a;
+  }
+  :root:not([data-theme="light"]) .sec-title,:root:not([data-theme="light"]) .af h4,
+  :root:not([data-theme="light"]) .ap-val,:root:not([data-theme="light"]) .svc-card h3,
+  :root:not([data-theme="light"]) .team-card h4,:root:not([data-theme="light"]) .svc-tab:hover,
+  :root:not([data-theme="light"]) h2,:root:not([data-theme="light"]) h3{color:#e2e8f0}
+}
+:root[data-theme="dark"]{
+  --bg:#0f172a;--white:#1e293b;--border:#334155;
+  --text:#f1f5f9;--muted:#94a3b8;--blue-lt:rgba(26,86,219,0.15);--steel:#0f172a;
+}
+:root[data-theme="dark"] .sec-title,:root[data-theme="dark"] .af h4,
+:root[data-theme="dark"] .ap-val,:root[data-theme="dark"] .svc-card h3,
+:root[data-theme="dark"] .team-card h4,:root[data-theme="dark"] .svc-tab:hover,
+:root[data-theme="dark"] h2,:root[data-theme="dark"] h3{color:#e2e8f0}
+:root[data-theme="light"]{--bg:#f7f8fa;--white:#ffffff;--border:#e2e6ef;--text:#1a202c;--muted:#637085;--blue-lt:#e8f0fe}
+.theme-toggle{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:rgba(255,255,255,0.65);padding:0.35rem 0.75rem;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.78rem;display:flex;align-items:center;gap:0.4rem;transition:background 0.15s,color 0.15s;white-space:nowrap;line-height:1}
+.theme-toggle:hover{background:rgba(255,255,255,0.13);color:#fff}
 html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
 
@@ -234,6 +255,7 @@ footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255
     <li><a href="community.html">Community</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
+  <button class="theme-toggle" onclick="toggleTheme()"></button>
   <button class="hamburger" id="hbg" aria-label="Open menu" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
@@ -574,6 +596,16 @@ if(cf){
   trap.innerHTML='<input type="text" class="hp-input" tabindex="-1" autocomplete="new-password">';
   cf.appendChild(trap);
 }
+</script>
+<script>
+(function(){
+  var saved=localStorage.getItem('quatech-theme');
+  if(saved) document.documentElement.setAttribute('data-theme',saved);
+  function isDark(){var t=document.documentElement.getAttribute('data-theme');return t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);}
+  function updateBtn(){document.querySelectorAll('.theme-toggle').forEach(function(b){b.innerHTML=isDark()?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> Light':'<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Dark';});}
+  window.toggleTheme=function(){var next=isDark()?'light':'dark';document.documentElement.setAttribute('data-theme',next);localStorage.setItem('quatech-theme',next);updateBtn();};
+  document.addEventListener('DOMContentLoaded',updateBtn);updateBtn();
+})();
 </script>
 </body>
 </html>
