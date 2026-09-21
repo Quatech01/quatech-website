@@ -128,6 +128,7 @@ nav{
 
 .lang-node{background:#dcfce7;color:#14532d;border:1px solid #86efac}
 .lang-python{background:#eff6ff;color:#1e3a8a;border:1px solid #bfdbfe}
+.lang-html{background:#fef3c7;color:#854d0e;border:1px solid #fde68a}
 .type-full{background:#f5f3ff;color:#4c1d95;border:1px solid #ddd6fe}
 
 .proj-id{font-size:0.67rem;font-weight:600;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.4rem;text-transform:uppercase}
@@ -224,9 +225,9 @@ footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255
 
 <!-- STATS BAR -->
 <div class="stats-bar">
-  <div class="stat-item"><div class="stat-num">28<em>+</em></div><div class="stat-lbl">Projects Built</div></div>
-  <div class="stat-item"><div class="stat-num">707<em>+</em></div><div class="stat-lbl">Tests Passed</div></div>
-  <div class="stat-item"><div class="stat-num">2</div><div class="stat-lbl">Languages</div></div>
+  <div class="stat-item"><div class="stat-num">38<em>+</em></div><div class="stat-lbl">Projects Built</div></div>
+  <div class="stat-item"><div class="stat-num">916<em>+</em></div><div class="stat-lbl">Tests Passed</div></div>
+  <div class="stat-item"><div class="stat-num">3</div><div class="stat-lbl">Languages</div></div>
   <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">Categories</div></div>
   <div class="stat-item"><div class="stat-num">100<em>%</em></div><div class="stat-lbl">Pass Rate</div></div>
 </div>
@@ -254,7 +255,7 @@ footer{background:#060f1d;padding:2rem 5vw;border-top:1px solid rgba(255,255,255
       <span class="pill" data-filter="lang:node" onclick="setFilter('lang:node',this)">Node.js</span>
       <span class="pill" data-filter="lang:python" onclick="setFilter('lang:python',this)">Python</span>
     </div>
-    <span class="filter-count" id="filterCount"><em>28</em> projects</span>
+    <span class="filter-count" id="filterCount"><em>38</em> projects</span>
   </div>
 </div>
 
@@ -329,6 +330,8 @@ const PROJECTS = [
   {id:35,type:'fullstack_app',slug:'qmeet',title:'QMeet — WebRTC Video Conferencing',category:'uk_applications',lang:'node',fw:'express',tests:0,date:'2026-08-26',repo:'qmeet',desc:'Peer-to-peer WebRTC video conferencing with no third-party SDKs, no accounts, and no data stored on the server. Video flows directly between participants using DTLS-SRTP encryption. Supports up to 6 participants, screen sharing, in-call chat, mic/camera controls, mobile camera flip, and live media-state indicators (who is muted). Embeddable in any app or website via a single iframe tag. Signaling is handled by a lightweight WebSocket server — only connection setup data passes through; all media is peer-to-peer.',fullstack:true},
   {id:34,type:'fullstack_app',slug:'qsign',title:'Qsign — Mobile Attendance App',category:'uk_applications',lang:'node',fw:'express',tests:0,date:'2026-08-26',repo:'qsign',desc:'GPS-enforced mobile attendance management PWA. Workers can only clock in or out when physically within a configured geofence radius of their work location — GPS is verified server-side using the Haversine formula, not just client-side. Tracks hours worked per shift, maintains a full attendance history, and lets admins adjust records with a mandatory edit reason for auditability. Admin dashboard shows live attendance in real time, per-worker hours reports, and worker/location management. Installable as a PWA for home screen access.',fullstack:true},
   {id:36,type:'security_tool',slug:'mfa-authenticator',liveUrl:'https://mfa.quatech.co.uk',title:'MFA Authenticator PWA',category:'authentication_and_access',lang:'node',fw:'express',tests:44,date:'2026-09-02',repo:'cyberlab-mfa-authenticator',desc:'Offline-capable TOTP authenticator built to RFC 6238. Implements HMAC-SHA1 based one-time passwords with a 30-second time window, base32 secret decode, and ±1 window tolerance for clock skew. Accounts are stored in an AES-256-GCM encrypted vault (PBKDF2, 100 k iterations, random salt per save) so the browser-side localStorage data is cryptographically protected by a user PIN. Supports adding accounts manually or by scanning an otpauth:// QR code via jsQR. PWA-installable with a cache-first service worker for full offline use after first load.',fullstack:true},
+  {id:37,type:'fullstack_app',slug:'xploreuk',liveUrl:'https://xploreuk.quatech.co.uk',title:'XploreUK — University & Jobs Platform',category:'uk_applications',lang:'node',fw:'express',tests:0,date:'2026-09-10',desc:'Full-stack platform for UK students to discover all 139+ universities with filters for region, type (Russell Group, Top-Ranked, Modern), subject, and tuition fees. Integrates with the Adzuna API to surface 600,000+ live UK graduate jobs with keyword and location search. Community board for student discussions. Deployed on AWS EC2 with Nginx reverse proxy, PM2 process management, PostgreSQL, and Let\'s Encrypt SSL.',fullstack:true},
+  {id:38,type:'fullstack_app',slug:'studykit',liveUrl:'https://studykit.quatech.co.uk',title:'StudyKit — Free Student Tools',category:'education_platforms',lang:'html',fw:'static',tests:0,date:'2026-09-21',desc:'Free, zero-install browser toolkit for UK students. Five tools in one page: Word Counter with goal tracking and time estimates; Citation Generator covering Harvard, APA 7th, MLA 9th and OSCOLA; UCAS Personal Statement checker with live 4,000-character and 47-line limits; Flesch Readability Checker with grade-level analysis; and a Pomodoro Timer with session tracking and Web Audio API notifications. Pure static HTML/CSS/JS — no backend, no accounts, no tracking.',fullstack:false},
 ];
 
 let activeFilter = 'all';
@@ -396,12 +399,12 @@ function renderProjects(){
     card.dataset.category = p.category;
     card.dataset.type = p.type;
     card.dataset.lang = p.lang;
-    card.dataset.text = (p.title+' '+p.desc+' '+catLabel+' '+p.lang+' '+p.fw).toLowerCase();
+    card.dataset.text = (p.title+' '+p.desc+' '+catLabel+' '+p.lang+' '+(p.fw||'')).toLowerCase();
     card.style.transitionDelay = (i%3)*0.05+'s';
     card.innerHTML=`
       <div class="proj-badges">
         <span class="badge cat-${p.category}">${catLabel}</span>
-        <span class="badge lang-${p.lang}">${p.lang==='node'?'Node.js':'Python'}</span>
+        <span class="badge lang-${p.lang}">${p.lang==='node'?'Node.js':p.lang==='python'?'Python':'HTML/CSS/JS'}</span>
         ${isFullstack?'<span class="badge type-full">Full-Stack</span>':''}
       </div>
       <div class="proj-id">Project #${String(p.id).padStart(2,'0')} &middot; ${p.fw}</div>
@@ -417,7 +420,7 @@ function renderProjects(){
         </div>
         <div class="proj-links">
           ${p.liveUrl ? `<a href="${p.liveUrl}" target="_blank" class="proj-live">&#9654; Live Demo</a>` : ''}
-          <a href="https://github.com/Quatech01/${p.repo}" target="_blank" class="proj-gh">${GH_SVG} GitHub</a>
+          ${p.repo ? `<a href="https://github.com/Quatech01/${p.repo}" target="_blank" class="proj-gh">${GH_SVG} GitHub</a>` : ''}
         </div>
       </div>`;
     grid.appendChild(card);

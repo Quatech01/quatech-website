@@ -1,6 +1,10 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const xss = require('xss');
+
+const xssOpts = { whiteList: {}, stripIgnoreTag: true, stripIgnoreTagBody: ['script'] };
+const clean = v => typeof v === 'string' ? xss(v.trim(), xssOpts) : v;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -101,14 +105,18 @@ app.post('/api/enquiry', (req, res) => {
     if (!checkRateLimit(ip)) return res.status(429).json({ error: 'Too many submissions. Please try again in an hour.' });
     if (!name || !email) return res.status(400).json({ error: 'Name and email required' });
     const db = readDB();
+    const safeFields = {};
+    if (fields && typeof fields === 'object') {
+      for (const [k, v] of Object.entries(fields)) safeFields[clean(k)] = clean(v);
+    }
     const enquiry = {
       id: db.nextId++,
-      name: String(name).slice(0, 200),
-      email: String(email).slice(0, 200),
-      phone: String(phone || '').slice(0, 100),
-      company: String(company || '').slice(0, 200),
-      service: String(service || '').slice(0, 200),
-      fields: fields || {},
+      name: clean(String(name)).slice(0, 200),
+      email: clean(String(email)).slice(0, 200),
+      phone: clean(String(phone || '')).slice(0, 100),
+      company: clean(String(company || '')).slice(0, 200),
+      service: clean(String(service || '')).slice(0, 200),
+      fields: safeFields,
       created_at: new Date().toISOString(),
       status: 'new',
       notes: ''
@@ -150,7 +158,7 @@ app.patch('/api/enquiry/:id', requireAdmin, (req, res) => {
   const eq = db.enquiries.find(e => e.id === id);
   if (!eq) return res.status(404).json({ error: 'Not found' });
   if (status) eq.status = String(status);
-  if (notes !== undefined) eq.notes = String(notes);
+  if (notes !== undefined) eq.notes = clean(String(notes));
   writeDB(db);
   res.json({ ok: true });
 });
